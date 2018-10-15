@@ -1,0 +1,118 @@
+
+<!DOCTYPE htmp>
+
+<html>
+  <head>
+    <title> Title </title>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
+
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAl-sQFByS32KUlProNrafHa2N-wtS1j_g",
+        authDomain: "auth-99adf.firebaseapp.com",
+        databaseURL: "https://auth-99adf.firebaseio.com",
+        projectId: "auth-99adf",
+        storageBucket: "auth-99adf.appspot.com",
+        messagingSenderId: "625570489757"
+      }
+      firebase.initializeApp(config)
+    </script>
+
+
+
+
+    <!--
+      code from https://code.jquery.com/
+      only works with internet
+    -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+
+  </head>
+
+  <body>
+
+    <!-- buttons to sign in/out -->
+
+    <button id="signin-button" onClick="{signInWithGoogle()}">
+        Sign In With Google
+    </button>
+
+    <button id="logout-button" onclick="{signOut()}" style = "display:none">
+        Log Out
+    </button>
+
+
+
+    <div id ="user-template" style = "display:none">
+        <div id="sellContainer">
+          <p> Juegos que estoy vendiendo <p>
+          <form id="sellVideoGamesForm">
+              <input type="text" id="videoGameNameSell" placeholder=Nombre required>
+              <input type="text" id="videoGamePriceSell" placeholder=Precio required>
+              <button type="sumbit" id="sellVideoFormButton">
+                  Agregar oferta
+              </button>
+          </form>
+
+
+          <table>
+              <thead>
+                <th> Nombre  <th>
+                <th> Precio  <th>
+              </thead>
+
+
+              <!-- list filling with jquery/react -->
+              <tbody id="sellVideoGamesItems">
+
+              </tbody>
+          </table>
+
+        </div>
+
+          <hr>
+
+
+        <div id="buyContainer">
+          <p> Juegos que estoy buscando <p>
+          <form id="buyVideoGamesForm" >
+              <input type="text" id="videoGameNameBuy" placeholder=Nombre required>
+              <input type="number" step="0.01" id="videoGamePriceBuy" placeholder=Precio required>
+              <button type="sumbit" id="buyVideoFormButton">
+                  Agregar oferta
+              </button>
+          </form>
+
+
+          <table>
+              <thead>
+                <th> Nombre  <th>
+                <th> Precio  <th>
+              </thead>
+
+
+              <!-- list filling with jquery/react -->
+              <tbody id="buyVideoGamesItems">
+              </tbody>
+          </table>
+
+        </div>
+
+
+    </div>
+
+
+
+    <script src = "js/firebaseAuth.js"> </script>
+    <script src = "js/videogames.js"> </script>
+
+
+
+  </body>
+</html
