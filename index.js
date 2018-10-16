@@ -12,6 +12,8 @@ const Analizer = require('./analizer/analizer').Analizer;
 const analizer = new Analizer();
 analizer.loadCatalogueFromFolders('./views/catalogue');
 
+
+
 const app = express()
 
 // server firebase
@@ -148,6 +150,54 @@ app.get('/getUserBuyList', (request, response) => {
 
     response.json(msg);
 })
+
+
+app.get('/getVideoGameSellList', (request, response) => {
+    let msg = {};
+    msg.action = 'Get VideoGame Sell List';
+    let videoGameId = parseInt(request.query.videoGameId);
+
+    let isValid = true;
+
+
+    if(analizer.videoGameIdExists(videoGameId)===false){
+      isValid = false;
+      msg.data = 'Invalid VideoGameId'
+    }
+
+
+
+    if(isValid){
+      msg.data = analizer.getVideoGameSellList(videoGameId);
+    }
+
+    response.json(msg);
+})
+
+
+app.get('/getVideoGameBuyList', (request, response) => {
+    let msg = {};
+    msg.action = 'Get VideoGame Buy List';
+    let videoGameId = parseInt(request.query.videoGameId);
+
+    let isValid = true;
+
+
+    if(analizer.videoGameIdExists(videoGameId)===false){
+      isValid = false;
+      msg.data = 'Invalid VideoGameId'
+    }
+
+
+
+    if(isValid){
+      msg.data = analizer.getVideoGameBuyList(videoGameId);
+    }
+
+    response.json(msg);
+})
+
+
 
 
 

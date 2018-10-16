@@ -57,7 +57,18 @@ function compareSets(a,b){
 	return true;
 } 
 
+// propertyNames: array of properties
 function equalObjects(a, b, propertyNames){
+
+	if(propertyNames.length===0){
+		if(a===b){
+			return true;
+		} else{
+			return false;
+		}
+	}
+	
+
 	for(let i=0;i<propertyNames.length;i++){
 		let propertyName = propertyNames[i];
 
@@ -76,9 +87,34 @@ function equalObjects(a, b, propertyNames){
 	}
 
 	return true;
-
-
 }
+
+function equalArrays(a, b, properties) {
+  //if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length != b.length) return false;
+
+  // If you don't care about the order of the elements inside
+  // the array, you should sort both arrays here.
+  // Please note that calling sort on an array will modify that array.
+  // you might want to clone your array first.
+
+  for (var i = 0; i < a.length; ++i) {
+    if ( equalObjects(a[i],b[i], properties )===false ) {
+    	return false;
+    }
+  }
+  return true;
+}
+
+
+
+function testEqualArrays(a,b){
+	a = [1,2,3]
+	b = [1,2,3]
+	console.log("Equal arrays : ", equalArrays(a,b));
+}
+
 
 function testEqualObjects(){
 	let a = {hola:6, felipe:"jijo"};
@@ -113,6 +149,7 @@ function testEqualObjects(){
 exports.IdMap = IdMap;
 exports.compareSets = compareSets;
 exports.equalObjects = equalObjects;
+exports.equalArrays = equalArrays;
 
 
 

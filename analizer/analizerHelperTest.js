@@ -6,6 +6,7 @@ const Offer = analizerHelper.Offer;
 const utils = require("./utils");
 const compareSets = utils.compareSets;
 const equalObjects = utils.equalObjects;
+const equalArrays = utils.equalArrays;
 
 
 
@@ -141,9 +142,57 @@ class VideoGameTest {
 		}
 	}
 
+	testGetSellList(){
+		let videoGame = new VideoGame(/*videoGameId*/5, /*title*/"Halo", /*image*/"halo.jpg");
+		videoGame.addSellOffer(/*offerId*/9,/*price*/ 500.00);
+		videoGame.addSellOffer(5, 600.00);
+		videoGame.addSellOffer(4, 400.00);
+		videoGame.addSellOffer(7, 550.00);
+
+		let original = [4,9,7,5];
+		let sellList = videoGame.getSellList();
+		let result = true;
+
+		if( equalArrays(original,sellList, [] )===false ){
+			result = false
+			console.log("Properties Differ");
+			console.log("Original: ",original);
+			console.log('Found: ',sellList);
+		}
+
+		if( result===false ){
+			console.log("testGetSellList: ",result );
+		}
+	}
+
+	testGetBuyList(){
+		let videoGame = new VideoGame(/*videoGameId*/5, /*title*/"Halo", /*image*/"halo.jpg");
+		videoGame.addBuyOffer(/*offerId*/9,/*price*/ 500.00);
+		videoGame.addBuyOffer(5, 600.00);
+		videoGame.addBuyOffer(4, 400.00);
+		videoGame.addBuyOffer(7, 550.00);
+
+		let original = [5,7,9,4];
+		let buyList = videoGame.getBuyList();
+		let result = true;
+
+		if( equalArrays(original,buyList, [] )===false ){
+			result = false
+			console.log("Properties Differ");
+			console.log("Original: ",original);
+			console.log('Found: ',buyList);
+		}
+
+		if( result===false ){
+			console.log("testGetSellList: ",result );
+		}
+	}
+
 	runAllTests(){
 		console.log("VideoGameTest started ...");
 		this.testGetProperties();
+		this.testGetSellList();
+		this.testGetBuyList();
 		console.log("VideoGameTest ended ...\n");
 	}
 }

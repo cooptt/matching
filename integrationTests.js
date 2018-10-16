@@ -9,13 +9,13 @@ class IntegrationTests {
 		
 		let analizerResult = new Analizer();
 
-		analizerResult.addVideoGame("animal crossing eds juego compra disponible","3DS/animal_crossing_eds_juego_compra_disponible.png");
-		analizerResult.addVideoGame("fifa soccer 2016 u.e ps3 -","PS3/fifa_soccer_2016_u.e_ps3_-.png");
-		analizerResult.addVideoGame("","PS4/.png");
-		analizerResult.addVideoGame("crash bandicoot n. sane trilogy","SWITCH/crash_bandicoot_n._sane_trilogy.png");
-		analizerResult.addVideoGame("angry birds trilogy -","WiiU/angry_birds_trilogy_-.png");
-		analizerResult.addVideoGame("far cry","XBOX360/far_cry.png");
-		analizerResult.addVideoGame("assassins creed odyssey gold edition","XBOXONE/assassins_creed_odyssey_gold_edition.png");
+		analizerResult.addVideoGame("animal crossing eds juego compra disponible","catalogue/3DS/animal_crossing_eds_juego_compra_disponible.png");
+		analizerResult.addVideoGame("fifa soccer 2016 u.e ps3 -","catalogue/PS3/fifa_soccer_2016_u.e_ps3_-.png");
+		analizerResult.addVideoGame("","catalogue/PS4/.png");
+		analizerResult.addVideoGame("crash bandicoot n. sane trilogy","catalogue/SWITCH/crash_bandicoot_n._sane_trilogy.png");
+		analizerResult.addVideoGame("angry birds trilogy -","catalogue/WiiU/angry_birds_trilogy_-.png");
+		analizerResult.addVideoGame("far cry","catalogue/XBOX360/far_cry.png");
+		analizerResult.addVideoGame("assassins creed odyssey gold edition","catalogue/XBOXONE/assassins_creed_odyssey_gold_edition.png");
 
 		let correctAnswer = Array.from(analizerResult._catalogue._map.values()).sort(function(a, b){
 			return a.getTitle() > b.getTitle();
@@ -44,6 +44,7 @@ class IntegrationTests {
 
 					if(gameA._title !== gameB._title || gameA._image !== gameB._image){
 						console.log("testLoadCatalogue : Different games", false);
+						console.log(gameA,gameB);
 						return;
 					}
 				}
@@ -144,22 +145,32 @@ class IntegrationTests {
 		this.testGET('/getUserBuyList?userId=0');
 	}
 
-	
+	testGetVideoGameSellList(){
+		this.testGET('/getVideoGameSellList?videoGameId=0');
+	}
+
+	testGetVideoGameBuyList(){
+		this.testGET('/getVideoGameBuyList?videoGameId=0');
+	}	
 
 
 
 
 	runAllTests(){
 		console.log("IntegrationTest started ...");
-		//this.testLoadCatalogueFromFolders();
+		this.testLoadCatalogueFromFolders();
+
+		
 		this.testLogin();
-		this.testGetUserProperties();
-		this.testGetCatalogue();
+		//this.testUpdateUserProperties();
+		//this.testGetUserProperties();
+		//this.testGetCatalogue();
 		this.testAddSellOffer();
-		this.testAddBuyOffer();
-		this.testGetUserSellList();
-		this.testGetUserBuyList();
-		this.testUpdateUserProperties();
+		//this.testAddBuyOffer();
+		//this.testGetUserSellList();
+		//this.testGetUserBuyList();
+		this.testGetVideoGameSellList();
+		this.testGetVideoGameBuyList();
 	}
 
 }

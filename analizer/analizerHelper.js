@@ -24,6 +24,18 @@ class User {
         return this._loginServiceId;
     }
 
+    getFirstName(){
+        return this._firstName;
+    }
+
+    getLastName(){
+        return this._lastName;
+    }
+
+    getEmail(){
+        return this._email;
+    }
+
     getProperties(){
         return {
             userId:this._userId,
@@ -149,6 +161,7 @@ class VideoGame {
         }
     }
 
+    // Return Offer Ids
     getSellList(){
         let offerIds = []
         let it = this.getSellTree().iterator(), item;
@@ -164,7 +177,17 @@ class VideoGame {
     }
 
     getBuyList(){
+        let offerIds = []
+        let it = this.getBuyTree().iterator(), item;
+        
+        while((item = it.next()) !== null) {
+            let tmpOfferIds = item.getOfferIds();
+            for(let i=0;i<tmpOfferIds.length; i++){
+                offerIds.push(tmpOfferIds[i]);
+            }
+        }
 
+        return offerIds;
     }
 
     addSellOffer(offerId, price){

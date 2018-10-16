@@ -81,8 +81,18 @@ class Analizer {
 
 
     getVideoGameSellList(videoGameId){
-
+        let videoGame = this.getVideoGame(videoGameId);
+        let sellOfferIds = videoGame.getSellList();
+        return this._createVideoGameOffersList(sellOfferIds);
     }
+
+    getVideoGameBuyList(videoGameId){
+        let videoGame = this.getVideoGame(videoGameId);
+        let buyOfferIds = videoGame.getBuyList();
+        return this._createVideoGameOffersList(buyOfferIds);
+    }
+
+
 
 
     getVideoGameBuyList(videoGameId){
@@ -111,7 +121,6 @@ class Analizer {
     }
 
     updateUserProperties(userId, properties){
-        //console.log("update user ... : ", this.getUser(userId));
         this.getUser(userId).updateProperties(properties);
     }
 
@@ -161,19 +170,24 @@ class Analizer {
         var userOffersList = [];
         for(var i=0;i<offerIdList.length;i++){
             var offer = this.getOffer(offerIdList[i]);
-            var videoGame = this.getVideoGame(offer.getVideoGameId());
-            userOffersList.push({
-                offerId : offer.getOfferId(),
-                title : videoGame.getTitle(),
-                image : videoGame.getImage(),
-                price : offer.getPrice(),
-            });
+            var videoGameProp = this.getVideoGame(offer.getVideoGameId()).getProperties();
+            videoGameProp.offerId = offer.getOfferId();
+            videoGameProp.price = offer.getPrice();
+            userOffersList.push(videoGameProp);
         }
         return userOffersList;
     }
 
     _createVideoGameOffersList(offerIdList){
         let videoGameOffersList = [];
+        for(let i=0;i<offerIdList.length;i++){
+            let offer = this.getOffer(offerIdList[i]);
+            let userProp = this.getUser(offer.getUserId()).getProperties();
+            userProp.offerId = offer.getOfferId();
+            userProp.price = offer.getPrice();
+            videoGameOffersList.push(userProp);
+        }
+        return videoGameOffersList;
     }
 
     loadCatalogueFromFolders(cataloguePath) {
@@ -192,7 +206,7 @@ class Analizer {
                     imagesNames.forEach(imageName => {
                        
 
-                        let videoGamePath = '\"catalogue/' + consoleFolder + '/' + imageName + '\"';
+                        let videoGamePath = 'catalogue/' + consoleFolder + '/' + imageName;
 
                         let videoGameName = imageName.replace(/_/g, ' ').slice(0, imageName.length - 4);
 
