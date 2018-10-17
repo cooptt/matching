@@ -105,15 +105,21 @@ class Analizer {
     }
 
     addSellOffer(userId, videoGameId, price) {
-        var offerId = this._offers.insert( new Offer(this._offers.nextId(), userId, videoGameId, price, this._SELL) );
+        let offer = new Offer(this._offers.nextId(), userId, videoGameId, price, this._SELL)
+        let offerId = this._offers.insert(offer);
         this.getUser(userId).addSellOffer(offerId);
         this.getVideoGame(videoGameId).addSellOffer(offerId, price);
+        let offerIds = this.getVideoGame(videoGameId).getBuyOfferIdsGreaterEqThan(price);
+        this._addOffersConnections(offerId, offerIds);
     }
 
     addBuyOffer(userId, videoGameId, price) {
-        var offerId = this._offers.insert( new Offer(this._offers.nextId(), userId, videoGameId, price, this._BUY) );
+        let offer = new Offer(this._offers.nextId(), userId, videoGameId, price, this._BUY) ;
+        var offerId = this._offers.insert(offer);
         this.getUser(userId).addBuyOffer(offerId);
         this.getVideoGame(videoGameId).addBuyOffer(offerId, price);
+        let offerIds = this.getVideoGame(videoGameId).getSellOfferIdsLowerEqThan(price);
+        this._addOffersConnections(offerId, offerIds);
     }
 
     updateUserProperties(userId, properties){
@@ -131,7 +137,8 @@ class Analizer {
     deleteOffer(offerId) {
         var offer = this.getOffer(offerId);
         this.getUser(offer.getUserId()).deleteOffer(offerId);
-        this.getVideoGame(offer.getVideoGameId()).deleteOffer(offerId, offer.getType(), offer.getPrice() );
+        this.getVideoGame(offer.getVideoGameId()).deleteOffer(offerId, offer.getType(), offer.getPrice());
+
     }
 
     
@@ -185,6 +192,24 @@ class Analizer {
         }
         return videoGameOffersList;
     }
+
+    _addOffersConnections(newOfferId, offerIds){
+        let newOffer = this.getOffer(newOfferId);
+        offerIds.forEach( (offerId) => {
+            newOffer.addConnection(offerId);
+            this.getOffer(offerId).addConnection(newOfferId);
+        });
+    }
+
+    _deleteOffersConnections(offerIdToDelete){
+        let offerToDelete = this.getOffer(offerIdToDelete);
+        let offerIds = offerToDelete.getConnections();
+        offerIds.forEach( (offerId) => {
+            this.getOffer(offerId).deleteConnection(offerIdToDelete);
+            offerToDelete.deleteConnection(offerId);
+        })
+    }
+    
 
     loadCatalogueFromFolders(cataloguePath) {
         const fs = require('fs');

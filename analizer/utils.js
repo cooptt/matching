@@ -39,7 +39,148 @@ class IdMap {
     has(id){
     	return this._map.has(id);
     }
+
+
 }
+
+
+
+class CircularQueue {
+	constructor(size, cmp){
+		this._ar = [];
+		for(let i=0;i<size;i++){
+			this._ar.push(0);
+		}
+		this._ini = 0;
+		this._fin = 0;
+		this.n = 0;
+		this.cmp = cmp;
+	}
+
+	size(){
+		return this.n;
+	}
+
+
+	get(vindex){
+		return this._ar[this.real(vindex)];
+	}
+
+	inc(rindex){
+		return (rindex+1)%this._ar.length;
+	}
+
+	dec(rindex){
+		return (rindex-1+this._ar.length) % this._ar.length;
+	}
+
+	add(val){
+		this._ar[this._fin] = val;
+		this._fin = this.inc(this._fin);
+
+		if(this.n<this._ar.length ){
+			this.n++;
+		}else{
+			this._ini = this.inc(this._ini);
+		}
+	}
+
+	real(ind){
+		return (ind+this._ini)%this._ar.length;
+	}
+
+	getValues() {
+		let ans = [];
+		for(let i=0;i<this.n;i++){
+			ans.push(this.get(i));
+		}
+		return ans;
+	}
+
+	delete(value){
+		let vindex = -1;
+		for(let i=0;i<this.n;i++){
+			let item = this.get(i);
+			if(this.cmp(value,item)){
+				vindex = i;
+				break;
+			}
+		}
+
+		if(vindex===-1){
+			return;
+		}
+
+		while( vindex<this.n-1 ){
+			this.swap(vindex,vindex+1);
+			vindex++;
+		}
+
+		this._fin = this.dec(this._fin)
+		this.n--;
+	}
+
+	// virtual index a, virtual index b
+	swap(vinda, vindb){
+		let ra = this.real(vinda);
+		let rb = this.real(vindb);
+		let tmp = this._ar[ra];
+		this._ar[ra] = this._ar[rb];
+		this._ar[rb] = tmp;
+	}
+}
+
+
+function testCircularQueue(){
+	let n = 10;
+	let queue = new CircularQueue(n, (a,b) => a===b );
+
+	queue.add(1)
+	queue.add(2)
+	queue.add(3)
+	queue.add(4)
+
+	let vals = queue.getValues();
+
+	console.log(vals)
+
+
+	queue = new CircularQueue(5, (a,b) => a===b );
+
+	for(let i=0;i<20;i++){
+		queue.add(i+1);
+	}
+
+	vals = queue.getValues();
+	console.log(vals);
+
+	queue.delete(18)
+	queue.delete(17)
+	vals = queue.getValues();
+	console.log(vals);
+
+	for(let i=0;i<4;i++){
+		queue.add(i+1);
+	}
+
+	vals = queue.getValues();
+	console.log(vals);
+
+	queue = new CircularQueue(5, (a,b) =>{
+		return a.offerIdA===b.offerIdA && a.offerIdB===b.offerIdB ;
+	} );
+
+
+	queue.add( {offerIdA:3, offerIdB:4} )
+	queue.add( {offerIdA:4, offerIdB:5} )
+
+	console.log(queue.getValues());
+	queue.delete( {offerIdA:3, offerIdB:4} )
+	console.log(queue.getValues());
+
+}
+
+//testCircularQueue();
 
 function compareSets(a,b){
 	if(a.size!==b.size){
@@ -150,6 +291,7 @@ exports.IdMap = IdMap;
 exports.compareSets = compareSets;
 exports.equalObjects = equalObjects;
 exports.equalArrays = equalArrays;
+exports.CircularQueue = CircularQueue;
 
 
 

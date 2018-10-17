@@ -330,7 +330,7 @@ class Offer {
         return Array.from(this._connections);
     }
 
-    removeConnections(offerId){
+    deleteConnection(offerId){
         this._connections.delete(offerId);
     }
 }
