@@ -1,6 +1,7 @@
 const RBTree = require('bintrees').RBTree;
 const utils = require('./utils');
 const IdMap = utils.IdMap;
+const CircularQueue = utils.CircularQueue;
 
 
 
@@ -14,6 +15,9 @@ class User {
         this._email = null;
         this._sellList = new Set(); // OfferIds
         this._buyList = new Set();  // OfferIds
+        this._notifications = new CircularQueue(10, (offerIdPairA, offerIdPairB) => {
+            return offerIdPairA.outOfferId===offerIdPairB.outOfferId && offerIdPairA.inOfferId===offerIdPairB.inOfferId;
+        });
     }
 
     getUserId(){
@@ -54,6 +58,12 @@ class User {
         return Array.from(this._buyList);
     }
 
+    getNotifications(){
+        return this._notifications.getValues();
+    }
+
+
+
     addSellOffer(offerId){
         this._sellList.add(offerId);
     }
@@ -61,6 +71,12 @@ class User {
     addBuyOffer(offerId){
         this._buyList.add(offerId);
     }
+
+    addNotification(outOfferId, inOfferId){
+        this._notifications.add( this._createOfferIdPair(outOfferId,inOfferId) );
+    }
+
+
 
     updateProperties(properties){
          ['firstName','lastName','email'].forEach( (prop) =>{
@@ -73,6 +89,17 @@ class User {
     deleteOffer(offerId){
         this._sellList.delete(offerId);
         this._buyList.delete(offerId);
+    }
+
+    deleteNotification(outOfferId, inOfferId){
+        this._notifications.delete( this._createOfferIdPair(outOfferId,inOfferId));
+    }
+
+    _createOfferIdPair(outOfferId, inOfferId){
+        return {
+            outOfferId:outOfferId,
+            inOfferId:inOfferId
+        };
     }
 
     

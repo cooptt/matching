@@ -107,15 +107,42 @@ class UserTest {
 		}
 	}
 
+	testNotifications(){
+		let user = new User(/*userId*/ 4, /*loginServiceId*/ 17);
+		user.addNotification(2,3);
+		user.addNotification(4,5);
+		user.addNotification(6,7);
+		user.deleteNotification(4,5);
+
+		let original = [ { outOfferId: 2, inOfferId: 3 },
+		{ outOfferId: 6, inOfferId: 7 } ]
+
+		let found = user.getNotifications();
+
+		if( equalArrays(original,found, ['outOfferId','inOfferId'])===false ){
+			console.log("Differ");
+			console.log("original: ", original);
+			console.log("found: ", found);
+			console.log("testNotifications: ",false);
+		}
+
+	}
+
 	runAllTests(){
 		console.log("UserTest started ...");
 		this.testAddSellOffers();
 		this.testAddBuyOffers();
 		this.testGetProperties();
 		this.testUpdateProperties();
+		this.testNotifications();
 		console.log("UserTest ended ...\n")
 	}
 }
+
+
+
+
+
 
 class VideoGameTest {
 	testGetProperties() {
