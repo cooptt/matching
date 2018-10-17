@@ -82,22 +82,18 @@ class Analizer {
 
     getVideoGameSellList(videoGameId){
         let videoGame = this.getVideoGame(videoGameId);
-        let sellOfferIds = videoGame.getSellList();
+        let sellOfferIds = videoGame.getSellOfferIds();
         return this._createVideoGameOffersList(sellOfferIds);
     }
 
     getVideoGameBuyList(videoGameId){
         let videoGame = this.getVideoGame(videoGameId);
-        let buyOfferIds = videoGame.getBuyList();
+        let buyOfferIds = videoGame.getBuyOfferIds();
         return this._createVideoGameOffersList(buyOfferIds);
     }
 
 
 
-
-    getVideoGameBuyList(videoGameId){
-
-    }
 
 
 
@@ -125,7 +121,7 @@ class Analizer {
     }
 
     updateOfferProperties(offerId, properties){
-        this.getOffer(offerId).updateProperties(properties);
+        //this.getOffer(offerId).updateProperties(properties);
     }
 
     deleteUser() {

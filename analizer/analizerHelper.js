@@ -97,6 +97,10 @@ class TreeNode{
         return Array.from(this._offers);
     }
 
+    getPrice(){
+        return this._price;
+    }
+
     cmp(x) {
         return this._price - x._price;
     }
@@ -162,7 +166,7 @@ class VideoGame {
     }
 
     // Return Offer Ids
-    getSellList(){
+    getSellOfferIds(){
         let offerIds = []
         let it = this.getSellTree().iterator(), item;
         
@@ -176,11 +180,48 @@ class VideoGame {
         return offerIds;
     }
 
-    getBuyList(){
+    getBuyOfferIds(){
         let offerIds = []
         let it = this.getBuyTree().iterator(), item;
         
         while((item = it.next()) !== null) {
+            let tmpOfferIds = item.getOfferIds();
+            for(let i=0;i<tmpOfferIds.length; i++){
+                offerIds.push(tmpOfferIds[i]);
+            }
+        }
+
+        return offerIds;
+    }
+
+
+    getSellOfferIdsLowerEqThan(price){
+        let offerIds = []
+        let it = this.getSellTree().iterator(), item;
+        
+        while((item = it.next()) !== null) {
+            if(item.getPrice()>price){
+                break;
+            }
+
+            let tmpOfferIds = item.getOfferIds();
+            for(let i=0;i<tmpOfferIds.length; i++){
+                offerIds.push(tmpOfferIds[i]);
+            }
+        }
+
+        return offerIds;
+    }
+
+    getBuyOfferIdsGreaterEqThan(price){
+        let offerIds = []
+        let it = this.getBuyTree().iterator(), item;
+        
+        while((item = it.next()) !== null) {
+            if(item.getPrice()<price){
+                break;
+            }
+
             let tmpOfferIds = item.getOfferIds();
             for(let i=0;i<tmpOfferIds.length; i++){
                 offerIds.push(tmpOfferIds[i]);
@@ -229,6 +270,7 @@ class VideoGame {
             res.deleteOffer(offerId);
         }
     }
+
 }
 
 
@@ -239,6 +281,7 @@ class Offer {
         this._videoGameId = videoGameId;
         this._price = price  // float
         this._type = type;  // 0: buy,  1: sell
+        this._connections = new Set();
     }
 
     getOfferId(){
@@ -277,6 +320,18 @@ class Offer {
                 this['_'+prop] = properties[prop];
             }
         })
+    }
+
+    addConnection(offerId){
+        this._connections.add(offerId);
+    }
+
+    getConnections(){
+        return Array.from(this._connections);
+    }
+
+    removeConnections(offerId){
+        this._connections.delete(offerId);
     }
 }
 

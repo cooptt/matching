@@ -148,7 +148,7 @@ class IntegrationTests {
 	}
 
 	testGetVideoGameBuyList(){
-		this.testGET('/getVideoGameBuyList?videoGameId=0');
+		this.testGET('/getVideoGameBuyList?videoGameId=1');
 	}	
 
 
@@ -164,7 +164,7 @@ class IntegrationTests {
 		//this.testGetUserProperties();
 		//this.testGetCatalogue();
 		this.testAddSellOffer();
-		//this.testAddBuyOffer();
+		this.testAddBuyOffer();
 		//this.testGetUserSellList();
 		//this.testGetUserBuyList();
 		this.testGetVideoGameSellList();

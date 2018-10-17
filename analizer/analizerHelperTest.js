@@ -142,7 +142,7 @@ class VideoGameTest {
 		}
 	}
 
-	testGetSellList(){
+	testGetSellOfferIds(){
 		let videoGame = new VideoGame(/*videoGameId*/5, /*title*/"Halo", /*image*/"halo.jpg");
 		videoGame.addSellOffer(/*offerId*/9,/*price*/ 500.00);
 		videoGame.addSellOffer(5, 600.00);
@@ -150,7 +150,7 @@ class VideoGameTest {
 		videoGame.addSellOffer(7, 550.00);
 
 		let original = [4,9,7,5];
-		let sellList = videoGame.getSellList();
+		let sellList = videoGame.getSellOfferIds();
 		let result = true;
 
 		if( equalArrays(original,sellList, [] )===false ){
@@ -165,7 +165,7 @@ class VideoGameTest {
 		}
 	}
 
-	testGetBuyList(){
+	testGetBuyOfferIds(){
 		let videoGame = new VideoGame(/*videoGameId*/5, /*title*/"Halo", /*image*/"halo.jpg");
 		videoGame.addBuyOffer(/*offerId*/9,/*price*/ 500.00);
 		videoGame.addBuyOffer(5, 600.00);
@@ -173,7 +173,7 @@ class VideoGameTest {
 		videoGame.addBuyOffer(7, 550.00);
 
 		let original = [5,7,9,4];
-		let buyList = videoGame.getBuyList();
+		let buyList = videoGame.getBuyOfferIds();
 		let result = true;
 
 		if( equalArrays(original,buyList, [] )===false ){
@@ -188,11 +188,59 @@ class VideoGameTest {
 		}
 	}
 
+	testGetSellOfferIdsLowerEqThan(){
+		let videoGame = new VideoGame(/*videoGameId*/5, /*title*/"Halo", /*image*/"halo.jpg");
+		videoGame.addSellOffer(/*offerId*/9,/*price*/ 500.00);
+		videoGame.addSellOffer(5, 600.00);
+		videoGame.addSellOffer(4, 400.00);
+		videoGame.addSellOffer(7, 550.00);
+
+		let original = [4,9];
+		let found = videoGame.getSellOfferIdsLowerEqThan(510);
+		let result = true;
+
+		if( equalArrays(original,found, [] )===false ){
+			result = false
+			console.log("Properties Differ");
+			console.log("Original: ",original);
+			console.log('Found: ',found);
+		}
+
+		if( result===false ){
+			console.log("testGetSellOfferIdsLowerEqThan: ",result );
+		}
+	}
+
+	testGetBuyOfferIdsGreaterEqThan(){
+		let videoGame = new VideoGame(/*videoGameId*/5, /*title*/"Halo", /*image*/"halo.jpg");
+		videoGame.addBuyOffer(/*offerId*/9,/*price*/ 500.00);
+		videoGame.addBuyOffer(5, 600.00);
+		videoGame.addBuyOffer(4, 400.00);
+		videoGame.addBuyOffer(7, 550.00);
+
+		let original = [5,7];
+		let found = videoGame.getBuyOfferIdsGreaterEqThan(525);
+		let result = true;
+
+		if( equalArrays(original,found, [] )===false ){
+			result = false
+			console.log("Properties Differ");
+			console.log("Original: ",original);
+			console.log('Found: ',found);
+		}
+
+		if( result===false ){
+			console.log("testGetBuyOfferIdsGreaterEqThan: ",result );
+		}
+	}
+
 	runAllTests(){
 		console.log("VideoGameTest started ...");
 		this.testGetProperties();
-		this.testGetSellList();
-		this.testGetBuyList();
+		this.testGetSellOfferIds();
+		this.testGetBuyOfferIds();
+		this.testGetSellOfferIdsLowerEqThan();
+		this.testGetBuyOfferIdsGreaterEqThan();
 		console.log("VideoGameTest ended ...\n");
 	}
 }

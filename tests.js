@@ -14,24 +14,24 @@ let runUnitTests = function(){
 	let userTest = new UserTest();
 	let videoGameTest = new VideoGameTest();
 	let offerTest = new OfferTest();
-	let analizerPersistanceTest = new AnalizerPersistanceTest();
 	let analizerTest = new AnalizerTest();
 
 
 	userTest.runAllTests();
 	videoGameTest.runAllTests();
 	offerTest.runAllTests();
-	analizerPersistanceTest.runAllTests();
 	analizerTest.runAllTests();
 }
 
 let runIntegrationTests = function() {
 	let integrationTests = new IntegrationTests();
+	let analizerPersistanceTest = new AnalizerPersistanceTest();
 
 	integrationTests.runAllTests();
+	//analizerPersistanceTest.runAllTests();
 }
 
 
 
 runUnitTests();
-runIntegrationTests();
+//runIntegrationTests();

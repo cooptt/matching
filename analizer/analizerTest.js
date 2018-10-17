@@ -482,6 +482,75 @@ class AnalizerTest {
 		}
 	}
 
+
+	testGetVideoGameSellList(){
+		let analizer = new Analizer();
+		analizer.addUser(666);
+		analizer.addVideoGame('Halo','halo.jpg');
+		analizer.addSellOffer(0,0,500);
+
+		let prop = ["userId","loginServiceId","firstName","lastName","email","offerId","price"];
+
+		let original = [{
+			userId:0,
+			loginServiceId:666,
+			firstName:null,
+			lastName:null,
+			email:null,
+			offerId:0,
+			price:500
+		} ];
+
+		let offerList = analizer.getVideoGameSellList(0);
+
+		let result = true;
+
+		if( equalArrays(original,offerList, prop )===false ){
+			result = false;
+			console.log("Differ");
+			console.log("original: ",original);
+			console.log("found: ", offerList);
+		}
+
+		if(result===false){
+			console.log("testGetVideoGameSellList: ",result);
+		}
+	}
+
+	testGetVideoGameBuyList(){
+		let analizer = new Analizer();
+		analizer.addUser(666);
+		analizer.addVideoGame('Halo','halo.jpg');
+		analizer.addBuyOffer(0,0,700);
+
+		let prop = ["userId","loginServiceId","firstName","lastName","email","offerId","price"];
+
+		let original = [{
+			userId:0,
+			loginServiceId:666,
+			firstName:null,
+			lastName:null,
+			email:null,
+			offerId:0,
+			price:700
+		} ];
+
+		let offerList = analizer.getVideoGameBuyList(0);
+
+		let result = true;
+
+		if( equalArrays(original,offerList, prop )===false ){
+			result = false;
+			console.log("Differ");
+			console.log("original: ",original);
+			console.log("found: ", offerList);
+		}
+
+		if(result===false){
+			console.log("testGetVideoGameBuyList: ",result);
+		}
+	}
+
 	
 	runAllTests() {
 		console.log("AnalizerTest started ...");
@@ -496,7 +565,9 @@ class AnalizerTest {
 	    this.testGetCatalogue();
 	    this.testEmptinessAtBeginning();
 	    this.testGetUserProperties();
-	    this.testCreateVideoGameOffersList();		
+	    this.testCreateVideoGameOffersList();
+	    this.testGetVideoGameSellList();	
+	    this.testGetVideoGameBuyList();	
 		console.log("AnalizerTest ended ...\n")
 
 
