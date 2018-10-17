@@ -79,7 +79,6 @@ class IntegrationTests {
 	}
 
 
-
 	testGET(rsc){
 		let options = {
 			method : 'GET',
@@ -98,7 +97,6 @@ class IntegrationTests {
 			}
 		});
 	}
-
 
 	testLogin(){
 		let src = '/signin?loginServiceId=1234'
