@@ -84,6 +84,17 @@ app.get('/',(request,response)=>{
 
 
 
+/*
+	/getUserProperties?userId=0
+
+	{
+        userId:0,
+        loginServiceId:17,
+        firstName:null,
+        lastName:null,
+        email:null
+    }
+*/
 app.get('/getUserProperties',  (request, response) => {
     let msg = {};
     msg.action = 'Get User Properties'
@@ -103,7 +114,14 @@ app.get('/getUserProperties',  (request, response) => {
     response.json(msg);
 })
 
+/*
+	/getCatalogue
 
+    [ 
+        { videoGameId:0, title: 'God of War', image: 'god_of_war.jpg' },
+        { videoGameId:1, title: 'Halo', image: 'halo.jpg' },
+        { videoGameId:2, title: 'Call of Duty', image: 'catalogue/call_of_duty.jpg' } ]
+*/
 app.get('/getCatalogue',  (request, response) => {
     let msg = {};
     msg.action = 'Get Catalogue';
@@ -111,7 +129,28 @@ app.get('/getCatalogue',  (request, response) => {
     response.json(msg);
 })
 
+/*
+	/getUserSellList?userId=0
 
+    [{
+        offerId:0,
+        videoGameId:0,
+        title:"God of War",
+        image:"god_of_war.jpg",
+        price:300 },
+    {
+        offerId:1,
+        videoGameId:1,
+        title:"Halo",
+        image:"halo.jpg",
+        price:500 },
+    {
+        offerId:2,
+        videoGameId:2,
+        title:"Call of Duty",
+        image:"call_of_duty.jpg",
+        price:400 } ]
+*/
 app.get('/getUserSellList', (request, response) => {
     let msg = {};
     msg.action = 'Get User Sell List';
@@ -131,7 +170,30 @@ app.get('/getUserSellList', (request, response) => {
     response.json(msg);
 })
 
+	/*
+		/getUserBuyList?userId=0
 
+        [
+            {
+                offerId:0,
+                videoGameId:0,
+                title:"God of War",
+                image:"god_of_war.jpg",
+                price:300 },
+            {
+                offerId:1,
+                videoGameId:1,
+                title:"Halo",
+                image:"halo.jpg",
+                price:500 },
+            {
+                offerId:2,
+                videoGameId:2,
+                title:"Call of Duty",
+                image:"call_of_duty.jpg",
+                price:400 }
+        ]
+    */
 app.get('/getUserBuyList', (request, response) => {
     let msg = {};
     msg.action = 'Get User Buy List';
@@ -151,7 +213,19 @@ app.get('/getUserBuyList', (request, response) => {
     response.json(msg);
 })
 
+	/*
+		/getVideoGameSellList?videoGameId=0
 
+        [{
+            userId:0,
+            loginServiceId:666,
+            firstName:null,
+            lastName:null,
+            email:null,
+            offerId:0,
+            price:500
+        } ]
+    */
 app.get('/getVideoGameSellList', (request, response) => {
     let msg = {};
     msg.action = 'Get VideoGame Sell List';
@@ -175,6 +249,19 @@ app.get('/getVideoGameSellList', (request, response) => {
 })
 
 
+/*
+	/getVideoGameBuyList?videoGameId=1
+
+    [{
+        userId:0,
+        loginServiceId:666,
+        firstName:null,
+        lastName:null,
+        email:null,
+        offerId:0,
+        price:700
+    }]
+*/
 app.get('/getVideoGameBuyList', (request, response) => {
     let msg = {};
     msg.action = 'Get VideoGame Buy List';
@@ -188,8 +275,6 @@ app.get('/getVideoGameBuyList', (request, response) => {
       msg.data = 'Invalid VideoGameId'
     }
 
-
-
     if(isValid){
       msg.data = analizer.getVideoGameBuyList(videoGameId);
     }
@@ -197,6 +282,19 @@ app.get('/getVideoGameBuyList', (request, response) => {
     response.json(msg);
 })
 
+/*
+	/getNotifications?userId=0
+
+    [ { userId: 1,
+        loginServiceId: 17,
+        firstName: null,
+        lastName: null,
+        email: null,
+        title: 'Halo',
+        image: 'halo.jpg',
+        price: 600,
+        type: 0 } ]
+*/
 app.get('/getNotifications', (request, response) => {
     let msg = {};
     msg.action = 'Get Notifications';
@@ -228,7 +326,9 @@ app.get('/getNotifications', (request, response) => {
 
 
 
-
+/*
+	/signin?loginServiceId=1234
+*/
 app.post('/signin', (request, response) => {
     let msg = {};
     msg.action = 'Sign in';
@@ -244,7 +344,9 @@ app.post('/signin', (request, response) => {
     response.json(msg);
 })
 
-
+/*
+	/updateUserProperties?userId=0
+*/
 app.post('/updateUserProperties', (request, response) => {
     let msg = {};
     msg.action = 'Update User Properties ';
@@ -267,8 +369,9 @@ app.post('/updateUserProperties', (request, response) => {
 })
 
 
-
-
+/*
+	/addSellOffer?userId=0&videoGameId=0&price=500
+*/
 app.post('/addSellOffer', (request, response) => {
     let msg = {};
     msg.action = 'Add sell offer'
@@ -295,7 +398,9 @@ app.post('/addSellOffer', (request, response) => {
     response.json(msg);
 })
 
-
+/*
+	/addBuyOffer?userId=0&videoGameId=1&price=600
+*/
 app.post('/addBuyOffer', (request, response) => {
     let msg = {};
     msg.action = 'Add buy offer'

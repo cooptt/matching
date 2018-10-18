@@ -56,35 +56,41 @@ class Analizer {
         return this._catalogue.size();
     }
 
+    
     getUserProperties(userId){
         let user = this.getUser(userId);
         return user.getProperties();
     }
 
+    
     getCatalogue() {
         let catalogue = [];
         this._catalogue.getValues().forEach( videoGame => catalogue.push(videoGame.getProperties()) )
         return catalogue;
     }
 
+    
     getUserSellList(userId){
         var user = this.getUser(userId);
         var sellList = user.getSellList(); // Array of offerIds
         return this._createUserOffersList(sellList);
     }
 
+
+    
     getUserBuyList(userId){
         var user = this.getUser(userId);
         var buyList = user.getBuyList(); // Array of offerids
         return this._createUserOffersList(buyList);
     }
 
-
+    
     getVideoGameSellList(videoGameId){
         let videoGame = this.getVideoGame(videoGameId);
         let sellOfferIds = videoGame.getSellOfferIds();
         return this._createVideoGameOffersList(sellOfferIds);
     }
+
 
     getVideoGameBuyList(videoGameId){
         let videoGame = this.getVideoGame(videoGameId);
@@ -92,6 +98,7 @@ class Analizer {
         return this._createVideoGameOffersList(buyOfferIds);
     }
 
+    
     getNotifications(userId){
         let offerIdPairs = this.getUser(userId).getNotifications();
         let notifications = [];

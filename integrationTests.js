@@ -134,6 +134,7 @@ class IntegrationTests {
 		this.testPOST(rsc, body);
 	}
 
+	
 	testUpdateUserProperties(){
 		let rsc = '/updateUserProperties?userId=0'
 		let body = {
