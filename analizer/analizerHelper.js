@@ -40,6 +40,15 @@ class User {
         return this._email;
     }
 
+    /*
+        {
+            userId:4,
+            loginServiceId:17,
+            firstName:null,
+            lastName:null,
+            email:null
+        }
+    */
     getProperties(){
         return {
             userId:this._userId,
@@ -277,6 +286,13 @@ class VideoGame {
         this._buyTree.find(node).addOffer(offerId);
     }
 
+    /*
+        {
+            videoGameId:5,
+            title:"Halo",
+            image:"halo.jpg"
+        }
+    */
     updateProperties(properties){
         ['videoGameId','title','image'].forEach( (prop) =>{
             if( prop in properties ){
@@ -299,6 +315,7 @@ class VideoGame {
     }
 
 }
+
 
 
 class Offer {
@@ -331,6 +348,15 @@ class Offer {
         return this._type;
     }
 
+    /*
+    {
+        offerId:74,
+        userId:43,
+        videoGameId:3,
+        price:4.58,
+        type:0
+    }
+    */
     getProperties(){
         return  {
             offerId:this._offerId,

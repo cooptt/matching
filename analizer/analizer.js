@@ -116,6 +116,19 @@ class Analizer {
         return notifications;
     }
 
+    getOffersProperties(){
+        let offersPropertiesList = [] 
+        this._offers.getValues().forEach( offer => {
+            let user = this.getUser(offer.getUserId());
+            let videoGame = this.getVideoGame(offer.getVideoGameId());
+            let prop = Object.assign(offer.getProperties(),
+                                    videoGame.getProperties(),
+                                    user.getProperties() );
+            offersPropertiesList.push(prop);
+        } );
+        return offersPropertiesList;
+    }
+
 
 
 

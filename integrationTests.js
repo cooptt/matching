@@ -134,7 +134,7 @@ class IntegrationTests {
 		this.testPOST(rsc, body);
 	}
 
-	
+
 	testUpdateUserProperties(){
 		let rsc = '/updateUserProperties?userId=0'
 		let body = {
@@ -174,6 +174,9 @@ class IntegrationTests {
 		this.testGET('/getNotifications?userId=0');
 	}
 
+	testGetOffersProperties(){
+		this.testGET('/getOffersProperties?userId=0');
+	}
 
 
 
@@ -183,7 +186,7 @@ class IntegrationTests {
 
 		
 		this.testLogin();
-		this.testLogin2();
+		//this.testLogin2();
 		//this.testUpdateUserProperties();
 		//this.testGetUserProperties();
 		//this.testGetCatalogue();
@@ -193,7 +196,8 @@ class IntegrationTests {
 		//this.testGetUserBuyList();
 		//this.testGetVideoGameSellList();
 		//this.testGetVideoGameBuyList();
-		this.testGetNotifications();
+		//this.testGetNotifications();
+		this.testGetOffersProperties();
 	}
 
 }

@@ -557,7 +557,7 @@ class AnalizerTest {
 		analizer.addUser(16);
 		analizer.addUser(17);
 		analizer.addVideoGame('Halo','halo.jpg');
-		analizer.addSellOffer(/*userId*/0,/*offerId*/0,/*price*/500);
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/500);
 		analizer.addBuyOffer(1,0,600);
 		analizer.addBuyOffer(1,0,700);
 		analizer.deleteOffer(2);
@@ -591,6 +591,58 @@ class AnalizerTest {
 
 	}
 
+
+	testGetOffersProperties(){
+		let analizer = new Analizer();
+		analizer.addUser(16);
+		analizer.addVideoGame('Halo','halo.jpg');
+		analizer.addVideoGame("Call of Duty", "call_of_duty.jpg");
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/500);
+		analizer.addBuyOffer(0,1,600);
+		analizer.deleteOffer(/*offerId*/1);
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/700);
+
+		let found = analizer.getOffersProperties();
+		let original = [ { offerId: 0,
+					    userId: 0,
+					    videoGameId: 0,
+					    price: 500,
+					    type: 1,
+					    title: 'Halo',
+					    image: 'halo.jpg',
+					    loginServiceId: 16,
+					    firstName: null,
+					    lastName: null,
+					    email: null },
+					  { offerId: 2,
+					    userId: 0,
+					    videoGameId: 0,
+					    price: 700,
+					    type: 1,
+					    title: 'Halo',
+					    image: 'halo.jpg',
+					    loginServiceId: 16,
+					    firstName: null,
+					    lastName: null,
+					    email: null } ]
+		let prop = ['userId','loginServiceId','firstName','lastName','email',
+					'videoGameId','title','image',
+					'offerId','price','type'];
+		let result = true;
+
+		if( equalArrays(original,found, prop )===false ){
+			result = false;
+			console.log("Differ");
+			console.log("original: ",original);
+			console.log("found: ", found);
+		}
+
+		if(result===false){
+			console.log("testGetOffersProperties: ",result);
+		}
+		
+	}
+
 	
 	runAllTests() {
 		console.log("AnalizerTest started ...");
@@ -609,6 +661,7 @@ class AnalizerTest {
 	    this.testGetVideoGameSellList();	
 	    this.testGetVideoGameBuyList();	
 	    this.testNotifications();
+	    this.testGetOffersProperties();
 		console.log("AnalizerTest ended ...\n")
 
 

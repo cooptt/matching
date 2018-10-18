@@ -316,6 +316,27 @@ app.get('/getNotifications', (request, response) => {
 })
 
 
+app.get('/getOffersProperties', (request, response) => {
+    let msg = {};
+    msg.action = 'Get Offer Properties';
+    let userId = parseInt(request.query.userId);
+
+    let isValid = true;
+
+
+    if(analizer.userIdExists(userId)===false){
+      isValid = false;
+      msg.data = 'Invalid UserId'
+    }
+
+    if(isValid){
+      msg.data = analizer.getOffersProperties(userId);
+    }
+
+    response.json(msg);
+})
+
+
 
 
 
