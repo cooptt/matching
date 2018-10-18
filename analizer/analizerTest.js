@@ -551,6 +551,46 @@ class AnalizerTest {
 		}
 	}
 
+
+	testNotifications(){
+		let analizer = new Analizer();
+		analizer.addUser(16);
+		analizer.addUser(17);
+		analizer.addVideoGame('Halo','halo.jpg');
+		analizer.addSellOffer(/*userId*/0,/*offerId*/0,/*price*/500);
+		analizer.addBuyOffer(1,0,600);
+		analizer.addBuyOffer(1,0,700);
+		analizer.deleteOffer(2);
+
+		let original = [ { userId: 1,
+		    loginServiceId: 17,
+		    firstName: null,
+		    lastName: null,
+		    email: null,
+		    title: 'Halo',
+		    image: 'halo.jpg',
+		    price: 600,
+		    type: 0 } ]
+
+		let found = analizer.getNotifications(/*userId*/0);
+
+		let prop = ['userId','loginServiceId','firstName','lastName','email','title','image','price','type'];
+		let result = true;
+
+		if( equalArrays(original,found, prop )===false ){
+			result = false;
+			console.log("Differ");
+			console.log("original: ",original);
+			console.log("found: ", found);
+		}
+
+		if(result===false){
+			console.log("testGetVideoGameBuyList: ",result);
+		}
+
+
+	}
+
 	
 	runAllTests() {
 		console.log("AnalizerTest started ...");
@@ -568,6 +608,7 @@ class AnalizerTest {
 	    this.testCreateVideoGameOffersList();
 	    this.testGetVideoGameSellList();	
 	    this.testGetVideoGameBuyList();	
+	    this.testNotifications();
 		console.log("AnalizerTest ended ...\n")
 
 

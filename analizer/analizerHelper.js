@@ -291,11 +291,11 @@ class VideoGame {
         if(type===this.BUY){ //Buy
             res = this._buyTree.find(node);
         }else if (type===this.SELL){
-            res = this._selTree.find(node);
+            res = this._sellTree.find(node);
         }
         if( res!==null ){
             res.deleteOffer(offerId);
-        }
+        } 
     }
 
 }
@@ -328,7 +328,7 @@ class Offer {
     }
 
     getType(){
-        this._type;
+        return this._type;
     }
 
     getProperties(){

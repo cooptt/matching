@@ -175,8 +175,12 @@ class VideoGameTest {
 		videoGame.addSellOffer(5, 600.00);
 		videoGame.addSellOffer(4, 400.00);
 		videoGame.addSellOffer(7, 550.00);
+		videoGame.addSellOffer(1, 800.00);
+		videoGame.addSellOffer(2, 200.00);
+		videoGame.deleteOffer(/*offerId*/9,/*type*/1,/*price*/500);
+		videoGame.deleteOffer(/*offerId*/1,/*type*/1,/*price*/800);
 
-		let original = [4,9,7,5];
+		let original = [2,4,7,5];
 		let sellList = videoGame.getSellOfferIds();
 		let result = true;
 
@@ -198,8 +202,9 @@ class VideoGameTest {
 		videoGame.addBuyOffer(5, 600.00);
 		videoGame.addBuyOffer(4, 400.00);
 		videoGame.addBuyOffer(7, 550.00);
+		videoGame.deleteOffer(/*offerId*/9,/*type*/0,/*price*/500);
 
-		let original = [5,7,9,4];
+		let original = [5,7,4];
 		let buyList = videoGame.getBuyOfferIds();
 		let result = true;
 

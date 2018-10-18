@@ -92,6 +92,23 @@ class Analizer {
         return this._createVideoGameOffersList(buyOfferIds);
     }
 
+    getNotifications(userId){
+        let offerIdPairs = this.getUser(userId).getNotifications();
+        let notifications = [];
+        offerIdPairs.forEach( (offerIdPair) => {
+            let offer = this.getOffer(offerIdPair.outOfferId);
+            let user = this.getUser(offer.getUserId());
+            let videoGame = this.getVideoGame(offer.getVideoGameId());
+            let notificationProps = user.getProperties();
+            notificationProps.title = videoGame.getTitle();
+            notificationProps.image = videoGame.getImage();
+            notificationProps.price = offer.getPrice();
+            notificationProps.type = offer.getType();
+            notifications.push(notificationProps);
+        });
+        return notifications;
+    }
+
 
 
 
@@ -138,7 +155,8 @@ class Analizer {
         var offer = this.getOffer(offerId);
         this.getUser(offer.getUserId()).deleteOffer(offerId);
         this.getVideoGame(offer.getVideoGameId()).deleteOffer(offerId, offer.getType(), offer.getPrice());
-
+        this._deleteOffersConnections(offerId);
+        this._offers.remove(offerId);
     }
 
     
@@ -197,19 +215,26 @@ class Analizer {
         let newOffer = this.getOffer(newOfferId);
         offerIds.forEach( (offerId) => {
             newOffer.addConnection(offerId);
-            this.getOffer(offerId).addConnection(newOfferId);
+            let offer = this.getOffer(offerId);
+            offer.addConnection(newOfferId);
+            let user = this.getUser(offer.getUserId());
+            user.addNotification(newOfferId, offerId);
         });
     }
 
     _deleteOffersConnections(offerIdToDelete){
         let offerToDelete = this.getOffer(offerIdToDelete);
         let offerIds = offerToDelete.getConnections();
+        let user = this.getUser(offerToDelete.getUserId());
         offerIds.forEach( (offerId) => {
-            this.getOffer(offerId).deleteConnection(offerIdToDelete);
+            let offer = this.getOffer(offerId);
+            offer.deleteConnection(offerIdToDelete);
             offerToDelete.deleteConnection(offerId);
+            this.getUser(offer.getUserId()).deleteNotification(offerIdToDelete, offerId);
+            user.deleteNotification(offerId, offerIdToDelete);
         })
     }
-    
+
 
     loadCatalogueFromFolders(cataloguePath) {
         const fs = require('fs');
