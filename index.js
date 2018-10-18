@@ -315,7 +315,32 @@ app.get('/getNotifications', (request, response) => {
     response.json(msg);
 })
 
+/*
+	/getOffersProperties?userId=0
 
+	[ { offerId: 0,
+	    userId: 0,
+	    videoGameId: 0,
+	    price: 500,
+	    type: 1,
+	    title: 'Halo',
+	    image: 'halo.jpg',
+	    loginServiceId: 16,
+	    firstName: null,
+	    lastName: null,
+	    email: null },
+	  { offerId: 2,
+	    userId: 0,
+	    videoGameId: 0,
+	    price: 700,
+	    type: 1,
+	    title: 'Halo',
+	    image: 'halo.jpg',
+	    loginServiceId: 16,
+	    firstName: null,
+	    lastName: null,
+	    email: null } ]
+*/
 app.get('/getOffersProperties', (request, response) => {
     let msg = {};
     msg.action = 'Get Offer Properties';
@@ -448,6 +473,27 @@ app.post('/addBuyOffer', (request, response) => {
     response.json(msg);
 })
 
+
+app.post('/deleteOffer', (request, response) => {
+    let msg = {};
+    msg.action = 'Delete Offer';
+    let offerId = parseInt(request.query.offerId);
+
+    let isValid = true;
+
+
+    if(analizer.offerIdExists(offerId)===false){
+      isValid = false;
+      msg.data = 'Invalid offerId'
+    }
+
+    if(isValid){
+      analizer.deleteOffer(offerId);
+      msg.data = "Offer Deleted" 
+    }
+
+    response.json(msg);
+})
 
 
 

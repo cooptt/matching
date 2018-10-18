@@ -177,6 +177,8 @@ class AnalizerTest {
 		analizer.addSellOffer(0,0,300);
 		analizer.addSellOffer(0,1,500);
 		analizer.addSellOffer(0,2,400);
+		analizer.addSellOffer(0,2,800);
+		analizer.deleteOffer(3);
 		var userSellList = analizer.getUserSellList(0).sort( function(a,b){
 			return a.offerId - b.offerId;
 		});
@@ -229,6 +231,8 @@ class AnalizerTest {
 		analizer.addBuyOffer(0,0,300);
 		analizer.addBuyOffer(0,1,500);
 		analizer.addBuyOffer(0,2,400);
+		analizer.addBuyOffer(0,2,700);
+		analizer.deleteOffer(3);
 		var userBuyList = analizer.getUserBuyList(0);
 		userBuyList.sort( function(a,b){
 			return a.offerId - b.offerId;
@@ -521,7 +525,9 @@ class AnalizerTest {
 		let analizer = new Analizer();
 		analizer.addUser(666);
 		analizer.addVideoGame('Halo','halo.jpg');
-		analizer.addBuyOffer(0,0,700);
+		analizer.addBuyOffer(/*userId*/0,/*videoGameId*/0,/*price*/700);
+		analizer.addBuyOffer(0,0,800);
+		analizer.deleteOffer(/*offerId*/1);
 
 		let prop = ["userId","loginServiceId","firstName","lastName","email","offerId","price"];
 
@@ -642,6 +648,8 @@ class AnalizerTest {
 		}
 		
 	}
+
+
 
 	
 	runAllTests() {

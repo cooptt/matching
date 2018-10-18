@@ -145,6 +145,12 @@ class IntegrationTests {
 		this.testPOST(rsc, body);
 	}
 
+	testDeleteOffer(){
+		let rsc = '/deleteOffer?offerId=0'
+		let body = {}
+		this.testPOST(rsc, body);
+	}
+
 
 	testGetUserProperties(){
 		this.testGET('/getUserProperties?userId=0');
@@ -180,6 +186,8 @@ class IntegrationTests {
 
 
 
+
+
 	runAllTests(){
 		console.log("IntegrationTest started ...");
 		this.testLoadCatalogueFromFolders();
@@ -191,7 +199,9 @@ class IntegrationTests {
 		//this.testGetUserProperties();
 		//this.testGetCatalogue();
 		this.testAddSellOffer();
-		this.testAddBuyOffer2();
+		this.testAddSellOffer();
+		this.testDeleteOffer();
+		//this.testAddBuyOffer2();
 		//this.testGetUserSellList();
 		//this.testGetUserBuyList();
 		//this.testGetVideoGameSellList();
