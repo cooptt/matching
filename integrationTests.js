@@ -104,14 +104,32 @@ class IntegrationTests {
 		this.testPOST(src, body);
 	}
 
+	testLogin2(){
+		let src = '/signin?loginServiceId=666'
+		let body = {  }
+		this.testPOST(src, body);
+	}
+
 	testAddSellOffer(){
 		let rsc = '/addSellOffer?userId=0&videoGameId=0&price=500'
 		let body = {}
 		this.testPOST(rsc, body);
 	}	
 
+	testAddSellOffer2(){
+		let rsc = '/addSellOffer?userId=0&videoGameId=0&price=500'
+		let body = {}
+		this.testPOST(rsc, body);
+	}
+
 	testAddBuyOffer(){
 		let rsc = '/addBuyOffer?userId=0&videoGameId=1&price=600'
+		let body = {}
+		this.testPOST(rsc, body);
+	}
+
+	testAddBuyOffer2(){
+		let rsc = '/addBuyOffer?userId=1&videoGameId=0&price=600'
 		let body = {}
 		this.testPOST(rsc, body);
 	}
@@ -151,6 +169,10 @@ class IntegrationTests {
 		this.testGET('/getVideoGameBuyList?videoGameId=1');
 	}	
 
+	testGetNotifications(){
+		this.testGET('/getNotifications?userId=0');
+	}
+
 
 
 
@@ -160,15 +182,17 @@ class IntegrationTests {
 
 		
 		this.testLogin();
+		this.testLogin2();
 		//this.testUpdateUserProperties();
 		//this.testGetUserProperties();
 		//this.testGetCatalogue();
 		this.testAddSellOffer();
-		this.testAddBuyOffer();
+		this.testAddBuyOffer2();
 		//this.testGetUserSellList();
 		//this.testGetUserBuyList();
-		this.testGetVideoGameSellList();
-		this.testGetVideoGameBuyList();
+		//this.testGetVideoGameSellList();
+		//this.testGetVideoGameBuyList();
+		this.testGetNotifications();
 	}
 
 }

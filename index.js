@@ -197,6 +197,26 @@ app.get('/getVideoGameBuyList', (request, response) => {
     response.json(msg);
 })
 
+app.get('/getNotifications', (request, response) => {
+    let msg = {};
+    msg.action = 'Get Notifications';
+    let userId = parseInt(request.query.userId);
+
+    let isValid = true;
+
+
+    if(analizer.userIdExists(userId)===false){
+      isValid = false;
+      msg.data = 'Invalid UserId'
+    }
+
+    if(isValid){
+      msg.data = analizer.getNotifications(userId);
+    }
+
+    response.json(msg);
+})
+
 
 
 
@@ -301,6 +321,8 @@ app.post('/addBuyOffer', (request, response) => {
     }
     response.json(msg);
 })
+
+
 
 
 
