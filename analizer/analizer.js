@@ -102,16 +102,22 @@ class Analizer {
     getNotifications(userId){
         let offerIdPairs = this.getUser(userId).getNotifications();
         let notifications = [];
+        let repeatedOfferIds = new Set();
         offerIdPairs.forEach( (offerIdPair) => {
-            let offer = this.getOffer(offerIdPair.outOfferId);
-            let user = this.getUser(offer.getUserId());
-            let videoGame = this.getVideoGame(offer.getVideoGameId());
-            let notificationProps = user.getProperties();
-            notificationProps.title = videoGame.getTitle();
-            notificationProps.image = videoGame.getImage();
-            notificationProps.price = offer.getPrice();
-            notificationProps.type = offer.getType();
-            notifications.push(notificationProps);
+            if( repeatedOfferIds.has(offerIdPair.outOfferId)===false ){
+                let offer = this.getOffer(offerIdPair.outOfferId);
+                let user = this.getUser(offer.getUserId());
+                let videoGame = this.getVideoGame(offer.getVideoGameId());
+                let notificationProps = user.getProperties();
+                notificationProps.title = videoGame.getTitle();
+                notificationProps.image = videoGame.getImage();
+                notificationProps.offerId = offer.getOfferId();
+                notificationProps.price = offer.getPrice();
+                notificationProps.type = offer.getType();
+                notifications.push(notificationProps);
+                repeatedOfferIds.add(offerIdPair.outOfferId);
+            }
+            
         });
         return notifications;
     }
