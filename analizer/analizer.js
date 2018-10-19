@@ -146,8 +146,10 @@ class Analizer {
         let offerId = this._offers.insert(offer);
         this.getUser(userId).addSellOffer(offerId);
         this.getVideoGame(videoGameId).addSellOffer(offerId, price);
-        let offerIds = this.getVideoGame(videoGameId).getBuyOfferIdsGreaterEqThan(price);
-        this._addOffersConnections(offerId, offerIds);
+        //let offerIds = this.getVideoGame(videoGameId).getBuyOfferIdsGreaterEqThan(price);
+        //this._addOffersConnections(offerId, offerIds);
+        let offerIds = this._getMatchingOfferIds(offerId);
+        this._createNotifications(offerId, offerIds);
     }
 
     addBuyOffer(userId, videoGameId, price) {
@@ -155,9 +157,14 @@ class Analizer {
         var offerId = this._offers.insert(offer);
         this.getUser(userId).addBuyOffer(offerId);
         this.getVideoGame(videoGameId).addBuyOffer(offerId, price);
-        let offerIds = this.getVideoGame(videoGameId).getSellOfferIdsLowerEqThan(price);
-        this._addOffersConnections(offerId, offerIds);
+        //let offerIds = this.getVideoGame(videoGameId).getSellOfferIdsLowerEqThan(price);
+        //this._addOffersConnections(offerId, offerIds);
+        let offerIds = this._getMatchingOfferIds(offerId);
+        this._createNotifications(offerId, offerIds);
     }
+
+    
+
 
     updateUserProperties(userId, properties){
         this.getUser(userId).updateProperties(properties);
@@ -175,7 +182,9 @@ class Analizer {
         var offer = this.getOffer(offerId);
         this.getUser(offer.getUserId()).deleteOffer(offerId);
         this.getVideoGame(offer.getVideoGameId()).deleteOffer(offerId, offer.getType(), offer.getPrice());
-        this._deleteOffersConnections(offerId);
+        //this._deleteOffersConnections(offerId);
+        let offerIds = this._getMatchingOfferIds(offerId);
+        this._removeNotifications(offerId, offerIds);
         this._offers.remove(offerId);
     }
 
@@ -231,6 +240,35 @@ class Analizer {
         return videoGameOffersList;
     }
 
+    _getMatchingOfferIds(offerId){
+        let offer = this.getOffer(offerId);
+        let offerIds = []
+        if(offer.getType()===this._SELL){
+            offerIds = this.getVideoGame(offer.getVideoGameId()).getBuyOfferIdsGreaterEqThan(offer.getPrice());
+        } else if( offer.getType()===this._BUY ){
+            offerIds = this.getVideoGame(offer.getVideoGameId()).getSellOfferIdsLowerEqThan(offer.getPrice());
+        }
+        return offerIds;
+    }
+
+    _createNotifications(originOfferId, offerIds){
+        offerIds.forEach( offerId => {
+            let offer = this.getOffer(offerId);
+            this.getUser(offer.getUserId()).addNotification(originOfferId, offerId);
+        })
+    }
+
+    _removeNotifications(originOfferId, offerIds){
+        let originOffer = this.getOffer(originOfferId);
+        let originUser = this.getUser(originOffer.getUserId());
+        offerIds.forEach( offerId => {
+            originUser.deleteNotification(offerId, originOfferId);
+            let offer = this.getOffer(offerId);
+            this.getUser(offer.getUserId()).deleteNotification(originOfferId, offerId);
+        })
+    }
+
+    /*
     _addOffersConnections(newOfferId, offerIds){
         let newOffer = this.getOffer(newOfferId);
         offerIds.forEach( (offerId) => {
@@ -241,7 +279,9 @@ class Analizer {
             user.addNotification(newOfferId, offerId);
         });
     }
+    */
 
+    /*
     _deleteOffersConnections(offerIdToDelete){
         let offerToDelete = this.getOffer(offerIdToDelete);
         let offerIds = offerToDelete.getConnections();
@@ -254,6 +294,7 @@ class Analizer {
             user.deleteNotification(offerId, offerIdToDelete);
         })
     }
+    */
 
 
     loadCatalogueFromFolders(cataloguePath) {
@@ -285,6 +326,8 @@ class Analizer {
 
         return;
     }
+
+
 
  
 }

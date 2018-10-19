@@ -473,7 +473,9 @@ app.post('/addBuyOffer', (request, response) => {
     response.json(msg);
 })
 
-
+/*
+	/deleteOffer?offerId=0
+*/
 app.post('/deleteOffer', (request, response) => {
     let msg = {};
     msg.action = 'Delete Offer';
