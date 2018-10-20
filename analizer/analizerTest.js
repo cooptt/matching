@@ -651,6 +651,34 @@ class AnalizerTest {
 		
 	}
 
+	testGetBestUsers(){
+		let analizer = new Analizer();
+		analizer.addUser(16);
+		analizer.addUser(17);
+		analizer.addUser(18);
+		analizer.addUser(19);
+		analizer.addVideoGame('Halo','halo.jpg');
+		analizer.addVideoGame("Call of Duty", "call_of_duty.jpg");
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/400);
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/500);
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/1,/*price*/400);
+		
+
+		analizer.addBuyOffer(/*userId*/1,/*videoGameId*/1,/*price*/600);
+
+
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/1,/*price*/700);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/600);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/800);
+
+		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/1,/*price*/700);
+		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/0,/*price*/700);
+
+
+		console.log(analizer.getBestUsers(0));
+		
+	}
+
 
 
 	
@@ -672,6 +700,7 @@ class AnalizerTest {
 	    this.testGetVideoGameBuyList();	
 	    this.testNotifications();
 	    this.testGetOffersProperties();
+	    this.testGetBestUsers();
 		console.log("AnalizerTest ended ...\n")
 
 
