@@ -135,6 +135,51 @@ class Analizer {
         return offersPropertiesList;
     };
 
+    getRankedUsers(userId){
+        let user = this.getUser(userId);
+        let offerIds = user.getSellList();
+        let offers = offerIds.map( id => this.getOffer(id) );
+        offers.sort( (a,b) => {
+            return a.getPrice() - b.getPrice() ;
+        })
+        let rankings = new Map();
+        let repOfferIds = new Set();
+        offers.forEach( offer => {
+            let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
+            let mOffers = mOfferIds.map( mOfferId => this.getOffer(mOfferId) );
+            mOffers.sort( (a,b) => {
+                return a.getPrice() - b.getPrice();
+            });
+
+            let repUsers = new Set();
+            for(let i=0;i<mOffers.length;i++){
+                let mOffer = mOffers[i];
+                let mUserId = mOffer.getUserId()
+                if(repUsers.has(mUserId)===false
+                    && repOfferIds.has(mOffer.getOfferId())===false ){
+                    repUsers.add(mUserId);
+                    repOfferIds.add(mOffer.getOfferId());
+
+                    if(rankings.has(mUserId)===false){
+                        rankings.set(mUserId,0);
+                    }
+                    let preVal = rankings.get(mUserId)+1;
+                    rankings.set(mUserId,preVal);
+                }
+            }
+        });
+        let ranks = []
+        for(let key of rankings.keys() ){
+            ranks.push( [key, rankings.get(key) ] );
+        }
+
+        ranks.sort( (a,b) => {
+            return b[1]-a[1];
+        })
+
+        return ranks;
+    }
+
     getBestUsers(userId){
         let sellMatches = this._getBipartiteMatchings(this.getUser(userId).getSellList() );
         let buyMatches = this._getBipartiteMatchings(this.getUser(userId).getBuyList() );

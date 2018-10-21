@@ -661,21 +661,29 @@ class AnalizerTest {
 		analizer.addVideoGame("Call of Duty", "call_of_duty.jpg");
 		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/400);
 		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/500);
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/600);
 		analizer.addSellOffer(/*userId*/0,/*videoGameId*/1,/*price*/400);
 		
 
 		analizer.addBuyOffer(/*userId*/1,/*videoGameId*/1,/*price*/600);
+		analizer.addBuyOffer(/*userId*/1,/*videoGameId*/1,/*price*/700);
 
 
 		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/1,/*price*/700);
-		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/600);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/900);
 		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/800);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/800);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/800);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/800);
+		
 
 		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/1,/*price*/700);
+		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/1,/*price*/700);
+		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/0,/*price*/700);
 		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/0,/*price*/700);
 
-
-		console.log(analizer.getBestUsers(0));
+		console.log(analizer.getRankedUsers(0));
+		//console.log(analizer.getBestUsers(0));
 		
 	}
 
