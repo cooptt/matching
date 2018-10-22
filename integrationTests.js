@@ -99,13 +99,13 @@ class IntegrationTests {
 	}
 
 	testLogin(){
-		let src = '/signin?loginServiceId=1234'
+		let src = '/signin?loginServiceId=16'
 		let body = {  }
 		this.testPOST(src, body);
 	}
 
 	testLogin2(){
-		let src = '/signin?loginServiceId=666'
+		let src = '/signin?loginServiceId=17'
 		let body = {  }
 		this.testPOST(src, body);
 	}
@@ -140,7 +140,17 @@ class IntegrationTests {
 		let body = {
 			firstName:'Felipe',
 			lastName:'Mendoza',
-			email:'felipe@gmail.com'
+			email:'felipfmg17@gmail.com'
+		}
+		this.testPOST(rsc, body);
+	}
+
+	testUpdateUserProperties2(){
+		let rsc = '/updateUserProperties?userId=1'
+		let body = {
+			firstName:'Jaime',
+			lastName:'Daniel',
+			email:'felipfmg17@gmail.com'
 		}
 		this.testPOST(rsc, body);
 	}
@@ -192,6 +202,7 @@ class IntegrationTests {
 
 
 
+
 	runAllTests(){
 		console.log("IntegrationTest started ...");
 		this.testLoadCatalogueFromFolders();
@@ -199,11 +210,12 @@ class IntegrationTests {
 		
 		this.testLogin();
 		this.testLogin2();
-		//this.testUpdateUserProperties();
+		this.testUpdateUserProperties();
+		this.testUpdateUserProperties2();
 		//this.testGetUserProperties();
 		//this.testGetCatalogue();
 		this.testAddSellOffer();
-		this.testAddSellOffer();
+		//this.testAddSellOffer();
 		//this.testDeleteOffer();
 		this.testAddBuyOffer2();
 		//this.testGetUserSellList();
@@ -212,7 +224,7 @@ class IntegrationTests {
 		//this.testGetVideoGameBuyList();
 		//this.testGetNotifications();
 		//this.testGetOffersProperties();
-		this.testGetRankedUsers();
+		//this.testGetRankedUsers();
 	}
 
 }

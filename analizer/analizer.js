@@ -2,6 +2,7 @@
 
 const analizerHelper = require("./analizerHelper");
 const utils = require("./utils");
+const nodemailer = require('nodemailer');
 const User = analizerHelper.User;
 const TreeNode = analizerHelper.TreeNode;
 const VideoGame = analizerHelper.VideoGame;
@@ -144,54 +145,7 @@ class Analizer {
         return ranks
     }
 
-    _rankUsers(userId, offerIds){
-        let offers = offerIds.map( id => this.getOffer(id) );
-        offers.sort( (a,b) => {
-            return a.getPrice() - b.getPrice() ;
-        })
-        let rankings = new Map();
-        let repOfferIds = new Set();
-        offers.forEach( offer => {
-            let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
-            let mOffers = mOfferIds.map( mOfferId => this.getOffer(mOfferId) );
-            mOffers.sort( (a,b) => {
-                return a.getPrice() - b.getPrice();
-            });
-
-            let repUsers = new Set();
-            for(let i=0;i<mOffers.length;i++){
-                let mOffer = mOffers[i];
-                let mUserId = mOffer.getUserId()
-                if(repUsers.has(mUserId)===false
-                    && repOfferIds.has(mOffer.getOfferId())===false ){
-                    repUsers.add(mUserId);
-                    repOfferIds.add(mOffer.getOfferId());
-
-                    if(rankings.has(mUserId)===false){
-                        rankings.set(mUserId,0);
-                    }
-                    let preVal = rankings.get(mUserId)+1;
-                    rankings.set(mUserId,preVal);
-                }
-            }
-        });
-        let ranks = []
-        for(let key of rankings.keys() ){
-            ranks.push( [key, rankings.get(key) ] );
-        }
-
-        ranks.sort( (a,b) => {
-            return b[1]-a[1];
-        })
-
-        let usersProps = []
-        for(let i=0;i<ranks.length;i++){
-            let obj = this.getUser(ranks[i][0]).getProperties();
-            obj.matches = ranks[i][1];
-            usersProps.push(obj);
-        }
-        return usersProps;
-    }
+    
 
 
 
@@ -316,6 +270,7 @@ class Analizer {
         offerIds.forEach( offerId => {
             let offer = this.getOffer(offerId);
             this.getUser(offer.getUserId()).addNotification(originOfferId, offerId);
+            this._sendNotification(offer.getUserId(), originOfferId);
         })
     }
 
@@ -328,6 +283,101 @@ class Analizer {
             this.getUser(offer.getUserId()).deleteNotification(originOfferId, offerId);
         })
     }
+
+    _rankUsers(userId, offerIds){
+        let offers = offerIds.map( id => this.getOffer(id) );
+        offers.sort( (a,b) => {
+            return a.getPrice() - b.getPrice() ;
+        })
+        let rankings = new Map();
+        let repOfferIds = new Set();
+        offers.forEach( offer => {
+            let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
+            let mOffers = mOfferIds.map( mOfferId => this.getOffer(mOfferId) );
+            mOffers.sort( (a,b) => {
+                return a.getPrice() - b.getPrice();
+            });
+
+            let repUsers = new Set();
+            for(let i=0;i<mOffers.length;i++){
+                let mOffer = mOffers[i];
+                let mUserId = mOffer.getUserId()
+                if(repUsers.has(mUserId)===false
+                    && repOfferIds.has(mOffer.getOfferId())===false ){
+                    repUsers.add(mUserId);
+                    repOfferIds.add(mOffer.getOfferId());
+
+                    if(rankings.has(mUserId)===false){
+                        rankings.set(mUserId,0);
+                    }
+                    let preVal = rankings.get(mUserId)+1;
+                    rankings.set(mUserId,preVal);
+                }
+            }
+        });
+        let ranks = []
+        for(let key of rankings.keys() ){
+            ranks.push( [key, rankings.get(key) ] );
+        }
+
+        ranks.sort( (a,b) => {
+            return b[1]-a[1];
+        })
+
+        let usersProps = []
+        for(let i=0;i<ranks.length;i++){
+            let obj = this.getUser(ranks[i][0]).getProperties();
+            obj.matches = ranks[i][1];
+            usersProps.push(obj);
+        }
+        return usersProps;
+    }
+
+
+
+    _sendEmail(mailOptions){
+        let transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'cooperativapascaltt@gmail.com',
+            pass: 'Cooperativa2018' }
+        });
+
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else { 
+                console.log('Email sent: ' + info.response); }
+        });
+    }
+
+    _sendNotification(userId, offerId){
+        let destinationEmail = this.getUser(userId).getEmail();
+        if(destinationEmail!==null){
+            let offer = this.getOffer(offerId);
+            let ownerUser = this.getUser(offer.getUserId());
+            let videoGame = this.getVideoGame(offer.getVideoGameId());
+            let text = "User " + ownerUser.getFirstName() + ' ' + ownerUser.getLastName() ;
+            text += ' submitted a new offer that might be interesting to you:\n'
+            if(offer.getType()===0){
+                text += 'Buying '
+            } else if ( offer.getType()===1 ){
+                text += 'Selling '
+            }
+            text += videoGame.getTitle() + ' for ';
+            text += '$ ' + offer.getPrice();
+
+            let mailOptions = {
+              from: 'cooperativapascaltt@gmail.com',
+              to: destinationEmail,
+              subject: 'New offer match',
+              text: text
+            };
+            //this._sendEmail(mailOptions);
+            //console.log(text);
+        }     
+    }
+
 
     /*
     _addOffersConnections(newOfferId, offerIds){
