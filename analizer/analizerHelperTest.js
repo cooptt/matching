@@ -141,7 +141,7 @@ class UserTest {
 
 		let isValid = true;
 		let found = user.getMyRating();
-		let original = 6
+		let original = '6.00'
 		if( found!==original ){
 			isValid = false;
 			console.log("Differ");

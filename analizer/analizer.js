@@ -154,6 +154,7 @@ class Analizer {
     addUser(loginServiceId) {
         this._loginServiceMap.set(loginServiceId, this._users.nextId() );
         this._users.insert( new User(this._users.nextId(), loginServiceId ) );
+        return this.getUserIdFromLoginServiceId(loginServiceId)
     }
 
     addSellOffer(userId, videoGameId, price) {
@@ -176,6 +177,20 @@ class Analizer {
         //this._addOffersConnections(offerId, offerIds);
         let offerIds = this._getMatchingOfferIds(offerId);
         this._createNotifications(offerId, offerIds);
+    }
+
+    addRatingToUser(ratingUserId, ratedUserId, rating){
+        let ratingUser = this.getUser(ratingUserId);
+        let ratedUser = this.getUser(ratedUserId);
+
+        if( ratingUser.hasUserRating(ratedUserId) ){
+            let oldRating = ratingUser.getUserRating(ratedUserId);
+            ratedUser.changeMyRating(oldRating,rating);
+            ratingUser.updateUserRating(ratedUserId, rating);
+        } else {
+            ratedUser.updateMyRating(rating);
+            ratingUser.addUserRating(ratedUserId, rating);
+        }
     }
 
     

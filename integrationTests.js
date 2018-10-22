@@ -161,6 +161,12 @@ class IntegrationTests {
 		this.testPOST(rsc, body);
 	}
 
+	testAddRatingToUser(){
+		let rsc = '/addRatingToUser?ratingUserId=1&ratedUserId=0&rating=4'
+		let body = {}
+		this.testPOST(rsc, body);
+	}
+
 
 	testGetUserProperties(){
 		this.testGET('/getUserProperties?userId=0');
@@ -210,14 +216,13 @@ class IntegrationTests {
 		
 		this.testLogin();
 		this.testLogin2();
-		this.testUpdateUserProperties();
-		this.testUpdateUserProperties2();
-		//this.testGetUserProperties();
+		//this.testUpdateUserProperties();
+		//this.testUpdateUserProperties2();
 		//this.testGetCatalogue();
-		this.testAddSellOffer();
+		//this.testAddSellOffer();
 		//this.testAddSellOffer();
 		//this.testDeleteOffer();
-		this.testAddBuyOffer2();
+		//this.testAddBuyOffer2();
 		//this.testGetUserSellList();
 		//this.testGetUserBuyList();
 		//this.testGetVideoGameSellList();
@@ -225,6 +230,8 @@ class IntegrationTests {
 		//this.testGetNotifications();
 		//this.testGetOffersProperties();
 		//this.testGetRankedUsers();
+		this.testAddRatingToUser();
+		this.testGetUserProperties();
 	}
 
 }

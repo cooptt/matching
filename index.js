@@ -363,7 +363,7 @@ app.get('/getOffersProperties', (request, response) => {
 
 /*
 	/getRankedUsers?userId=0
-	
+
 	[ { userId: 2,
 	    loginServiceId: 18,
 	    firstName: null,
@@ -464,6 +464,7 @@ app.post('/addSellOffer', (request, response) => {
     let userId = parseInt(request.query.userId);
     let videoGameId = parseInt(request.query.videoGameId);
     let price = parseFloat(request.query.price).toFixed(2);
+    price = parseFloat(price);
 
     let isValid = true;
 
@@ -493,6 +494,7 @@ app.post('/addBuyOffer', (request, response) => {
     let userId = parseInt(request.query.userId);
     let videoGameId = parseInt(request.query.videoGameId);
     let price = parseFloat(request.query.price).toFixed(2);
+    price = parseFloat(price);
 
     let isValid = true;
 
@@ -537,7 +539,31 @@ app.post('/deleteOffer', (request, response) => {
     response.json(msg);
 })
 
+/*
+	/addRatingToUser?ratingUserId=1&ratedUserId=0&rating=4
 
+*/
+app.post('/addRatingToUser', (request,response) => {
+	let msg = {};
+	msg.action = 'Add Rating to User';
+	let ratingUserId = parseInt(request.query.ratingUserId);
+	let ratedUserId = parseInt(request.query.ratedUserId);
+	let rating = parseInt(request.query.rating);
+
+	let isValid = true;
+
+	if(analizer.userIdExists(ratingUserId)===false 
+		|| analizer.userIdExists(ratedUserId)===false ){
+		isValid = false;
+		msg.data = "Invalid userIds";
+	}
+
+	if(isValid){
+		analizer.addRatingToUser(ratingUserId, ratedUserId, rating);
+	}
+
+	response.json(msg);
+})
 
 
 

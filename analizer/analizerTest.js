@@ -429,28 +429,45 @@ class AnalizerTest {
 		let result = true;
 
 		analizer.addUser(/*loginServiceId*/ 17);
+		analizer.addUser(/*loginServiceId*/ 18);
+		analizer.updateUserProperties(0, {
+			firstName:'Felipe',
+			lastName:'Mendoza',
+			email:'felip@gmail.com'
+		});
 
-		let userData = analizer.getUserProperties(0);
+
+
+		let found = analizer.getUserProperties(0);
 
 		let original = {
             userId:0,
             loginServiceId:17,
             firstName:null,
             lastName:null,
-            email:null
+            email:null,
+            myRating:null,
+            myRatingCount:0,
+            firstName:'Felipe',
+			lastName:'Mendoza',
+			email:'felip@gmail.com'
         }
 
-		if( JSON.stringify(original) !== JSON.stringify(userData) ){
+        let prop =  ["userId","loginServiceId","firstName","lastName","email",'myRating','myRatingCount'];
+
+		if( equalObjects(found,original,prop)===false ){
 			result = false;
 			console.log("userData differ ");
 			console.log("original :", original);
-			console.log("found : ", userData);
+			console.log("found : ", found);
 		}
 
 		if(result===false){
-			console.log("testGetUserId(): ", result);
+			console.log("testGetUserProperties(): ", result);
 		}
 	}
+
+
 
 	testCreateVideoGameOffersList(){
 		let analizer = new Analizer();
@@ -722,6 +739,57 @@ class AnalizerTest {
 		}
 	}
 
+	testRatings(){
+		let analizer = new Analizer();
+		let result = true;
+
+		let userId1 = analizer.addUser(/*loginServiceId*/ 17);
+		let userId2 = analizer.addUser(/*loginServiceId*/ 18);
+		let userId3 = analizer.addUser(/*loginServiceId*/ 19);
+		let userId4 = analizer.addUser(/*loginServiceId*/ 20);
+		analizer.updateUserProperties(0, {
+			firstName:'Felipe',
+			lastName:'Mendoza',
+			email:'felip@gmail.com'
+		});
+
+		analizer.addRatingToUser(userId2,userId1,3);
+		analizer.addRatingToUser(userId3,userId1,5);
+		analizer.addRatingToUser(userId4,userId1,4);
+		analizer.addRatingToUser(userId3,userId1,3);
+
+
+
+
+		let found = analizer.getUserProperties(0);
+
+		let original = {
+            userId:0,
+            loginServiceId:17,
+            firstName:null,
+            lastName:null,
+            email:null,
+            myRating:'3.33',
+            myRatingCount:3,
+            firstName:'Felipe',
+			lastName:'Mendoza',
+			email:'felip@gmail.com'
+        }
+
+        let prop =  ["userId","loginServiceId","firstName","lastName","email",'myRating','myRatingCount'];
+
+		if( equalObjects(found,original,prop)===false ){
+			result = false;
+			console.log("userData differ ");
+			console.log("original :", original);
+			console.log("found : ", found);
+		}
+
+		if(result===false){
+			console.log("testRatings(): ", result);
+		}
+	}
+
 
 
 	
@@ -745,6 +813,7 @@ class AnalizerTest {
 	    this.testGetOffersProperties();
 	    //this.testGetBestUsers();
 	    this.testGetRankedUsers();
+	    this.testRatings();
 		console.log("AnalizerTest ended ...\n")
 
 

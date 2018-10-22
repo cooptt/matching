@@ -18,7 +18,8 @@ class User {
         this._notifications = new CircularQueue(10, (offerIdPairA, offerIdPairB) => {
             return offerIdPairA.outOfferId===offerIdPairB.outOfferId && offerIdPairA.inOfferId===offerIdPairB.inOfferId;
         });
-        this._myRating = -1;
+        this._myRating = null;
+        this._myRatingSum = 0;
         this._myRatingCount = 0;
         this._usersRatings = new Map() // key: userIds, value: rating
     }
@@ -68,7 +69,9 @@ class User {
             loginServiceId:this._loginServiceId,
             firstName:this._firstName,
             lastName:this._lastName,
-            email:this._email
+            email:this._email,
+            myRating:this._myRating,
+            myRatingCount:this._myRatingCount
         }
     }
 
@@ -88,6 +91,11 @@ class User {
         return this._usersRatings.get(userId);
     }
 
+    hasUserRating(userId){
+        //console.log('hasrating: ', userId, this._usersRatings.has(userId))
+        return this._usersRatings.has(userId);
+    }
+
 
 
     addSellOffer(offerId){
@@ -103,21 +111,20 @@ class User {
     }
 
     addUserRating(userId, rating){
+        //console.log( 'adduserRating ', userId);
         this._usersRatings.set(userId, rating);
     }
 
 
     updateMyRating(rating){
-        let myRating = this._myRating*this._myRatingCount;
-        myRating += rating;
+        this._myRatingSum += rating;
         this._myRatingCount++;
-        this._myRating = myRating/this._myRatingCount;
+        this._myRating = (this._myRatingSum/this._myRatingCount).toFixed(2);;
     }
 
     changeMyRating(oldRating, newRating){
-        let myRating = this._myRating*this._myRatingCount;
-        myRating += newRating - oldRating;
-        this._myRating = myRating/this._myRatingCount;
+        this._myRatingSum += newRating - oldRating;
+        this._myRating = (this._myRatingSum/this._myRatingCount).toFixed(2);;
     }
 
     updateUserRating(userId, rating){
