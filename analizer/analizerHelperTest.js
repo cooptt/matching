@@ -128,6 +128,49 @@ class UserTest {
 
 	}
 
+	testMyRating(){
+		let user = new User(/*userId*/ 4, /*loginServiceId*/ 17);
+		user.updateMyRating(1);
+		user.updateMyRating(2);
+		user.updateMyRating(3);
+		user.updateMyRating(4);
+		user.updateMyRating(5);
+		user.changeMyRating(/*OldRating*/5,/*NewRating*/10);
+		user.updateMyRating(20);
+		user.changeMyRating(5,1);
+
+		let isValid = true;
+		let found = user.getMyRating();
+		let original = 6
+		if( found!==original ){
+			isValid = false;
+			console.log("Differ");
+			console.log("original: ", original);
+			console.log("found: ", found);
+		}
+
+		if( isValid===false ){
+			console.log("testMyRating: ",false);
+		}
+	}
+
+	testUserRatings(){
+		let user = new User(/*userId*/ 4, /*loginServiceId*/ 17);
+		user.updateUserRating(/*userId*/3,/*rating*/5);
+		user.updateUserRating(/*userId*/2,/*rating*/4);
+		let found = user.getUserRating(3);
+		let original = 5;
+
+		if( found!==original){
+			console.log("Differ");
+			console.log("original: ", original);
+			console.log("found: ", found);
+			console.log("testUserRatings: ",false);
+		}
+	}
+
+
+
 	runAllTests(){
 		console.log("UserTest started ...");
 		this.testAddSellOffers();
@@ -135,6 +178,8 @@ class UserTest {
 		this.testGetProperties();
 		this.testUpdateProperties();
 		this.testNotifications();
+		this.testMyRating();
+		this.testUserRatings();
 		console.log("UserTest ended ...\n")
 	}
 }
