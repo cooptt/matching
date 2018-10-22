@@ -651,7 +651,7 @@ class AnalizerTest {
 		
 	}
 
-	testGetBestUsers(){
+	testGetRankedUsers(){
 		let analizer = new Analizer();
 		analizer.addUser(16);
 		analizer.addUser(17);
@@ -675,16 +675,51 @@ class AnalizerTest {
 		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/800);
 		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/800);
 		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/800);
-		
+
 
 		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/1,/*price*/700);
 		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/1,/*price*/700);
 		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/0,/*price*/700);
 		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/0,/*price*/700);
 
-		console.log(analizer.getRankedUsers(0));
-		//console.log(analizer.getBestUsers(0));
-		
+		//console.log(analizer.getRankedUsers(0));
+		//console.log(analizer.getRankedUsers(1));
+
+
+		let original = [ { userId: 2,
+					    loginServiceId: 18,
+					    firstName: null,
+					    lastName: null,
+					    email: null,
+					    matches: 4 },
+					  { userId: 3,
+					    loginServiceId: 19,
+					    firstName: null,
+					    lastName: null,
+					    email: null,
+					    matches: 3 },
+					  { userId: 1,
+					    loginServiceId: 17,
+					    firstName: null,
+					    lastName: null,
+					    email: null,
+					    matches: 1 } ];
+
+		let found = analizer.getRankedUsers(0);
+
+		let prop = ['userId','loginServiceId','firstName','lastName','email','matches'];
+		let result = true;
+
+		if( equalArrays(original,found, prop )===false ){
+			result = false;
+			console.log("Differ");
+			console.log("original: ",original);
+			console.log("found: ", found);
+		}
+
+		if(result===false){
+			console.log("testGetRankedUsers: ",result);
+		}
 	}
 
 
@@ -708,7 +743,8 @@ class AnalizerTest {
 	    this.testGetVideoGameBuyList();	
 	    this.testNotifications();
 	    this.testGetOffersProperties();
-	    this.testGetBestUsers();
+	    //this.testGetBestUsers();
+	    this.testGetRankedUsers();
 		console.log("AnalizerTest ended ...\n")
 
 

@@ -135,9 +135,16 @@ class Analizer {
         return offersPropertiesList;
     };
 
+
     getRankedUsers(userId){
         let user = this.getUser(userId);
         let offerIds = user.getSellList();
+        offerIds = offerIds.concat(user.getBuyList());
+        let ranks = this._rankUsers(userId, offerIds);
+        return ranks
+    }
+
+    _rankUsers(userId, offerIds){
         let offers = offerIds.map( id => this.getOffer(id) );
         offers.sort( (a,b) => {
             return a.getPrice() - b.getPrice() ;
@@ -177,171 +184,14 @@ class Analizer {
             return b[1]-a[1];
         })
 
-        return ranks;
-    }
-
-    getBestUsers(userId){
-        let sellMatches = this._getBipartiteMatchings(this.getUser(userId).getSellList() );
-        let buyMatches = this._getBipartiteMatchings(this.getUser(userId).getBuyList() );
-        let matches = sellMatches.concat(buyMatches);
-        let usersRank = new Map();
-        matches.forEach( match => {
-            let offer = this.getOffer(match.outOfferId);
-            let mUserId = offer.getUserId();
-            if( usersRank.has(mUserId)===false ){
-                usersRank.set(mUserId, 0);
-            }
-            let val = usersRank.get(mUserId) + 1;
-            usersRank.set(mUserId, val);
-        })
-
-        console.log(matches);
-
-        let sortedUsers = [];
-        for(let key of usersRank.keys() ){
-            sortedUsers.push({
-                userId:key,
-                rank:usersRank.get(key)
-            })
+        let usersProps = []
+        for(let i=0;i<ranks.length;i++){
+            let obj = this.getUser(ranks[i][0]).getProperties();
+            obj.matches = ranks[i][1];
+            usersProps.push(obj);
         }
-
-        sortedUsers.sort( (a,b) => {
-            return a.rank - b.rank;
-        })
-
-        return sortedUsers;
+        return usersProps;
     }
-
-
-    _getBipartiteMatchings(offerIds){
-
-        offerIds.sort( (a,b) => {
-            return this.getOffer(a).getPrice() 
-                    - this.getOffer(b).getPrice();
-        })
-
-        let repeated = new Set(), matches = [];
-        offerIds.forEach(inOfferId => {
-            let matchingOfferIds = this._getMatchingOfferIds(inOfferId);
-            matchingOfferIds.sort( (a,b) => {
-                return this.getOffer(a).getPrice() 
-                        - this.getOffer(b).getPrice();
-            })
-
-           for(let i=0;i<matchingOfferIds.length;i++){
-                let outOfferId = matchingOfferIds[i];
-                if( repeated.has(outOfferId)===false ){
-                    matches.push( {inOfferId:inOfferId, outOfferId:outOfferId} );
-                    repeated.add(outOfferId);
-                    break;
-                }
-           }
-        })
-
-        return matches;
-    }
-
-
-    /*
-    _getUserSellMatches(userId){
-        let user = this.getUser(userId);
-        let offerIds = user.getSellList();
-        offerIds.sort( (a,b) => {
-            return this.getOffer(a).getPrice() 
-                    - this.getOffer(b).getPrice();
-        })
-
-        let repeated = new Set();
-        let matches = []
-        offerIds.forEach(inOfferId => {
-            let matchingOfferIds = this._getMatchingOfferIds(inOfferId);
-            matchingOfferIds.sort( (a,b) => {
-                return this.getOffer(a).getPrice() 
-                        - this.getOffer(b).getPrice();
-            })
-
-           for(let i=0;i<matchingOfferIds.length;i++){
-                let outOfferId = matchingOfferIds[i];
-                if( repeated.has(outOfferId)===false ){
-                    matches.push( {inOfferId:inOfferId, outOfferId:outOfferId} );
-                    repeated.add(outOfferId);
-                    break;
-                }
-           }
-        })
-
-        return matches;
-    }
-
-    _getUserBuyMatches(userId){
-        let user = this.getUser(userId);
-        let offerIds = user.getBuyList();
-        offerIds.sort( (a,b) => {
-            return this.getOffer(a).getPrice() 
-                    - this.getOffer(b).getPrice();
-        })
-
-        let repeated = new Set();
-        let matches = []
-        offerIds.forEach(inOfferId => {
-            let matchingOfferIds = this._getMatchingOfferIds(inOfferId);
-            matchingOfferIds.sort( (a,b) => {
-                return this.getOffer(a).getPrice() 
-                        - this.getOffer(b).getPrice();
-            })
-
-           for(let i=0;i<matchingOfferIds.length;i++){
-                let outOfferId = matchingOfferIds[i];
-                if( repeated.has(outOfferId)===false ){
-                    matches.push( {inOfferId:inOfferId, outOfferId:outOfferId} );
-                    repeated.add(outOfferId);
-                    break;
-                }
-           }
-        })
-
-        return matches;
-    }
-
-    */
-
-
-    /*
-    getBestUsers(userId){
-        let user = this.getUser(userId);
-        let offerIds = user.getSellList();
-        offerIds.sort( (a,b) => {
-            return this.getOffer(a).getPrice() 
-                    - this.getOffer(b).getPrice();
-        })
-
-        let repeated = new Set();
-        let matches = []
-        offerIds.forEach(inOfferId => {
-            let matchingOfferIds = this._getMatchingOfferIds(inOfferId);
-            matchingOfferIds.sort( (a,b) => {
-                return this.getOffer(a).getPrice() 
-                        - this.getOffer(b).getPrice();
-            })
-
-           for(let i=0;i<matchingOfferIds.length;i++){
-                let outOfferId = matchingOfferIds[i];
-                if( repeated.has(outOfferId)===false ){
-                    matches.push( {inOfferId:inOfferId, outOfferId:outOfferId} );
-                    repeated.add(outOfferId);
-                    break;
-                }
-           }
-        })
-
-        return matches;
-    }
-    */
-
-
-
-
-
 
 
 

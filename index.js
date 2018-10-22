@@ -361,6 +361,46 @@ app.get('/getOffersProperties', (request, response) => {
     response.json(msg);
 })
 
+/*
+	/getRankedUsers?userId=0
+	
+	[ { userId: 2,
+	    loginServiceId: 18,
+	    firstName: null,
+	    lastName: null,
+	    email: null,
+	    matches: 4 },
+	  { userId: 3,
+	    loginServiceId: 19,
+	    firstName: null,
+	    lastName: null,
+	    email: null,
+	    matches: 3 },
+	  { userId: 1,
+	    loginServiceId: 17,
+	    firstName: null,
+	    lastName: null,
+	    email: null,
+	    matches: 1 } ]
+*/
+app.get('/getRankedUsers', (request, response) => {
+	let msg = {}
+	msg.action = 'Get Ranked Users';
+	let userId = parseInt(request.query.userId);
+	let isValid = true;
+
+	if(analizer.userIdExists(userId)===false){
+		isValid = false;
+		msg.data = 'Invalid UserId';
+	}
+
+	if(isValid){
+		msg.data = analizer.getRankedUsers(userId);
+	}
+
+	response.json(msg);
+})
+
 
 
 

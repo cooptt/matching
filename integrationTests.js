@@ -184,6 +184,10 @@ class IntegrationTests {
 		this.testGET('/getOffersProperties?userId=0');
 	}
 
+	testGetRankedUsers(){
+		this.testGET('/getRankedUsers?userId=0');
+	}
+
 
 
 
@@ -194,20 +198,21 @@ class IntegrationTests {
 
 		
 		this.testLogin();
-		//this.testLogin2();
+		this.testLogin2();
 		//this.testUpdateUserProperties();
 		//this.testGetUserProperties();
 		//this.testGetCatalogue();
 		this.testAddSellOffer();
 		this.testAddSellOffer();
-		this.testDeleteOffer();
-		//this.testAddBuyOffer2();
+		//this.testDeleteOffer();
+		this.testAddBuyOffer2();
 		//this.testGetUserSellList();
 		//this.testGetUserBuyList();
 		//this.testGetVideoGameSellList();
 		//this.testGetVideoGameBuyList();
 		//this.testGetNotifications();
-		this.testGetOffersProperties();
+		//this.testGetOffersProperties();
+		this.testGetRankedUsers();
 	}
 
 }
