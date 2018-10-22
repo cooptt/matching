@@ -117,7 +117,7 @@ class IntegrationTests {
 	}	
 
 	testAddSellOffer2(){
-		let rsc = '/addSellOffer?userId=0&videoGameId=0&price=500'
+		let rsc = '/addSellOffer?userId=1&videoGameId=1&price=500'
 		let body = {}
 		this.testPOST(rsc, body);
 	}
@@ -204,6 +204,10 @@ class IntegrationTests {
 		this.testGET('/getRankedUsers?userId=0');
 	}
 
+	testGetUserMatchingVideoGames(){
+		this.testGET('/getUserMatchingVideoGames?userId=0')
+	}
+
 
 
 
@@ -219,10 +223,11 @@ class IntegrationTests {
 		//this.testUpdateUserProperties();
 		//this.testUpdateUserProperties2();
 		//this.testGetCatalogue();
-		//this.testAddSellOffer();
-		//this.testAddSellOffer();
+		this.testAddSellOffer();
+		this.testAddSellOffer2();
 		//this.testDeleteOffer();
-		//this.testAddBuyOffer2();
+		this.testAddBuyOffer();
+		this.testAddBuyOffer2();
 		//this.testGetUserSellList();
 		//this.testGetUserBuyList();
 		//this.testGetVideoGameSellList();
@@ -230,8 +235,9 @@ class IntegrationTests {
 		//this.testGetNotifications();
 		//this.testGetOffersProperties();
 		//this.testGetRankedUsers();
-		this.testAddRatingToUser();
-		this.testGetUserProperties();
+		//this.testAddRatingToUser();
+		//this.testGetUserProperties();
+		this.testGetUserMatchingVideoGames();
 	}
 
 }

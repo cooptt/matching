@@ -402,7 +402,31 @@ app.get('/getRankedUsers', (request, response) => {
 })
 
 
+/*
+	/getUserMatchingVideoGames?userId=0
 
+	[ 
+		{ videoGameId: 0, title: 'Halo', image: 'halo.jpg' },
+		{ videoGameId: 1, title: 'Call of Duty',image: 'call_of_duty.jpg' },
+		{ videoGameId: 2, title: 'Gow', image: 'gow.jpg' } ]
+*/
+app.get('/getUserMatchingVideoGames', (request, response) => {
+	let msg = {}
+	msg.action = 'Get User Matching VideoGames';
+	let userId = parseInt(request.query.userId);
+	let isValid = true;
+
+	if(analizer.userIdExists(userId)===false){
+		isValid = false;
+		msg.data = 'Invalid UserId';
+	}
+
+	if(isValid){
+		msg.data = analizer.getUserMatchingVideoGames(userId);
+	}
+
+	response.json(msg);
+})
 
 
 

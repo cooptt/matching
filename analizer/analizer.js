@@ -145,6 +145,28 @@ class Analizer {
         return ranks
     }
 
+
+    getUserMatchingVideoGames(userId){
+        let user = this.getUser(userId);
+        let offerIds = user.getSellList();
+        offerIds = offerIds.concat(user.getBuyList());
+        let offers = offerIds.map( id => this.getOffer(id) );
+        let matchingVideoGamesIds = new Set()
+        offers.forEach( offer => {
+            let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
+            if(mOfferIds.length>0){
+                matchingVideoGamesIds.add(offer.getVideoGameId());
+            }
+        });
+
+        let matchingVideoGamesProps = []
+        for(let videoGameId of matchingVideoGamesIds ){
+            let videoGame = this.getVideoGame(videoGameId);
+            matchingVideoGamesProps.push(videoGame.getProperties());
+        }
+        return matchingVideoGamesProps;
+    }
+
     
 
 
@@ -299,6 +321,7 @@ class Analizer {
         })
     }
 
+
     _rankUsers(userId, offerIds){
         let offers = offerIds.map( id => this.getOffer(id) );
         offers.sort( (a,b) => {
@@ -323,9 +346,12 @@ class Analizer {
                     repOfferIds.add(mOffer.getOfferId());
 
                     if(rankings.has(mUserId)===false){
-                        rankings.set(mUserId,0);
+                        rankings.set(mUserId,[/*edges*/0,/*diffAcum*/0]);
                     }
-                    let preVal = rankings.get(mUserId)+1;
+
+                    let preVal = rankings.get(mUserId);
+                    preVal[0]++;
+                    preVal[1] += Math.abs(offer.getPrice()-mOffer.getPrice());
                     rankings.set(mUserId,preVal);
                 }
             }
@@ -336,13 +362,13 @@ class Analizer {
         }
 
         ranks.sort( (a,b) => {
-            return b[1]-a[1];
+            return b[1][0]-a[1][0];
         })
 
         let usersProps = []
         for(let i=0;i<ranks.length;i++){
             let obj = this.getUser(ranks[i][0]).getProperties();
-            obj.matches = ranks[i][1];
+            obj.matches = ranks[i][1][0];
             usersProps.push(obj);
         }
         return usersProps;

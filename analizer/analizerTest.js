@@ -741,7 +741,6 @@ class AnalizerTest {
 
 	testRatings(){
 		let analizer = new Analizer();
-		let result = true;
 
 		let userId1 = analizer.addUser(/*loginServiceId*/ 17);
 		let userId2 = analizer.addUser(/*loginServiceId*/ 18);
@@ -759,6 +758,7 @@ class AnalizerTest {
 		analizer.addRatingToUser(userId3,userId1,3);
 
 
+		let result = true;
 
 
 		let found = analizer.getUserProperties(0);
@@ -790,6 +790,48 @@ class AnalizerTest {
 		}
 	}
 
+	testGetUserMatchingVideoGames(){
+		let analizer = new Analizer();
+
+		let userId1 = analizer.addUser(/*loginServiceId*/ 17);
+		let userId2 = analizer.addUser(/*loginServiceId*/ 18);
+		let userId3 = analizer.addUser(/*loginServiceId*/ 19);
+		analizer.addVideoGame('Halo','halo.jpg');
+		analizer.addVideoGame("Call of Duty", "call_of_duty.jpg");
+		analizer.addVideoGame("Gow", "gow.jpg");
+
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/400);
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/500);
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/1,/*price*/800);
+		analizer.addBuyOffer(/*userId*/0,/*videoGameId*/2,/*price*/200);
+		analizer.addBuyOffer(/*userId*/1,/*videoGameId*/0,/*price*/500);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/1,/*price*/800);
+		analizer.addSellOffer(/*userId*/2,/*videoGameId*/2,/*price*/150);
+
+		let original = [ { videoGameId: 0, title: 'Halo', image: 'halo.jpg' },
+		  { videoGameId: 1,
+		    title: 'Call of Duty',
+		    image: 'call_of_duty.jpg' },
+		  { videoGameId: 2, title: 'Gow', image: 'gow.jpg' } ]
+
+		let found = analizer.getUserMatchingVideoGames(userId1);
+
+		let prop =  ['videoGameId','title','image'];
+		let result = true;
+
+		if( equalArrays(found,original,prop)===false ){
+			result = false;
+			console.log("userData differ ");
+			console.log("original :", original);
+			console.log("found : ", found);
+		}
+
+		if(result===false){
+			console.log("testGetUserMatchingVideoGames(): ", result);
+		}
+
+	}
+
 
 
 	
@@ -814,6 +856,7 @@ class AnalizerTest {
 	    //this.testGetBestUsers();
 	    this.testGetRankedUsers();
 	    this.testRatings();
+	    this.testGetUserMatchingVideoGames();
 		console.log("AnalizerTest ended ...\n")
 
 

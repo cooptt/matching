@@ -28,7 +28,7 @@ let runIntegrationTests = function() {
 	let analizerPersistanceTest = new AnalizerPersistanceTest();
 
 	integrationTests.runAllTests();
-	//analizerPersistanceTest.runAllTests();
+	analizerPersistanceTest.runAllTests();
 }
 
 
