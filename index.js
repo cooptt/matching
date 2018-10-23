@@ -239,8 +239,6 @@ app.get('/getVideoGameSellList', (request, response) => {
       msg.data = 'Invalid VideoGameId'
     }
 
-
-
     if(isValid){
       msg.data = analizer.getVideoGameSellList(videoGameId);
     }

@@ -75,12 +75,18 @@ class User {
         }
     }
 
+    // OfferIds
     getSellList(){
         return Array.from(this._sellList);
     }
 
+    // OfferIds
     getBuyList(){
         return Array.from(this._buyList);
+    }
+
+    getSellAndBuyList(){
+        return this.getSellList().concat(this.getBuyList());
     }
 
     getNotifications(){

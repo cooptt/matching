@@ -983,6 +983,55 @@ class AnalizerTest {
 	}
 
 
+	testGetUserSellListWithMatching(){
+		let analizer = new Analizer();
+
+		let userId1 = analizer.addUser(/*loginServiceId*/ 17);
+		let userId2 = analizer.addUser(/*loginServiceId*/ 18);
+		let userId3 = analizer.addUser(/*loginServiceId*/ 19);
+		analizer.updateUserProperties(userId2,{firstName:'Jimbo'});
+		analizer.updateUserProperties(userId3,{firstName:'Chore'});
+		analizer.addVideoGame('Halo','halo.jpg');
+		analizer.addVideoGame("Call of Duty", "call_of_duty.jpg");
+		analizer.addVideoGame("Gow", "gow.jpg");
+
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/400);
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/500);
+		analizer.addBuyOffer(/*userId*/1,/*videoGameId*/0,/*price*/600);
+		analizer.addBuyOffer(/*userId*/1,/*videoGameId*/0,/*price*/300);
+
+		let original = [ { videoGameId: 0,
+					    title: 'Halo',
+					    image: 'halo.jpg',
+					    offerId: 0,
+					    price: 400,
+					    type: 1,
+					    matches: true },
+					  { videoGameId: 0,
+					    title: 'Halo',
+					    image: 'halo.jpg',
+					    offerId: 1,
+					    price: 500,
+					    type: 1,
+					    matches: false } ]
+
+        let found = analizer.getUserSellListWithMatching(1,0)
+
+        let result = true;
+        let prop = ['videoGameId','title','image','offerId','price','type','matches']
+
+        if( equalArrays(found,original,prop)===false ){
+			result = false;
+			console.log("Differ ");
+			console.log("original :", original);
+			console.log("found : ", found);
+		}
+
+		if(result===false){
+			console.log('testVideoGameBuyMatches');
+		}
+	}
+
 	
 	runAllTests() {
 		console.log("AnalizerTest started ...");
@@ -1009,9 +1058,8 @@ class AnalizerTest {
 	    this.testVideoGameSellMatches();
 	    this.testVideoGameSellMatches();
 	    this.testVideoGameBuyMatches();
+	    this.testGetUserSellListWithMatching();
 		console.log("AnalizerTest ended ...\n")
-
-
 	}
 
 

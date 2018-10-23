@@ -233,7 +233,7 @@ class IntegrationTests {
 		this.testLogin2();
 		//this.testUpdateUserProperties();
 		//this.testUpdateUserProperties2();
-		//this.testGetCatalogue();
+		this.testGetCatalogue();
 		this.testAddSellOffer();
 		//this.testAddSellOffer2();
 		//this.testDeleteOffer();

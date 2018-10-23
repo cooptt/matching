@@ -56,28 +56,23 @@ class Analizer {
     getCatalogueSize(){
         return this._catalogue.size();
     }
-
-    
+   
     getUserProperties(userId){
         let user = this.getUser(userId);
         return user.getProperties();
     }
-
-    
+   
     getCatalogue() {
         let catalogue = [];
         this._catalogue.getValues().forEach( videoGame => catalogue.push(videoGame.getProperties()) )
         return catalogue;
     }
 
-    
     getUserSellList(userId){
         var user = this.getUser(userId);
-        var sellList = user.getSellList(); // Array of offerIds
-        return this._createUserOffersList(sellList);
+        var buyList = user.getSellList(); // Array of offerids
+        return this._createUserOffersList(buyList);
     }
-
-
     
     getUserBuyList(userId){
         var user = this.getUser(userId);
@@ -85,21 +80,49 @@ class Analizer {
         return this._createUserOffersList(buyList);
     }
 
-    
+    getUserSellListWithMatching(myUserId, userId){
+        var user = this.getUser(userId);
+        var sellList = user.getSellList(); // Array of offerIds
+        let myUser = this.getUser(myUserId);
+        let myOfferIds = myUser.getBuyList();
+        let matches = this._getMatching(myOfferIds, sellList);
+        //console.log('matches:', matches);
+        let matchingOffers = new Set();
+        matches.forEach( match => {
+            matchingOffers.add(match[1]);
+        })
+        let sellListM = sellList.map( offerId => {
+            let offer = this.getOffer(offerId)
+            let videoGame = this.getVideoGame(offer.getVideoGameId());
+            let props = videoGame.getProperties();
+            props.offerId = offerId;
+            props.price = offer.getPrice();
+            props.type = offer.getType();
+
+            if( matchingOffers.has(offerId) ){
+                props.matches = true;
+            }else{
+                props.matches = false;
+            }
+            return props;
+        })
+        return sellListM;
+    }
+
+
+ 
     getVideoGameSellList(videoGameId){
         let videoGame = this.getVideoGame(videoGameId);
         let sellOfferIds = videoGame.getSellOfferIds();
         return this._createVideoGameOffersList(sellOfferIds);
     }
 
-
     getVideoGameBuyList(videoGameId){
         let videoGame = this.getVideoGame(videoGameId);
         let buyOfferIds = videoGame.getBuyOfferIds();
         return this._createVideoGameOffersList(buyOfferIds);
     }
-
-    
+  
     getNotifications(userId){
         let offerIdPairs = this.getUser(userId).getNotifications();
         let notifications = [];
@@ -134,8 +157,7 @@ class Analizer {
             offersPropertiesList.push(prop);
         } );
         return offersPropertiesList;
-    };
-
+    }
 
     getRankedUsers(userId){
         let user = this.getUser(userId);
@@ -144,7 +166,6 @@ class Analizer {
         let ranks = this._rankUsers(userId, offerIds);
         return ranks
     }
-
 
     getUserMatchingVideoGames(userId){
         let user = this.getUser(userId);
@@ -167,14 +188,18 @@ class Analizer {
         return matchingVideoGamesProps;
     }
 
-
-
+    /* Calculate all sell offers belonging to userId
+    that matches with  offer from any other user
+    returns array of objects containing properties
+    of both matching users and info from the owner
+    of the matching user*/
     getVideoGameSellMatches(userId, videoGameId){
         let user = this.getUser(userId);
         let offerIds = user.getSellList();
         return this._getVideoGameMatches(videoGameId, offerIds);
     }
 
+    /* Same as getVideoGameSellMatches() but with buy Offers */
     getVideoGameBuyMatches(userId, videoGameId){
         let user = this.getUser(userId)
         let offerIds = user.getBuyList();
@@ -183,55 +208,8 @@ class Analizer {
 
 
 
-    _getVideoGameMatches(videoGameId, offerIds){
-        let offers = offerIds.map( id =>  this.getOffer(id)  );
-        offers.sort( (a,b) =>{
-            return a.getPrice() - b.getPrice();
-        })
-        let matches = []
-        let repOfferIds = new Set();
-        offers.forEach( offer => {
-            if( offer.getVideoGameId()===videoGameId ){
-                let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
-                mOfferIds.sort( (a,b) => {
-                    return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
-                })
-                let repUserIds = new Set();
-                for(let i=0;i<mOfferIds.length;i++){
-                    let mOfferId = mOfferIds[i];
-                    let mOffer = this.getOffer(mOfferId);
-                    let mUserId = this.getUser(mOffer.getUserId());
-                    if( repUserIds.has(mUserId)===false && 
-                        repOfferIds.has(mOfferId)===false ){
-                        repOfferIds.add(mOfferId);
-                        repUserIds.add(mUserId);
-                        matches.push([offer.getOfferId(), mOfferId])
-                    }
-                }
-            }
-        } );
-
-        let matchesProps = matches.map( pairIds => this._fillMatchingOffer(pairIds[0],pairIds[1]));
-        return matchesProps;
-    }
-
-    _fillMatchingOffer(myOfferId, matchingOfferId){
-        let myOffer = this.getOffer(myOfferId);
-        let matchingOffer = this.getOffer(matchingOfferId);
-        let matchingUser = this.getUser(matchingOffer.getUserId());
-        return {
-            myOfferId:myOffer.getOfferId(),
-            myOfferPrice:myOffer.getPrice(),
-            myOfferType:myOffer.getType(),
-            matchingOfferId:matchingOffer.getOfferId(),
-            matchingOfferPrice:matchingOffer.getPrice(),
-            matchingOfferType:matchingOffer.getType(),
-            matchingUserId:matchingUser.getUserId(),
-            matchingUserFirstName:matchingUser.getFirstName(),
-            matchingUserLastName:matchingUser.getLastName(),
-            matchingUserEmail:matchingUser.getEmail()
-        } 
-    }
+    
+    
 
 
 
@@ -315,6 +293,14 @@ class Analizer {
 
 
 
+
+
+
+
+
+
+
+
     // PRIVATE FUNCTIONS
 
 
@@ -343,6 +329,7 @@ class Analizer {
             var videoGameProp = this.getVideoGame(offer.getVideoGameId()).getProperties();
             videoGameProp.offerId = offer.getOfferId();
             videoGameProp.price = offer.getPrice();
+            videoGameProp.matches = offerIdList[i];
             userOffersList.push(videoGameProp);
         }
         return userOffersList;
@@ -388,7 +375,6 @@ class Analizer {
             this.getUser(offer.getUserId()).deleteNotification(originOfferId, offerId);
         })
     }
-
 
     _rankUsers(userId, offerIds){
         let offers = offerIds.map( id => this.getOffer(id) );
@@ -442,8 +428,6 @@ class Analizer {
         return usersProps;
     }
 
-
-
     _sendEmail(mailOptions){
         let transporter = nodemailer.createTransport({
           service: 'gmail',
@@ -486,6 +470,159 @@ class Analizer {
             //console.log(text);
         }     
     }
+
+    /* returns true if these offer match */
+    _offersMatch(offerIdA, offerIdB){
+        let offerA = this.getOffer(offerIdA);
+        let offerB = this.getOffer(offerIdB);
+        if(offerA.getType()===this._BUY
+            && offerB.getType()===this._SELL 
+            && offerA.getPrice()>= offerB.getPrice() ){
+            return true;
+        }
+
+        if(offerB.getType()===this._BUY
+            && offerA.getType()===this._SELL 
+            && offerA.getPrice()<= offerB.getPrice() ){
+            return true;
+        }
+
+        return false;
+    }
+
+    _getMatching(offerIds, mOfferIds){
+        offerIds.sort( (a,b) => {
+            return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
+        });
+        mOfferIds.sort((a,b) => {
+            return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
+        })
+        let matches = [];
+        let repOfferIds = new Set();
+        offerIds.forEach( offerId => {
+            let repUserIds = new Set();
+            mOfferIds.forEach( mOfferId => {
+                if( this._offersMatch(offerId,mOfferId)){
+                    let mOffer = this.getOffer(mOfferId);
+                    let mUserId = this.getUser(mOffer.getUserId());
+                    if( repUserIds.has(mUserId)===false 
+                        && repOfferIds.has(mOfferId)===false){
+                        repUserIds.add(mUserId);
+                        repOfferIds.add(mOfferId);
+                        matches.push([offerId,mOfferId]);
+                    }
+                }
+            })
+        })
+        return matches;
+    }
+
+
+    /* 
+        myOffer: one of my offers,
+        returns the offerId of any offer matching myOffer
+        belonging to matchingUserId, is there are no matches
+        returns null
+    */
+    _getMyOfferMatching(myOfferId, matchingUserId){
+        let myOffer = this.getOffer(myOfferId);
+        let matchingUser = this.getUser(matchingUserId);
+        let offerIds = matchingUser.getSellAndBuyList();
+        for(let i=0;i<offerIds.length;i++){
+            let offerId = offerIds[i]
+            if(this._offersMatch(myOfferId, offerId)){
+                return offerId;
+            }
+        }
+
+        return null;
+    }
+
+    _getVideoGameMatches(videoGameId, offerIds){
+        let offers = offerIds.map( id =>  this.getOffer(id)  );
+        offers.sort( (a,b) =>{
+            return a.getPrice() - b.getPrice();
+        })
+        let matches = []
+        let repOfferIds = new Set();
+        offers.forEach( offer => {
+            if( offer.getVideoGameId()===videoGameId ){
+                let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
+                mOfferIds.sort( (a,b) => {
+                    return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
+                })
+                let repUserIds = new Set();
+                for(let i=0;i<mOfferIds.length;i++){
+                    let mOfferId = mOfferIds[i];
+                    let mOffer = this.getOffer(mOfferId);
+                    let mUserId = this.getUser(mOffer.getUserId());
+                    if( repUserIds.has(mUserId)===false && 
+                        repOfferIds.has(mOfferId)===false ){
+                        repOfferIds.add(mOfferId);
+                        repUserIds.add(mUserId);
+                        matches.push([offer.getOfferId(), mOfferId])
+                    }
+                }
+            }
+        } );
+
+        let matchesProps = matches.map( pairIds => this._fillMatchingOffer(pairIds[0],pairIds[1]));
+        return matchesProps;
+    }
+
+    _fillMatchingOffer(myOfferId, matchingOfferId){
+        let myOffer = this.getOffer(myOfferId);
+        let matchingOffer = this.getOffer(matchingOfferId);
+        let matchingUser = this.getUser(matchingOffer.getUserId());
+        return {
+            myOfferId:myOffer.getOfferId(),
+            myOfferPrice:myOffer.getPrice(),
+            myOfferType:myOffer.getType(),
+            matchingOfferId:matchingOffer.getOfferId(),
+            matchingOfferPrice:matchingOffer.getPrice(),
+            matchingOfferType:matchingOffer.getType(),
+            matchingUserId:matchingUser.getUserId(),
+            matchingUserFirstName:matchingUser.getFirstName(),
+            matchingUserLastName:matchingUser.getLastName(),
+            matchingUserEmail:matchingUser.getEmail()
+        } 
+    }
+
+    /* returns every match for all offerIds that 
+    are related with videoGameId*/
+    _getVideoGameMatches(videoGameId, offerIds){
+        let offers = offerIds.map( id =>  this.getOffer(id)  );
+        offers.sort( (a,b) =>{
+            return a.getPrice() - b.getPrice();
+        })
+        let matches = []
+        let repOfferIds = new Set();
+        offers.forEach( offer => {
+            if( offer.getVideoGameId()===videoGameId ){
+                let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
+                mOfferIds.sort( (a,b) => {
+                    return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
+                })
+                let repUserIds = new Set();
+                for(let i=0;i<mOfferIds.length;i++){
+                    let mOfferId = mOfferIds[i];
+                    let mOffer = this.getOffer(mOfferId);
+                    let mUserId = this.getUser(mOffer.getUserId());
+                    if( repUserIds.has(mUserId)===false && 
+                        repOfferIds.has(mOfferId)===false ){
+                        repOfferIds.add(mOfferId);
+                        repUserIds.add(mUserId);
+                        matches.push([offer.getOfferId(), mOfferId])
+                    }
+                }
+            }
+        } );
+
+        let matchesProps = matches.map( pairIds => this._fillMatchingOffer(pairIds[0],pairIds[1]));
+        return matchesProps;
+    }
+
+
 
 
     /*
