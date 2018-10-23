@@ -430,12 +430,43 @@ app.get('/getUserMatchingVideoGames', (request, response) => {
 
 
 /*
+	/getVideoGameSellMatches?userId=0&videoGameId=0
 
+	[ { myOfferId: 0,
+	    myOfferPrice: 400,
+	    myOfferType: 1,
+	    matchingOfferId: 4,
+	    matchingOfferPrice: 500,
+	    matchingOfferType: 0,
+	    matchingUserId: 1,
+	    matchingUserFirstName: 'Jimbo',
+	    matchingUserLastName: null,
+	    matchingUserEmail: null },
+	  { myOfferId: 0,
+	    myOfferPrice: 400,
+	    myOfferType: 1,
+	    matchingOfferId: 5,
+	    matchingOfferPrice: 800,
+	    matchingOfferType: 0,
+	    matchingUserId: 2,
+	    matchingUserFirstName: 'Chore',
+	    matchingUserLastName: null,
+	    matchingUserEmail: null },
+	  { myOfferId: 1,
+	    myOfferPrice: 500,
+	    myOfferType: 1,
+	    matchingOfferId: 3,
+	    matchingOfferPrice: 600,
+	    matchingOfferType: 0,
+	    matchingUserId: 1,
+	    matchingUserFirstName: 'Jimbo',
+	    matchingUserLastName: null,
+	    matchingUserEmail: null } ]
 
 */
 app.get('/getVideoGameSellMatches', (request, response) => {
 	let msg = {}
-	msg.action = 'Get User Matching VideoGames';
+	msg.action = 'Get VideoGame Sell Matches';
 	let userId = parseInt(request.query.userId);
 	let videoGameId = parseInt(request.query.videoGameId);
 	let isValid = true;
@@ -452,6 +483,55 @@ app.get('/getVideoGameSellMatches', (request, response) => {
 
 	if(isValid){
 		msg.data = analizer.getVideoGameSellMatches(userId, videoGameId);
+	}
+
+	response.json(msg);
+})
+
+
+/*
+	/getVideoGameBuyMatches?userId=1&videoGameId=0
+
+	[ { myOfferId: 4,
+	    myOfferPrice: 500,
+	    myOfferType: 0,
+	    matchingOfferId: 0,
+	    matchingOfferPrice: 400,
+	    matchingOfferType: 1,
+	    matchingUserId: 0,
+	    matchingUserFirstName: null,
+	    matchingUserLastName: null,
+	    matchingUserEmail: null },
+	  { myOfferId: 3,
+	    myOfferPrice: 600,
+	    myOfferType: 0,
+	    matchingOfferId: 1,
+	    matchingOfferPrice: 500,
+	    matchingOfferType: 1,
+	    matchingUserId: 0,
+	    matchingUserFirstName: null,
+	    matchingUserLastName: null,
+	    matchingUserEmail: null } ]
+*/
+app.get('/getVideoGameBuyMatches', (request, response) => {
+	let msg = {}
+	msg.action = 'Get User Buy Matches';
+	let userId = parseInt(request.query.userId);
+	let videoGameId = parseInt(request.query.videoGameId);
+	let isValid = true;
+
+	if(analizer.userIdExists(userId)===false){
+		isValid = false;
+		msg.data = 'Invalid UserId';
+	}
+
+	if(analizer.videoGameIdExists(videoGameId)===false){
+		isValid = false;
+		msg.data = 'Invalid VideoGameId';
+	}
+
+	if(isValid){
+		msg.data = analizer.getVideoGameBuyMatches(userId, videoGameId);
 	}
 
 	response.json(msg);

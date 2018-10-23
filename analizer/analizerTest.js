@@ -912,6 +912,75 @@ class AnalizerTest {
 
 	}
 
+	testVideoGameBuyMatches(){
+		let analizer = new Analizer();
+
+		let userId1 = analizer.addUser(/*loginServiceId*/ 17);
+		let userId2 = analizer.addUser(/*loginServiceId*/ 18);
+		let userId3 = analizer.addUser(/*loginServiceId*/ 19);
+		analizer.updateUserProperties(userId2,{firstName:'Jimbo'});
+		analizer.updateUserProperties(userId3,{firstName:'Chore'});
+		analizer.addVideoGame('Halo','halo.jpg');
+		analizer.addVideoGame("Call of Duty", "call_of_duty.jpg");
+		analizer.addVideoGame("Gow", "gow.jpg");
+
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/400);
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/500);
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/1,/*price*/500);
+
+		analizer.addBuyOffer(/*userId*/1,/*videoGameId*/0,/*price*/600);
+		analizer.addBuyOffer(/*userId*/1,/*videoGameId*/0,/*price*/500);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/800);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/1,/*price*/800);
+
+		//analizer.addSellOffer(/*userId*/2,/*videoGameId*/2,/*price*/150);
+
+		//console.log(analizer.getVideoGameSellMatches(/*userId*/0,/*videoGameId*/0));
+
+		let original = [ { myOfferId: 4,
+					    myOfferPrice: 500,
+					    myOfferType: 0,
+					    matchingOfferId: 0,
+					    matchingOfferPrice: 400,
+					    matchingOfferType: 1,
+					    matchingUserId: 0,
+					    matchingUserFirstName: null,
+					    matchingUserLastName: null,
+					    matchingUserEmail: null },
+					  { myOfferId: 3,
+					    myOfferPrice: 600,
+					    myOfferType: 0,
+					    matchingOfferId: 1,
+					    matchingOfferPrice: 500,
+					    matchingOfferType: 1,
+					    matchingUserId: 0,
+					    matchingUserFirstName: null,
+					    matchingUserLastName: null,
+					    matchingUserEmail: null } ]
+		let found = analizer.getVideoGameBuyMatches(/*userId*/1,/*videoGameId*/0);
+		let result = true;
+		let prop = ['myOfferId',
+				    'myOfferPrice',
+				    'myOfferType',
+				    'matchingOfferId',
+				    'matchingOfferPrice',
+				    'matchingOfferType',
+				    'matchingUserId',
+				    'matchingUserFirstName',
+				    'matchingUserLastName',
+				    'matchingUserEmail']
+		if( equalArrays(found,original,prop)===false ){
+			result = false;
+			console.log("Differ ");
+			console.log("original :", original);
+			console.log("found : ", found);
+		}
+
+		if(result===false){
+			console.log('testVideoGameBuyMatches');
+		}
+
+	}
 
 
 	
@@ -939,6 +1008,7 @@ class AnalizerTest {
 	    this.testGetUserMatchingVideoGames();
 	    this.testVideoGameSellMatches();
 	    this.testVideoGameSellMatches();
+	    this.testVideoGameBuyMatches();
 		console.log("AnalizerTest ended ...\n")
 
 

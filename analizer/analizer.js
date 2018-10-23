@@ -172,6 +172,18 @@ class Analizer {
     getVideoGameSellMatches(userId, videoGameId){
         let user = this.getUser(userId);
         let offerIds = user.getSellList();
+        return this._getVideoGameMatches(videoGameId, offerIds);
+    }
+
+    getVideoGameBuyMatches(userId, videoGameId){
+        let user = this.getUser(userId)
+        let offerIds = user.getBuyList();
+        return this._getVideoGameMatches(videoGameId, offerIds);
+    }
+
+
+
+    _getVideoGameMatches(videoGameId, offerIds){
         let offers = offerIds.map( id =>  this.getOffer(id)  );
         offers.sort( (a,b) =>{
             return a.getPrice() - b.getPrice();
@@ -199,25 +211,26 @@ class Analizer {
             }
         } );
 
-        let matchesProps = [];
-        matches.forEach( offerIdPair => {
-            let myOffer = this.getOffer(offerIdPair[0]);
-            let matchingOffer = this.getOffer(offerIdPair[1]);
-            let matchingUser = this.getUser(matchingOffer.getUserId());
-            matchesProps.push({
-                myOfferId:myOffer.getOfferId(),
-                myOfferPrice:myOffer.getPrice(),
-                myOfferType:myOffer.getType(),
-                matchingOfferId:matchingOffer.getOfferId(),
-                matchingOfferPrice:matchingOffer.getPrice(),
-                matchingOfferType:matchingOffer.getType(),
-                matchingUserId:matchingUser.getUserId(),
-                matchingUserFirstName:matchingUser.getFirstName(),
-                matchingUserLastName:matchingUser.getLastName(),
-                matchingUserEmail:matchingUser.getEmail()
-            })
-        } );
+        let matchesProps = matches.map( pairIds => this._fillMatchingOffer(pairIds[0],pairIds[1]));
         return matchesProps;
+    }
+
+    _fillMatchingOffer(myOfferId, matchingOfferId){
+        let myOffer = this.getOffer(myOfferId);
+        let matchingOffer = this.getOffer(matchingOfferId);
+        let matchingUser = this.getUser(matchingOffer.getUserId());
+        return {
+            myOfferId:myOffer.getOfferId(),
+            myOfferPrice:myOffer.getPrice(),
+            myOfferType:myOffer.getType(),
+            matchingOfferId:matchingOffer.getOfferId(),
+            matchingOfferPrice:matchingOffer.getPrice(),
+            matchingOfferType:matchingOffer.getType(),
+            matchingUserId:matchingUser.getUserId(),
+            matchingUserFirstName:matchingUser.getFirstName(),
+            matchingUserLastName:matchingUser.getLastName(),
+            matchingUserEmail:matchingUser.getEmail()
+        } 
     }
 
 

@@ -213,6 +213,11 @@ class IntegrationTests {
 	}
 
 
+	testGetVideoGameBuyMatches(){
+		this.testGET('/getVideoGameBuyMatches?userId=1&videoGameId=0');
+	}
+
+
 
 
 
@@ -245,6 +250,7 @@ class IntegrationTests {
 		//this.testGetUserProperties();
 		//this.testGetUserMatchingVideoGames();
 		this.testGetVideoGameSellMatches();
+		this.testGetVideoGameBuyMatches();
 	}
 
 }
