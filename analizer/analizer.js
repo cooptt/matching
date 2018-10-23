@@ -167,6 +167,61 @@ class Analizer {
         return matchingVideoGamesProps;
     }
 
+
+
+    getVideoGameSellMatches(userId, videoGameId){
+        let user = this.getUser(userId);
+        let offerIds = user.getSellList();
+        let offers = offerIds.map( id =>  this.getOffer(id)  );
+        offers.sort( (a,b) =>{
+            return a.getPrice() - b.getPrice();
+        })
+        let matches = []
+        let repOfferIds = new Set();
+        offers.forEach( offer => {
+            if( offer.getVideoGameId()===videoGameId ){
+                let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
+                mOfferIds.sort( (a,b) => {
+                    return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
+                })
+                let repUserIds = new Set();
+                for(let i=0;i<mOfferIds.length;i++){
+                    let mOfferId = mOfferIds[i];
+                    let mOffer = this.getOffer(mOfferId);
+                    let mUserId = this.getUser(mOffer.getUserId());
+                    if( repUserIds.has(mUserId)===false && 
+                        repOfferIds.has(mOfferId)===false ){
+                        repOfferIds.add(mOfferId);
+                        repUserIds.add(mUserId);
+                        matches.push([offer.getOfferId(), mOfferId])
+                    }
+                }
+            }
+        } );
+
+        let matchesProps = [];
+        matches.forEach( offerIdPair => {
+            let myOffer = this.getOffer(offerIdPair[0]);
+            let matchingOffer = this.getOffer(offerIdPair[1]);
+            let matchingUser = this.getUser(matchingOffer.getUserId());
+            matchesProps.push({
+                myOfferId:myOffer.getOfferId(),
+                myOfferPrice:myOffer.getPrice(),
+                myOfferType:myOffer.getType(),
+                matchingOfferId:matchingOffer.getOfferId(),
+                matchingOfferPrice:matchingOffer.getPrice(),
+                matchingOfferType:matchingOffer.getType(),
+                matchingUserId:matchingUser.getUserId(),
+                matchingUserFirstName:matchingUser.getFirstName(),
+                matchingUserLastName:matchingUser.getLastName(),
+                matchingUserEmail:matchingUser.getEmail()
+            })
+        } );
+        return matchesProps;
+    }
+
+
+
     
 
 

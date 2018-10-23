@@ -208,6 +208,12 @@ class IntegrationTests {
 		this.testGET('/getUserMatchingVideoGames?userId=0')
 	}
 
+	testGetVideoGameSellMatches(){
+		this.testGET('/getVideoGameSellMatches?userId=0&videoGameId=0');
+	}
+
+
+
 
 
 
@@ -224,9 +230,9 @@ class IntegrationTests {
 		//this.testUpdateUserProperties2();
 		//this.testGetCatalogue();
 		this.testAddSellOffer();
-		this.testAddSellOffer2();
+		//this.testAddSellOffer2();
 		//this.testDeleteOffer();
-		this.testAddBuyOffer();
+		//this.testAddBuyOffer();
 		this.testAddBuyOffer2();
 		//this.testGetUserSellList();
 		//this.testGetUserBuyList();
@@ -237,7 +243,8 @@ class IntegrationTests {
 		//this.testGetRankedUsers();
 		//this.testAddRatingToUser();
 		//this.testGetUserProperties();
-		this.testGetUserMatchingVideoGames();
+		//this.testGetUserMatchingVideoGames();
+		this.testGetVideoGameSellMatches();
 	}
 
 }

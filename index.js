@@ -429,6 +429,35 @@ app.get('/getUserMatchingVideoGames', (request, response) => {
 })
 
 
+/*
+
+
+*/
+app.get('/getVideoGameSellMatches', (request, response) => {
+	let msg = {}
+	msg.action = 'Get User Matching VideoGames';
+	let userId = parseInt(request.query.userId);
+	let videoGameId = parseInt(request.query.videoGameId);
+	let isValid = true;
+
+	if(analizer.userIdExists(userId)===false){
+		isValid = false;
+		msg.data = 'Invalid UserId';
+	}
+
+	if(analizer.videoGameIdExists(videoGameId)===false){
+		isValid = false;
+		msg.data = 'Invalid VideoGameId';
+	}
+
+	if(isValid){
+		msg.data = analizer.getVideoGameSellMatches(userId, videoGameId);
+	}
+
+	response.json(msg);
+})
+
+
 
 
 
