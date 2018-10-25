@@ -623,6 +623,122 @@ class Analizer {
     }
 
 
+    _getUserSellMatches(userId){
+        let user = this.getUser(userId);
+        let offerIds = user.getSellList();
+        offerIds.sort( (a,b) => this.getOffer(a).getPrice() - this.getOffer(b).getPrice() );
+        let matches = []
+        let repOfferIds = new Set();
+        offerIds.forEach( offerId => {
+            let mOfferIds = this._getMatchingOfferIds(offerId);
+            mOfferIds.sort( (a,b) => this.getOffer(a).getPrice() - this.getOffer(b).getPrice() );
+            let repUserIds = new Set();
+            mOfferIds.forEach( mOfferId => {
+                let mOffer = this.getOffer(mOfferId);
+                if( repUserIds.has(mOffer.getUserId())===false &&
+                    repOfferIds.has(mOfferId)===false ){
+                    repUserIds.add(mOffer.getUserId());
+                    repOfferIds.add(mOfferId);
+                    matches.push([offerId, mOfferId]);
+                }
+            } )
+        })
+        return matches;
+    }
+
+    _getUserBuyMatches(userId){
+        let user = this.getUser(userId);
+        let offerIds = user.getBuyList();
+        offerIds.sort( (a,b) => this.getOffer(a).getPrice() - this.getOffer(b).getPrice() );
+        let matches = []
+        let repOfferIds = new Set();
+        offerIds.forEach( offerId => {
+            let mOfferIds = this._getMatchingOfferIds();
+            mOfferIds.sort( (a,b) => this.getOffer(a).getPrice() - this.getOffer(b).getPrice() );
+            let repUserIds = new Set();
+            mOfferIds.forEach( mOfferId => {
+                let mOffer = this.getOffer(mOfferId);
+                if( repUserIds.has(mOffer.getUserId())===false &&
+                    repOfferIds.has(mOfferId)===false ){
+                    repUserIds.add(mOffer.getUserId());
+                    repOfferIds.add(mOfferId);
+                    matches.push([offerId, mOfferId]);
+                }
+            } )
+        })
+        return matches;
+    }
+
+
+    /*
+        oUserId: Original User Id
+        cUserId: Current User Id
+        cCycle = Current cycle
+        cycles = all cycles of length "deep"
+
+    */
+    _dfs(oUserId, cUserId, state, cycles, cCycle, deep){
+        console.log('state: ',state);
+        if( state===deep ){
+            if( oUserId===cUserId){
+                let cCycleCopy = cCycle.map( edge => edge.slice(0) );
+                cycles.push(cCycleCopy);
+            }
+        } else{
+            let edges = this._getUserSellMatches(cUserId)
+            edges.forEach(edge => {
+                cCycle.push(edge);
+                let offer = this.getOffer(edge[1]);
+                this._dfs(oUserId, offer.getUserId(), state+1, cycles, cCycle, deep );
+                cCycle.pop();
+            })
+        }
+        
+    }
+
+    _createCycleProps(cycle){
+        let cycleProps = [];
+        let n = cycle.length;
+        cycle.forEach( (edge,i) => {
+            let prevEdge = cycle[(i+n-1)%n]
+            let offer = this.getOffer(edge[0]);
+            let prevOffer = this.getOffer(prevEdge[0]);
+            let diff = offer.getPrice() - prevOffer.getPrice();
+            let user = this.getUser(offer.getUserId());
+            let videoGame = this.getVideoGame(offer.getVideoGameId());
+
+            let offerProp = {
+                userId:user.getUserId(),
+                firstName:user.getFirstName(),
+                lastName:user.getLastName(),
+                videoGameId:videoGame.getVideoGameId(),
+                title:videoGame.getTitle(),
+                image:videoGame.getImage(),
+                offerId:offer.getOfferId(),
+                price:offer.getPrice(),
+                diff:diff
+            }
+            cycleProps.push(offerProp);
+        })
+        return cycleProps;
+    }
+
+    _getCycles(userId, deep){
+        let cycles = [];
+        let cCycle = [];
+        this._dfs(userId, userId, 0, cycles, cCycle, deep);
+        return cycles;
+    }
+
+
+    getTriplets(userId){
+        let triplets = this._getCycles(userId,3);
+        console.log(triplets);
+        let tripletsProps = triplets.map( cycle => this._createCycleProps(cycle) );
+        return tripletsProps;
+    }
+
+
 
 
     /*

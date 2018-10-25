@@ -1032,6 +1032,61 @@ class AnalizerTest {
 		}
 	}
 
+	testCycles(){
+
+
+		let analizer = new Analizer();
+
+		let userId1 = analizer.addUser(/*loginServiceId*/ 17);
+		let userId2 = analizer.addUser(/*loginServiceId*/ 18);
+		let userId3 = analizer.addUser(/*loginServiceId*/ 19);
+		let userId4 = analizer.addUser(/*loginServiceId*/ 20);
+
+		analizer.updateUserProperties(userId1,{firstName:'Felipe'});
+		analizer.updateUserProperties(userId2,{firstName:'Jimbo'});
+		analizer.updateUserProperties(userId3,{firstName:'Chore'});
+		analizer.updateUserProperties(userId4,{firstName:'Peyo'});
+		analizer.addVideoGame('Halo','halo.jpg'); 		// 0
+		analizer.addVideoGame("Gow", "gow.jpg");  		// 1
+		analizer.addVideoGame("Crash", "crash.jpg");	// 2
+		analizer.addVideoGame("Gears", "gears.jpg");	// 3
+		analizer.addVideoGame("Dbz","dbz.jpg");			// 4
+		analizer.addVideoGame("Fifa","fifa.jpg");		// 5
+		analizer.addVideoGame("Mgs","mgs.jpg");			// 6
+
+
+		analizer.addBuyOffer(userId1,/*videoGameId*/2,/*price*/500); 		// 0
+		analizer.addSellOffer(userId1,/*videoGameId*/0,/*price*/500);		// 1
+
+		analizer.addBuyOffer(userId2,/*videoGameId*/0,/*price*/600);		// 2
+		analizer.addSellOffer(userId2,/*videoGameId*/1,/*price*/500);		// 3
+
+		analizer.addBuyOffer(userId3,/*videoGameId*/1,/*price*/500);		// 4
+		analizer.addSellOffer(userId3,/*videoGameId*/2,/*price*/500);		// 5
+
+		analizer.addSellOffer(userId1,/*videoGameId*/3,/*price*/500);		// 6
+		analizer.addBuyOffer(userId2,/*videoGameId*/3,/*price*/500);		// 7
+
+		analizer.addSellOffer(userId3,/*videoGameId*/4,/*price*/500);		// 8
+		analizer.addBuyOffer(userId1,/*videoGameId*/4,/*price*/500);		// 9
+
+		analizer.addSellOffer(userId2,/*videoGameId*/5,/*price*/500);		// 10
+		analizer.addBuyOffer(userId4,/*videoGameId*/5,/*price*/500);		// 11
+
+		analizer.addSellOffer(userId4,/*videoGameId*/6,/*price*/500);		// 12
+		analizer.addBuyOffer(userId1,/*videoGameId*/6,/*price*/500);		// 13
+
+		analizer.addSellOffer(userId1,/*videoGameId*/3,/*price*/500);		// 14
+		analizer.addBuyOffer(userId2,/*videoGameId*/3,/*price*/500);		// 15
+
+
+
+		let triplets = analizer._getCycles(userId1, 3);
+		console.log(triplets);
+		let tripletsProps = analizer.getTriplets(userId1);
+		console.log(tripletsProps);
+	}
+
 	
 	runAllTests() {
 		console.log("AnalizerTest started ...");
@@ -1059,6 +1114,7 @@ class AnalizerTest {
 	    this.testVideoGameSellMatches();
 	    this.testVideoGameBuyMatches();
 	    this.testGetUserSellListWithMatching();
+	    this.testCycles();
 		console.log("AnalizerTest ended ...\n")
 	}
 
