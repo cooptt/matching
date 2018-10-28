@@ -1,7 +1,7 @@
 
 
-const Analizer = require("./analizer").Analizer;
-const utils = require("./utils");
+const Analizer = require("../analizer/analizer").Analizer;
+const utils = require("../analizer/utils");
 
 const compareSets = utils.compareSets;
 const equalObjects = utils.equalObjects;
@@ -443,9 +443,6 @@ class AnalizerTest {
 		let original = {
             userId:0,
             loginServiceId:17,
-            firstName:null,
-            lastName:null,
-            email:null,
             myRating:null,
             myRatingCount:0,
             firstName:'Felipe',
@@ -650,6 +647,7 @@ class AnalizerTest {
 					    firstName: null,
 					    lastName: null,
 					    email: null } ]
+        original = original.reverse();
 		let prop = ['userId','loginServiceId','firstName','lastName','email',
 					'videoGameId','title','image',
 					'offerId','price','type'];
@@ -766,9 +764,6 @@ class AnalizerTest {
 		let original = {
             userId:0,
             loginServiceId:17,
-            firstName:null,
-            lastName:null,
-            email:null,
             myRating:'3.33',
             myRatingCount:3,
             firstName:'Felipe',
@@ -1080,11 +1075,34 @@ class AnalizerTest {
 		analizer.addBuyOffer(userId2,/*videoGameId*/3,/*price*/500);		// 15
 
 
+		let original = [ [ [ 1, 2 ], [ 3, 4 ], [ 5, 0 ] ],
+            [ [ 1, 2 ], [ 3, 4 ], [ 8, 9 ] ],
+            [ [ 1, 2 ], [ 10, 11 ], [ 12, 13 ] ],
+            [ [ 6, 7 ], [ 3, 4 ], [ 5, 0 ] ],
+            [ [ 6, 7 ], [ 3, 4 ], [ 8, 9 ] ],
+            [ [ 6, 7 ], [ 10, 11 ], [ 12, 13 ] ],
+            [ [ 14, 15 ], [ 3, 4 ], [ 5, 0 ] ],
+            [ [ 14, 15 ], [ 3, 4 ], [ 8, 9 ] ],
+            [ [ 14, 15 ], [ 10, 11 ], [ 12, 13 ] ] ]
 
-		let triplets = analizer._getCycles(userId1, 3);
-		console.log(triplets);
-		let tripletsProps = analizer.getTriplets(userId1);
-		console.log(tripletsProps);
+        let found = analizer._getCycles(userId1, 3);
+
+		let result = true;
+
+		original = JSON.stringify(original);
+		found = JSON.stringify(found);
+
+
+        if( original!==found){
+            result = false;
+            console.log("Differ ");
+            console.log("original :", original);
+            console.log("found : ", found);
+        }
+
+        if(result===false){
+            console.log('testCycles');
+        }
 	}
 
 	

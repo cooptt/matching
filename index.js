@@ -314,6 +314,7 @@ app.get('/getNotifications', (request, response) => {
 })
 
 /*
+    Get all the offers in the system
 	/getOffersProperties?userId=0
 
 	[ { offerId: 0,
@@ -428,6 +429,12 @@ app.get('/getUserMatchingVideoGames', (request, response) => {
 
 
 /*
+    Calculate all sell offers belonging to userId
+    that matches with  offer from any other user
+    returns array of objects containing properties
+    of both matching users and info from the owner
+    of the matching user
+
 	/getVideoGameSellMatches?userId=0&videoGameId=0
 
 	[ { myOfferId: 0,
@@ -536,7 +543,22 @@ app.get('/getVideoGameBuyMatches', (request, response) => {
 })
 
 
+app.get('/getTriplets', (request, response) => {
+    let msg = {}
+    msg.action = 'Get Triplets'
+    let userId = parseInt(request.query.userId);
+    let isValid = true;
+    if(analizer.userIdExists(userId)==false){
+        isValid = false;
+        msg.data = 'Invalid UserId'
+    }
 
+    if( isValid ){
+        msg.data = analizer.getTriplets(userId);
+    }
+
+    response.json(msg);
+})
 
 
 

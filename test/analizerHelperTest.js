@@ -1,9 +1,9 @@
 
-const analizerHelper = require("./analizerHelper");
+const analizerHelper = require("../analizer/analizerHelper");
 const User = analizerHelper.User;
 const VideoGame = analizerHelper.VideoGame;
 const Offer = analizerHelper.Offer;
-const utils = require("./utils");
+const utils = require("../analizer/utils");
 const compareSets = utils.compareSets;
 const equalObjects = utils.equalObjects;
 const equalArrays = utils.equalArrays;

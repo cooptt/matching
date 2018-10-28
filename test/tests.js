@@ -1,9 +1,9 @@
 
 const integrationTests = require("./integrationTests");
 const IntegrationTests = integrationTests.IntegrationTests;
-const analizerHelperTest = require("./analizer/analizerHelperTest");
-const analizerPersistanceTest = require('./analizer/analizerPersistanceTest');
-const analizerTest = require('./analizer/analizerTest');
+const analizerHelperTest = require("./analizerHelperTest");
+const analizerPersistanceTest = require('./analizerPersistanceTest');
+const analizerTest = require('./analizerTest');
 const AnalizerPersistanceTest = analizerPersistanceTest.AnalizerPersistanceTest;
 const UserTest = analizerHelperTest.UserTest;
 const VideoGameTest = analizerHelperTest.VideoGameTest;
@@ -34,4 +34,4 @@ let runIntegrationTests = function() {
 
 
 runUnitTests();
-//runIntegrationTests();
+runIntegrationTests();

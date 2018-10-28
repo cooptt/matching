@@ -109,8 +109,6 @@ class Analizer {
         return sellListM;
     }
 
-
- 
     getVideoGameSellList(videoGameId){
         let videoGame = this.getVideoGame(videoGameId);
         let sellOfferIds = videoGame.getSellOfferIds();
@@ -156,7 +154,9 @@ class Analizer {
                                     user.getProperties() );
             offersPropertiesList.push(prop);
         } );
+        offersPropertiesList = offersPropertiesList.reverse();
         return offersPropertiesList;
+
     }
 
     getRankedUsers(userId){
@@ -678,7 +678,6 @@ class Analizer {
 
     */
     _dfs(oUserId, cUserId, state, cycles, cCycle, deep){
-        console.log('state: ',state);
         if( state===deep ){
             if( oUserId===cUserId){
                 let cCycleCopy = cCycle.map( edge => edge.slice(0) );

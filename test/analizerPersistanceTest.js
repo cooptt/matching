@@ -1,5 +1,5 @@
 
-const analizerPersistance = require('./analizerPersistance')
+const analizerPersistance = require('../analizer/analizerPersistance')
 const AnalizerPersistance = analizerPersistance.AnalizerPersistance;
 
 class AnalizerPersistanceTest{

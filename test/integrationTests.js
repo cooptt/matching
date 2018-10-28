@@ -1,5 +1,5 @@
 
-const Analizer = require("./analizer/analizer").Analizer;
+const Analizer = require("../analizer/analizer").Analizer;
 const request = require('request');
 
 
@@ -23,7 +23,7 @@ class IntegrationTests {
 
 		let analizerTest = new Analizer();
 
-		analizerTest.loadCatalogueFromFolders("analizer/catalogue/");
+		analizerTest.loadCatalogueFromFolders("./../analizer/catalogue/");
 
 		setTimeout(
 			function() {
@@ -217,6 +217,10 @@ class IntegrationTests {
 		this.testGET('/getVideoGameBuyMatches?userId=1&videoGameId=0');
 	}
 
+	testGetTriplets(){
+		this.testGET('/getTriplets?userId=0')
+	}
+
 
 
 
@@ -251,7 +255,9 @@ class IntegrationTests {
 		//this.testGetUserMatchingVideoGames();
 		this.testGetVideoGameSellMatches();
 		this.testGetVideoGameBuyMatches();
+		this.testGetTriplets();
 	}
+
 
 }
 

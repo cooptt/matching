@@ -139,7 +139,7 @@ class User {
 
 
     updateProperties(properties){
-         ['firstName','lastName','email'].forEach( (prop) =>{
+        ['firstName','lastName','email'].forEach( (prop) =>{
             if( prop in properties ){
                 this['_'+prop] = properties[prop];
             }
@@ -162,9 +162,8 @@ class User {
         };
     }
 
-    
-}
 
+}
 
 class TreeNode{
     constructor(price){
