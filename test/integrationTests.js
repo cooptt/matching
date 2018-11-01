@@ -225,9 +225,17 @@ class IntegrationTests {
         let analizer = new Analizer();
         analizer.startPersistance();
 
-        analizer.addUser(16);
-        analizer.addUser(17);
-        analizer.addUser(18);
+
+        setTimeout( ()=>{
+            analizer.addUser(16);
+            analizer.addUser(17);
+            analizer.addUser(18);
+		},3000)
+
+
+        setTimeout( () => {
+        	analizer._loadUsers();
+		},5000)
 
 
 	}
@@ -239,19 +247,18 @@ class IntegrationTests {
 
 	runAllTests(){
 		console.log("IntegrationTest started ...");
-		this.testLoadCatalogueFromFolders();
 
-		
-		this.testLogin();
-		this.testLogin2();
+		//this.testLoadCatalogueFromFolders();
+		//this.testLogin();
+		//this.testLogin2();
 		//this.testUpdateUserProperties();
 		//this.testUpdateUserProperties2();
-		this.testGetCatalogue();
-		this.testAddSellOffer();
+		//this.testGetCatalogue();
+		//this.testAddSellOffer();
 		//this.testAddSellOffer2();
 		//this.testDeleteOffer();
 		//this.testAddBuyOffer();
-		this.testAddBuyOffer2();
+		//this.testAddBuyOffer2();
 		//this.testGetUserSellList();
 		//this.testGetUserBuyList();
 		//this.testGetVideoGameSellList();
@@ -262,11 +269,12 @@ class IntegrationTests {
 		//this.testAddRatingToUser();
 		//this.testGetUserProperties();
 		//this.testGetUserMatchingVideoGames();
-		this.testGetVideoGameSellMatches();
-		this.testGetVideoGameBuyMatches();
-		this.testGetTriplets();
-	}
+		//this.testGetVideoGameSellMatches();
+		//this.testGetVideoGameBuyMatches();
+		//this.testGetTriplets();
 
+		this.testAnalizerWithPersistance();
+	}
 
 }
 

@@ -13,7 +13,10 @@ class AnalizerPersistance {
     	this._db.connect( function(err) {
     		if (err){
     			console.log("error with db");
-    		}
+    		} else {
+    		    console.log('connections successfull')
+            }
+
     	});
     }
 
@@ -32,6 +35,7 @@ class AnalizerPersistance {
                         error
                     }
                     reject(response)
+                    console.log(error);
                 }else{
                     let response = {
                         ok: true,
