@@ -13,6 +13,13 @@ class IdMap {
         return this._idcount-1;
     }
 
+    set(id, item){
+    	this._map.set(id, item);
+    	if(id>this._idcount){
+    		this._idcount = id+1;
+		}
+	}
+
     get(id){
         return this._map.get(id);
     }

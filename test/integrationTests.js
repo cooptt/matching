@@ -225,17 +225,31 @@ class IntegrationTests {
         let analizer = new Analizer();
         analizer.startPersistance();
 
+        let analizer2 = new Analizer();
+        analizer2.startPersistance();
+
 
         setTimeout( ()=>{
-            analizer.addUser(16);
-            analizer.addUser(17);
-            analizer.addUser(18);
+            let userId0 = analizer.addUser(16);
+            let userId1 = analizer.addUser(17);
+            let userId2 = analizer.addUser(18);
+            analizer.updateUserProperties(userId0, {firstName:'Felipe',lastName:'Mendoza'})
+            analizer.updateUserProperties(userId1, {firstName:'Jimbo',lastName:'Martinez'})
+            analizer.stopPersistance();
 		},3000)
 
 
         setTimeout( () => {
-        	analizer._loadUsers();
+        	console.log('timeout 500')
+        	//analizer2._loadUsersFromDB();
+			analizer2._loadUsersFromDB();
+
 		},5000)
+
+		setTimeout( () => {
+        	console.log(analizer2._getUsers() );
+        	analizer2.stopPersistance();
+		}, 7000 );
 
 
 	}

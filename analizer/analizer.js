@@ -31,6 +31,11 @@ class Analizer {
         this._persitance.connect('localhost','root','root','analizer');
     }
 
+    stopPersistance(){
+        this._persitance.end();
+        delete this._persitance;
+    }
+
     loginServiceIdExists(loginServiceId){
         return this._loginServiceMap.has(loginServiceId);
     }
@@ -74,6 +79,8 @@ class Analizer {
         this._catalogue.getValues().forEach( videoGame => catalogue.push(videoGame.getProperties()) )
         return catalogue;
     }
+
+
 
     getUserSellList(userId){
         var user = this.getUser(userId);
@@ -220,19 +227,35 @@ class Analizer {
         return tripletsProps;
     }
 
-    
-    
 
-
-
-    
-
-    _loadUsers(){
+    _loadUsersFromDB() {
+        console.log('hola')
         let response = this._persitance.loadUsers();
         response.then( result => {
-            console.log(result)
+            console.log(result);
+            result.result.forEach( props => {
+                let user = new User(props.loginServiceId, props.userId);
+                user.updateProperties(props);
+                this._users.set(props.userId, user);
+            })
         })
     }
+/*
+    _loadUsersFromDB(){
+        console.log('waiting::::')
+        let response = this._persitance.loadUsers();
+        response.then( result => {
+            console.log('loadUsersfromdb: ', result);
+            result.result.forEach( props => {
+                let user = new User(props.getLoginServiceId(), props.getUserId());
+                user.updateProperties(props);
+                this._users.set(props.getUserId(), user);
+            })
+        }).catch( err => {
+            console.log(err);
+        })
+    }
+    */
 
 
     // Add, Update, Delete functions
@@ -241,7 +264,6 @@ class Analizer {
         let userId = this._users.nextId();
         this._loginServiceMap.set(loginServiceId, userId );
         this._users.insert( new User(userId, loginServiceId ) );
-        console.log('Add user: ',this._persitance===undefined);
         if( this._persitance!==undefined ){
             this._persitance.addUser( this.getUser(userId).getProperties() );
         }
@@ -291,6 +313,10 @@ class Analizer {
 
     updateUserProperties(userId, properties){
         this.getUser(userId).updateProperties(properties);
+        if( this._persitance!==undefined ){
+            properties.userId = userId;
+            this._persitance.updateUser(properties);
+        }
     }
 
     updateOfferProperties(offerId, properties){
@@ -350,6 +376,11 @@ class Analizer {
         }
     }
 
+    _getUsers() {
+        let users = [];
+        this._users.getValues().forEach( user => users.push(user.getProperties()));
+        return users;
+    }
 
     _createUserOffersList(offerIdList){
         var userOffersList = [];
@@ -763,10 +794,6 @@ class Analizer {
         console.log(videoGamesProps);
     }
 
-    _loadUsersFromDB(){
-        let usersProps = this._persitance.loadUsers();
-        console.log(usersProps);
-    }
 
     _loadOffersFromDB(){
         let offersProps = this._persitance.loadOffers();

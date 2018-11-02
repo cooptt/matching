@@ -198,11 +198,7 @@ class AnalizerPersistance {
         return this.queryAnalizer(query);
     }
 
-    // Returns all rows of Offers' table
-    loadOffers(){
-        let query = `SELECT * FROM Offer;`;
-        return this.queryAnalizer(query);
-    }
+
 
 }
 
