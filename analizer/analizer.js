@@ -229,33 +229,17 @@ class Analizer {
 
 
     _loadUsersFromDB() {
-        console.log('hola')
         let response = this._persitance.loadUsers();
         response.then( result => {
-            console.log(result);
+            //console.log(result);
             result.result.forEach( props => {
-                let user = new User(props.loginServiceId, props.userId);
+                let user = new User(props.userId, props.loginServiceId );
                 user.updateProperties(props);
                 this._users.set(props.userId, user);
+                this._loginServiceMap.set(props.loginServiceId, props.userId );
             })
         })
     }
-/*
-    _loadUsersFromDB(){
-        console.log('waiting::::')
-        let response = this._persitance.loadUsers();
-        response.then( result => {
-            console.log('loadUsersfromdb: ', result);
-            result.result.forEach( props => {
-                let user = new User(props.getLoginServiceId(), props.getUserId());
-                user.updateProperties(props);
-                this._users.set(props.getUserId(), user);
-            })
-        }).catch( err => {
-            console.log(err);
-        })
-    }
-    */
 
 
     // Add, Update, Delete functions
@@ -292,6 +276,31 @@ class Analizer {
         }
         let offerIds = this._getMatchingOfferIds(offerId);
         this._createNotifications(offerId, offerIds);
+    }
+
+
+    _loadOffersFromDB(){
+        let response = this._persitance.loadOffers();
+        response.then( result => {
+            console.log(result);
+            result.result.forEach( props => {
+                let offer = new Offer(
+                    props.offerId,
+                    props.userId,
+                    props.videoGameId,
+                    props.price,
+                    props.type
+                );
+                if( props.type===this._BUY ){
+                    this.getUser(props.userId).addBuyOffer(props.offerId);
+                    this.getVideoGame(props.videoGameId).addBuyOffer(props.offerId, props.price);
+                } else if ( props.type === this._SELL ){
+                    this.getUser(props.userId).addSellOffer(props.offerId);
+                    this.getVideoGame(props.videoGameId).addSellOffer(props.offerId, props.price);
+                }
+                this._offers.set(props.offerId, offer);
+            })
+        })
     }
 
     addRatingToUser(ratingUserId, ratedUserId, rating){
@@ -374,6 +383,16 @@ class Analizer {
         if( this._persitance!==undefined ){
             this._persitance.addVideoGame(videoGame.getProperties());
         }
+    }
+
+    _loadVideoGamesFromDB(){
+        let response = this._persitance.loadCatalogue();
+        response.then( result => {
+            result.result.forEach( props => {
+                let videoGame = new VideoGame(props.videoGameId, props.title, props.image );
+                this._catalogue.set(props.videoGameId, videoGame );
+            })
+        })
     }
 
     _getUsers() {
@@ -789,16 +808,7 @@ class Analizer {
         return cycles;
     }
 
-    _loadCatalogueFromDB(){
-        let videoGamesProps = this._persitance.loadCatalogue();
-        console.log(videoGamesProps);
-    }
 
-
-    _loadOffersFromDB(){
-        let offersProps = this._persitance.loadOffers();
-        console.log(offerProps);
-    }
 
 
 

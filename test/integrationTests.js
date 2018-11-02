@@ -221,7 +221,7 @@ class IntegrationTests {
 	}
 
 
-	testAnalizerWithPersistance(){
+	testSaveAndLoadUsersFromBD(){
         let analizer = new Analizer();
         analizer.startPersistance();
 
@@ -238,12 +238,8 @@ class IntegrationTests {
             analizer.stopPersistance();
 		},3000)
 
-
         setTimeout( () => {
-        	console.log('timeout 500')
-        	//analizer2._loadUsersFromDB();
 			analizer2._loadUsersFromDB();
-
 		},5000)
 
 		setTimeout( () => {
@@ -251,10 +247,61 @@ class IntegrationTests {
         	analizer2.stopPersistance();
 		}, 7000 );
 
-
 	}
 
+	testSaveAndLoadCatalogueFromBD(){
+	    let analizer = new Analizer();
+	    analizer.startPersistance();
 
+	    let analizer2 = new Analizer();
+	    analizer2.startPersistance();
+
+	    setTimeout( () => {
+	    	analizer.addVideoGame('Halo','halo.png');
+	    	analizer.addVideoGame('Gow','gow.png');
+	    	analizer.stopPersistance();
+		}, 3000 )
+
+		setTimeout( () => {
+			analizer2._loadVideoGamesFromDB();
+		},5000)
+
+		setTimeout( () => {
+			console.log(analizer2.getCatalogue() );
+			analizer2.stopPersistance();
+		},7000)
+	}
+
+	testSaveAndLoadOffersFromBD(){
+	    let analizer = new Analizer();
+	    analizer.startPersistance();
+
+	    let analizer2 = new Analizer();
+	    analizer2.startPersistance();
+
+	    setTimeout( () => {
+	    	analizer.addVideoGame('Halo','halo.png');
+	    	analizer.addVideoGame('Gow','gow.png');
+	    	let userId0 = analizer.addUser(16);
+            let userId1 = analizer.addUser(17);
+            analizer.updateUserProperties(userId0, {firstName:'Felipe',lastName:'Mendoza'})
+            analizer.updateUserProperties(userId1, {firstName:'Jimbo',lastName:'Martinez'})
+            analizer.addBuyOffer(userId0,0,500);
+            analizer.addSellOffer(userId1,1,700);
+            analizer.stopPersistance();
+		}, 3000 )
+
+		setTimeout( () => {
+			analizer2._loadUsersFromDB();
+			analizer2._loadVideoGamesFromDB();
+			analizer2._loadOffersFromDB();
+		},5000)
+
+		setTimeout( () => {
+			console.log(analizer2.getOffersProperties() );
+			analizer2.stopPersistance();
+		},7000)
+	}
 
 
 
@@ -286,8 +333,8 @@ class IntegrationTests {
 		//this.testGetVideoGameSellMatches();
 		//this.testGetVideoGameBuyMatches();
 		//this.testGetTriplets();
-
-		this.testAnalizerWithPersistance();
+        //this.testSaveAndLoadCatalogueFromBD();
+		this.testSaveAndLoadOffersFromBD();
 	}
 
 }
