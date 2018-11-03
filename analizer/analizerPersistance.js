@@ -184,24 +184,32 @@ class AnalizerPersistance {
         return this.queryAnalizer(query);
     }
 
-    flushUsers(){
+
+    // CLEAR DATABASE
+
+    clearUsers(){
         let query = 'delete from User ;';
         return this.queryAnalizer(query);
     }
 
-    flushVideoGames(){
+    clearVideoGames(){
         let query = 'delete from VideoGame ;';
         return this.queryAnalizer(query);
     }
 
-    flushOffers(){
+    clearOffers(){
         let query = 'delete from Offer ;';
+        return this.queryAnalizer(query);
+    }
+
+    clearMessages(){
+        let query = 'delete from Message ;';
         return this.queryAnalizer(query);
     }
 
 
 
-    // Chat functions
+    //  CHAT FUNCTIONS
 
     getChatIds(userId){
         let query = 'select srcUserId, destUserId from Message ';

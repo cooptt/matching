@@ -745,6 +745,8 @@ class Analizer {
 
     // Persistance Functions
 
+
+
     startPersistance(){
         this._persistance = new AnalizerPersistance();
         this._persistance.connect('localhost','root','root','analizer');
@@ -753,6 +755,18 @@ class Analizer {
     stopPersistance(){
         this._persistance.end();
         delete this._persistance;
+    }
+
+    clearDatabase(){
+        let promises = [];
+        promises.push(this._persistance.clearMessages());
+        promises.push(this._persistance.clearOffers());
+        promises.push(this._persistance.clearVideoGames());
+        promises.push(this._persistance.clearUsers());
+
+        Promise.all(promises).then( results => {
+            console.log('Clearing Database ...')
+        })
     }
 
     _loadUsersFromDB() {
@@ -879,6 +893,7 @@ class Analizer {
 
 
     loadCatalogueFromFolders(cataloguePath) {
+        console.log('Loading videogames from folders ...')
         const fs = require('fs');
 
         fs.readdir(cataloguePath, (err, consoleFolders) => {

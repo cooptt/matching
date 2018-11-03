@@ -344,6 +344,7 @@ class IntegrationTests {
         this.testPOST('/addMessage?rscUserId=0&destUserId=1', {content:'Bien y tu que tal James'})
 		setTimeout( () =>{
 			this.testGET('/getConversation?userId=0&mUserId=1');
+			this.testGET('/getChatUsers?userId=0');
 		},2000)
 	}
 

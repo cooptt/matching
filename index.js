@@ -11,6 +11,7 @@ const Analizer = require('./analizer/analizer').Analizer;
 
 const analizer = new Analizer();
 analizer.startPersistance();
+analizer.clearDatabase();
 analizer.loadCatalogueFromFolders('./views/catalogue');
 
 
