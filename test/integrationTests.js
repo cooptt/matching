@@ -303,7 +303,7 @@ class IntegrationTests {
 		},7000)
 	}
 
-	testMessages(){
+	testMessagesSample(){
 		let analizer = new Analizer();
 	    analizer.startPersistance();
 
@@ -334,6 +334,19 @@ class IntegrationTests {
 		},5000);
 
 	}
+
+
+	testMessages(){
+		this.testPOST('/signin?loginServiceId=16', {});
+        this.testPOST('/signin?loginServiceId=17', {});
+        this.testPOST('/addMessage?rscUserId=0&destUserId=1', {content:'Hola soy Felipe'})
+        this.testPOST('/addMessage?rscUserId=1&destUserId=0', {content:'Que onda como estas Felipe'})
+        this.testPOST('/addMessage?rscUserId=0&destUserId=1', {content:'Bien y tu que tal James'})
+		setTimeout( () =>{
+			this.testGET('/getConversation?userId=0&mUserId=1');
+		},2000)
+	}
+
 
 
 
@@ -368,6 +381,7 @@ class IntegrationTests {
         //this.testSaveAndLoadCatalogueFromBD();
 		//this.testSaveAndLoadOffersFromBD();
 		this.testMessages();
+
 	}
 
 }

@@ -10,6 +10,7 @@ const Analizer = require('./analizer/analizer').Analizer;
 
 
 const analizer = new Analizer();
+analizer.startPersistance();
 analizer.loadCatalogueFromFolders('./views/catalogue');
 
 
@@ -721,6 +722,70 @@ app.post('/addRatingToUser', (request,response) => {
 
 
 // CHAT ENDPOINTS
+
+app.get('/getChatUsers', (request, response) => {
+
+    let msg = {};
+    msg.action = 'Get chat users ';
+    let userId = parseInt(request.query.userId);
+
+    let isValid = true;
+    if(analizer.userIdExists(userId)===false) {
+        isValid = false;
+        msg.data = 'Invalid userid'
+    }
+
+    if( isValid ){
+        analizer.getChatUsers(userId).then( userProps => {
+            msg.data = userProps;
+            response.json(msg);
+        })
+    }
+})
+
+app.get('/getConversation', (request, response) => {
+    let msg = {};
+    msg.action = 'Get Conversation';
+    let userId = parseInt(request.query.userId);
+    let mUserId = parseInt(request.query.mUserId);
+
+    let isValid = true;
+    if(analizer.userIdExists(userId)===false ||
+            analizer.userIdExists(mUserId)===false ) {
+        isValid = false;
+        msg.data = 'Invalid userids'
+    }
+
+    if( isValid ){
+        analizer.getConversation(userId,mUserId).then( messages => {
+            msg.data = messages;
+            response.json(msg);
+        })
+    }
+})
+
+
+app.post('/addMessage', (request, response) => {
+    let msg = {};
+    msg.action = 'Add Message';
+    let rscUserId = parseInt(request.query.rscUserId);
+    let destUserId = parseInt(request.query.destUserId);
+    let content = request.body.content;
+
+    let isValid = true;
+    if(analizer.userIdExists(rscUserId)===false ||
+            analizer.userIdExists(destUserId)===false ) {
+        isValid = false;
+        msg.data = 'Invalid userids'
+    }
+
+    if( isValid ){
+        analizer.addMessage(rscUserId, destUserId, content)
+        msg.data = 'Message Added'
+    }
+    response.json(msg);
+})
+
 
 
 // callback

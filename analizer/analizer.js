@@ -835,12 +835,12 @@ class Analizer {
         let response = this._persistance.addMessage(rscUserId, destUserId, dateMillis, content);
     }
 
+    // Returns a Primise with an array of messages;
+    // call .then ( messages => {do stuff with messages} );
     getConversation(userId, mUserId){
         let response = this._persistance.getConversation(userId, mUserId);
-        response.then( result => {
-            let messages = result.result
-            console.log(JSON.stringify(messages));
-
+        return response.then( result => {
+            return  result.result
         })
     }
 
