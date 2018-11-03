@@ -303,6 +303,38 @@ class IntegrationTests {
 		},7000)
 	}
 
+	testMessages(){
+		let analizer = new Analizer();
+	    analizer.startPersistance();
+
+	    let analizer2 = new Analizer();
+	    //analizer2.startPersistance();
+
+		setTimeout( ()=>{
+            let userId0 = analizer.addUser(16);
+            let userId1 = analizer.addUser(17);
+            let userId2 = analizer.addUser(18);
+            let userId3 = analizer.addUser(19);
+            analizer.updateUserProperties(userId0, {firstName:'Felipe',lastName:'Mendoza'})
+            analizer.updateUserProperties(userId1, {firstName:'Jimbo',lastName:'Martinez'})
+            analizer.updateUserProperties(userId2, {firstName:'Chore',lastName:'Vazquez'})
+			analizer.addMessage(0,1,'Hola soy Felipe');
+			analizer.addMessage(1,0,'Que onda soy Jimbo');
+			analizer.addMessage(0,2,'Que pedo chore chore')
+            analizer.addMessage(1,2,'ola k ace')
+
+		},3000)
+
+		setTimeout( () => {
+			analizer.getChatUsers(0);
+			analizer.getChatUsers(1);
+			analizer.getConversation(0,1);
+			analizer.getConversation(1,2);
+			analizer.stopPersistance();
+		},5000);
+
+	}
+
 
 
 
@@ -334,7 +366,8 @@ class IntegrationTests {
 		//this.testGetVideoGameBuyMatches();
 		//this.testGetTriplets();
         //this.testSaveAndLoadCatalogueFromBD();
-		this.testSaveAndLoadOffersFromBD();
+		//this.testSaveAndLoadOffersFromBD();
+		this.testMessages();
 	}
 
 }

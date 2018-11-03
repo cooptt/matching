@@ -571,7 +571,7 @@ app.get('/getTriplets', (request, response) => {
 app.post('/signin', (request, response) => {
     let msg = {};
     msg.action = 'Sign in';
-    let loginServiceId = parseInt(request.query.loginServiceId )
+    let loginServiceId = request.query.loginServiceId
 
     if( analizer.loginServiceIdExists(loginServiceId)===false ){
       analizer.addUser(loginServiceId);
@@ -720,7 +720,7 @@ app.post('/addRatingToUser', (request,response) => {
 
 
 
-
+// CHAT ENDPOINTS
 
 
 // callback

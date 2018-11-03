@@ -24,17 +24,7 @@ class Analizer {
 
     // PUBLIC FUNCTIONS
 
-    // Get data functions
 
-    startPersistance(){
-        this._persitance = new AnalizerPersistance();
-        this._persitance.connect('localhost','root','root','analizer');
-    }
-
-    stopPersistance(){
-        this._persitance.end();
-        delete this._persitance;
-    }
 
     loginServiceIdExists(loginServiceId){
         return this._loginServiceMap.has(loginServiceId);
@@ -52,6 +42,9 @@ class Analizer {
         return this._offers.has(offerId);
     }
 
+
+
+    // Get data functions
 
     getUserIdFromLoginServiceId(loginServiceId){
         return this._loginServiceMap.get(loginServiceId);
@@ -79,8 +72,6 @@ class Analizer {
         this._catalogue.getValues().forEach( videoGame => catalogue.push(videoGame.getProperties()) )
         return catalogue;
     }
-
-
 
     getUserSellList(userId){
         var user = this.getUser(userId);
@@ -228,18 +219,7 @@ class Analizer {
     }
 
 
-    _loadUsersFromDB() {
-        let response = this._persitance.loadUsers();
-        response.then( result => {
-            //console.log(result);
-            result.result.forEach( props => {
-                let user = new User(props.userId, props.loginServiceId );
-                user.updateProperties(props);
-                this._users.set(props.userId, user);
-                this._loginServiceMap.set(props.loginServiceId, props.userId );
-            })
-        })
-    }
+
 
 
     // Add, Update, Delete functions
@@ -248,8 +228,8 @@ class Analizer {
         let userId = this._users.nextId();
         this._loginServiceMap.set(loginServiceId, userId );
         this._users.insert( new User(userId, loginServiceId ) );
-        if( this._persitance!==undefined ){
-            this._persitance.addUser( this.getUser(userId).getProperties() );
+        if( this._persistance!==undefined ){
+            this._persistance.addUser( this.getUser(userId).getProperties() );
         }
         return userId;
     }
@@ -259,8 +239,8 @@ class Analizer {
         let offerId = this._offers.insert(offer);
         this.getUser(userId).addSellOffer(offerId);
         this.getVideoGame(videoGameId).addSellOffer(offerId, price);
-        if( this._persitance!==undefined ){
-            this._persitance.addOffer( offer.getProperties() );
+        if( this._persistance!==undefined ){
+            this._persistance.addOffer( offer.getProperties() );
         }
         let offerIds = this._getMatchingOfferIds(offerId);
         this._createNotifications(offerId, offerIds);
@@ -271,36 +251,11 @@ class Analizer {
         var offerId = this._offers.insert(offer);
         this.getUser(userId).addBuyOffer(offerId);
         this.getVideoGame(videoGameId).addBuyOffer(offerId, price);
-        if( this._persitance!==undefined ){
-            this._persitance.addOffer( offer.getProperties() );
+        if( this._persistance!==undefined ){
+            this._persistance.addOffer( offer.getProperties() );
         }
         let offerIds = this._getMatchingOfferIds(offerId);
         this._createNotifications(offerId, offerIds);
-    }
-
-
-    _loadOffersFromDB(){
-        let response = this._persitance.loadOffers();
-        response.then( result => {
-            console.log(result);
-            result.result.forEach( props => {
-                let offer = new Offer(
-                    props.offerId,
-                    props.userId,
-                    props.videoGameId,
-                    props.price,
-                    props.type
-                );
-                if( props.type===this._BUY ){
-                    this.getUser(props.userId).addBuyOffer(props.offerId);
-                    this.getVideoGame(props.videoGameId).addBuyOffer(props.offerId, props.price);
-                } else if ( props.type === this._SELL ){
-                    this.getUser(props.userId).addSellOffer(props.offerId);
-                    this.getVideoGame(props.videoGameId).addSellOffer(props.offerId, props.price);
-                }
-                this._offers.set(props.offerId, offer);
-            })
-        })
     }
 
     addRatingToUser(ratingUserId, ratedUserId, rating){
@@ -317,14 +272,13 @@ class Analizer {
         }
     }
 
-    
 
 
     updateUserProperties(userId, properties){
         this.getUser(userId).updateProperties(properties);
-        if( this._persitance!==undefined ){
+        if( this._persistance!==undefined ){
             properties.userId = userId;
-            this._persitance.updateUser(properties);
+            this._persistance.updateUser(properties);
         }
     }
 
@@ -340,10 +294,12 @@ class Analizer {
         var offer = this.getOffer(offerId);
         this.getUser(offer.getUserId()).deleteOffer(offerId);
         this.getVideoGame(offer.getVideoGameId()).deleteOffer(offerId, offer.getType(), offer.getPrice());
-        //this._deleteOffersConnections(offerId);
         let offerIds = this._getMatchingOfferIds(offerId);
         this._removeNotifications(offerId, offerIds);
         this._offers.remove(offerId);
+        if( this._persistance!==undefined ){
+            this._persistance.deleteOffer(offerId);
+        }
     }
 
     
@@ -368,7 +324,6 @@ class Analizer {
         return this._offers.get(offerId);
     }
 
-
     getUser(userId) {
         return this._users.get(userId);
     }
@@ -380,20 +335,12 @@ class Analizer {
     addVideoGame(title, image){
         let videoGame = new VideoGame(this._catalogue.nextId(), title, image);
         this._catalogue.insert(videoGame);
-        if( this._persitance!==undefined ){
-            this._persitance.addVideoGame(videoGame.getProperties());
+        if( this._persistance!==undefined ){
+            this._persistance.addVideoGame(videoGame.getProperties());
         }
     }
 
-    _loadVideoGamesFromDB(){
-        let response = this._persitance.loadCatalogue();
-        response.then( result => {
-            result.result.forEach( props => {
-                let videoGame = new VideoGame(props.videoGameId, props.title, props.image );
-                this._catalogue.set(props.videoGameId, videoGame );
-            })
-        })
-    }
+
 
     _getUsers() {
         let users = [];
@@ -569,6 +516,8 @@ class Analizer {
         return false;
     }
 
+
+    /* Returns of posible relations where */
     _getMatching(offerIds, mOfferIds){
         offerIds.sort( (a,b) => {
             return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
@@ -617,37 +566,10 @@ class Analizer {
         return null;
     }
 
-    _getVideoGameMatches(videoGameId, offerIds){
-        let offers = offerIds.map( id =>  this.getOffer(id)  );
-        offers.sort( (a,b) =>{
-            return a.getPrice() - b.getPrice();
-        })
-        let matches = []
-        let repOfferIds = new Set();
-        offers.forEach( offer => {
-            if( offer.getVideoGameId()===videoGameId ){
-                let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
-                mOfferIds.sort( (a,b) => {
-                    return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
-                })
-                let repUserIds = new Set();
-                for(let i=0;i<mOfferIds.length;i++){
-                    let mOfferId = mOfferIds[i];
-                    let mOffer = this.getOffer(mOfferId);
-                    let mUserId = this.getUser(mOffer.getUserId());
-                    if( repUserIds.has(mUserId)===false && 
-                        repOfferIds.has(mOfferId)===false ){
-                        repOfferIds.add(mOfferId);
-                        repUserIds.add(mUserId);
-                        matches.push([offer.getOfferId(), mOfferId])
-                    }
-                }
-            }
-        } );
 
-        let matchesProps = matches.map( pairIds => this._fillMatchingOffer(pairIds[0],pairIds[1]));
-        return matchesProps;
-    }
+
+    // MY PROFILE VIEW
+
 
     _fillMatchingOffer(myOfferId, matchingOfferId){
         let myOffer = this.getOffer(myOfferId);
@@ -702,6 +624,13 @@ class Analizer {
     }
 
 
+
+
+
+
+
+    // TRIPLETS
+
     _getUserSellMatches(userId){
         let user = this.getUser(userId);
         let offerIds = user.getSellList();
@@ -747,7 +676,6 @@ class Analizer {
         })
         return matches;
     }
-
 
     /*
         oUserId: Original User Id
@@ -815,6 +743,88 @@ class Analizer {
 
 
 
+    // Persistance Functions
+
+    startPersistance(){
+        this._persistance = new AnalizerPersistance();
+        this._persistance.connect('localhost','root','root','analizer');
+    }
+
+    stopPersistance(){
+        this._persistance.end();
+        delete this._persistance;
+    }
+
+    _loadUsersFromDB() {
+        let response = this._persistance.loadUsers();
+        response.then( result => {
+            //console.log(result);
+            result.result.forEach( props => {
+                let user = new User(props.userId, props.loginServiceId );
+                user.updateProperties(props);
+                this._users.set(props.userId, user);
+                this._loginServiceMap.set(props.loginServiceId, props.userId );
+            })
+        })
+    }
+
+    _loadOffersFromDB(){
+        let response = this._persistance.loadOffers();
+        response.then( result => {
+            console.log(result);
+            result.result.forEach( props => {
+                let offer = new Offer(
+                    props.offerId,
+                    props.userId,
+                    props.videoGameId,
+                    props.price,
+                    props.type
+                );
+                if( props.type===this._BUY ){
+                    this.getUser(props.userId).addBuyOffer(props.offerId);
+                    this.getVideoGame(props.videoGameId).addBuyOffer(props.offerId, props.price);
+                } else if ( props.type === this._SELL ){
+                    this.getUser(props.userId).addSellOffer(props.offerId);
+                    this.getVideoGame(props.videoGameId).addSellOffer(props.offerId, props.price);
+                }
+                this._offers.set(props.offerId, offer);
+            })
+        })
+    }
+
+    _loadVideoGamesFromDB(){
+        let response = this._persistance.loadCatalogue();
+        response.then( result => {
+            result.result.forEach( props => {
+                let videoGame = new VideoGame(props.videoGameId, props.title, props.image );
+                this._catalogue.set(props.videoGameId, videoGame );
+            })
+        })
+    }
+
+
+    // Chat Functions
+
+    getChatUsers(userId){
+        let response = this._persistance.getChatIds(userId);
+        response.then( result => {
+            console.log(result);
+        })
+    }
+
+    addMessage(rscUserId, destUserId, content){
+        let dateMillis = (new Date()).getTime();
+        let response = this._persistance.addMessage(rscUserId, destUserId, dateMillis, content);
+    }
+
+    getConversation(userId, mUserId){
+        let response = this._persistance.getConversation(userId, mUserId);
+        response.then( result => {
+            console.log(result);
+        })
+    }
+
+
 
 
 
@@ -877,9 +887,6 @@ class Analizer {
 
         return;
     }
-
-
-
  
 }
 

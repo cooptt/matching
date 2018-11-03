@@ -200,6 +200,38 @@ class AnalizerPersistance {
 
 
 
+    // Chat functions
+
+    getChatIds(userId){
+        let query = 'select srcUserId, destUserId from Message ';
+        query += 'where srcUserId=' + userId.toString();
+        query += ' or destUserId=' + userId.toString();
+        query += ' ;'
+        //console.log(query);
+        return this.queryAnalizer(query);
+    }
+
+
+    getConversation(userId, mUserId){
+        let query = 'select * from Message ';
+        query += ' where ( srcUserId=' + userId ;
+        query += ' and destUserId=' + mUserId + ' ) ';
+        query += ' or ( srcUserId=' + mUserId ;
+        query += ' and destUserId=' + userId + ' ) ';
+        query += ' order by dateMillis desc  ;'
+        console.log(query);
+        return this.queryAnalizer(query);
+    }
+
+    addMessage(srcUserId, destUserId, dateMillis, content) {
+        let query = ' insert into Message set '
+        query += 'srcUserId=' + srcUserId.toString() + ', ';
+        query += 'destUserId=' + destUserId.toString() + ', ';
+        query += 'dateMillis=' + dateMillis.toString() + ', ';
+        query += 'content=\"' + content + '\"'
+        query += ' ;'
+        return this.queryAnalizer(query);
+    }
 }
 
 

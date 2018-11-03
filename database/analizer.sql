@@ -1,7 +1,7 @@
 
 create table  User (
 userId int not null,
-loginServiceId int not null,
+loginServiceId varchar(45),
 firstName varchar(45),
 lastName varchar(45),
 email varchar(60),
@@ -28,5 +28,14 @@ price float,
 primary key(offerId),
 foreign key(videoGameId) references VideoGame(videoGameId) on update cascade on delete cascade,
 foreign key (userId) references User(userId) on update cascade on delete cascade
+);
 
+create table Message(
+srcUserId int not null,
+destUserId int not null,
+dateMillis bigint not null,
+content varchar(256),
+primary key(srcUserId, destUserId, dateMillis),
+foreign key(srcUserId) references User(userId) on update cascade on delete cascade,
+foreign key(destUserId) references User(userId) on update cascade on delete cascade
 );
