@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f92063d-9c98-402d-a0fe-a432fb37a4d8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/database/util.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/analizer/analizer.js" beforeDir="false" afterPath="$PROJECT_DIR$/analizer/analizer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/analizer/analizerPersistance.js" beforeDir="false" afterPath="$PROJECT_DIR$/analizer/analizerPersistance.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/analizer.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/analizer.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/integrationTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/integrationTests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,8 +31,8 @@
       <usages-collector id="statistics.vcs.git.usages" />
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="18384" />
-          <entry key="sql" value="1018" />
+          <entry key="js" value="20066" />
+          <entry key="sql" value="1268" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -51,19 +49,19 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="18384" />
-          <entry key="SQL" value="1018" />
+          <entry key="JavaScript" value="20066" />
+          <entry key="SQL" value="1268" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="722" column="17" selection-start-line="722" selection-start-column="17" selection-end-line="722" selection-end-column="17" />
+            <state relative-caret-position="250">
+              <caret line="694" selection-start-line="694" selection-end-line="694" />
               <folding>
                 <element signature="e#317#336#0" />
                 <element signature="e#574#592#0" />
@@ -146,7 +144,6 @@
                 <element signature="e#15175#15540#0" />
                 <element signature="e#15353#15418#0" />
                 <element signature="e#15435#15513#0" />
-                <element signature="e#15543#15605#0" />
                 <element signature="e#15657#16151#0" />
                 <element signature="e#15991#16046#0" />
                 <element signature="e#16060#16127#0" />
@@ -161,8 +158,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/integrationTests.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="324" lean-forward="true" selection-start-line="324" selection-end-line="324" />
+            <state relative-caret-position="480">
+              <caret line="340" column="17" selection-start-line="340" selection-start-column="17" selection-end-line="340" selection-end-column="17" />
               <folding>
                 <element signature="n#!!block;n#testLoadCatalogueFromFolders#0;n#IntegrationTests#0" />
                 <element signature="e#1026#1070#0" />
@@ -218,17 +215,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/tests.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="42" column="26" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
+            <state relative-caret-position="337">
+              <caret line="40" column="20" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/analizer/analizer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="823" column="9" selection-start-line="823" selection-start-column="9" selection-end-line="823" selection-end-column="9" />
+            <state relative-caret-position="525">
+              <caret line="841" column="31" selection-start-line="841" selection-start-column="31" selection-end-line="841" selection-end-column="31" />
               <folding>
                 <element signature="n#!!block;n#constructor#0;n#Analizer#0" />
                 <element signature="n#!!block;n#loginServiceIdExists#0;n#Analizer#0" />
@@ -384,21 +381,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/analizer/analizerPersistance.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="205" column="48" selection-start-line="205" selection-start-column="48" selection-end-line="205" selection-end-column="48" />
+            <state relative-caret-position="570">
+              <caret line="239" column="9" selection-start-line="239" selection-start-column="9" selection-end-line="239" selection-end-column="9" />
               <folding>
-                <element signature="n#!!block;n#connect#0;n#AnalizerPersistance#0" />
                 <element signature="e#146#237#0" />
-                <element signature="e#278#347#0" />
-                <element signature="e#294#340#0" />
-                <element signature="e#343#369#0" />
-                <element signature="n#!!block;n#end#0;n#AnalizerPersistance#0" />
-                <element signature="n#!!block;n#queryAnalizer#0;n#AnalizerPersistance#0" />
-                <element signature="e#499#974#0" />
-                <element signature="e#557#963#0" />
-                <element signature="e#584#764#0" />
                 <element signature="e#621#709#0" />
-                <element signature="e#768#949#0" />
                 <element signature="e#805#893#0" />
                 <element signature="e#987#1160#0" />
                 <element signature="e#1484#1608#0" />
@@ -425,8 +412,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database/util.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="135">
+              <caret line="9" column="19" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -574,14 +561,14 @@
         <option value="$PROJECT_DIR$/analizer/analizerHelper.js" />
         <option value="$PROJECT_DIR$/test/analizerTest.js" />
         <option value="$PROJECT_DIR$/test/analizerPersistanceTest.js" />
-        <option value="$PROJECT_DIR$/test/tests.js" />
         <option value="$PROJECT_DIR$/analizer/utils.js" />
         <option value="$PROJECT_DIR$/database/analizer.sql" />
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/test/tests.js" />
+        <option value="$PROJECT_DIR$/analizer/analizerPersistance.js" />
+        <option value="$PROJECT_DIR$/test/integrationTests.js" />
         <option value="$PROJECT_DIR$/database/util.sql" />
         <option value="$PROJECT_DIR$/analizer/analizer.js" />
-        <option value="$PROJECT_DIR$/test/integrationTests.js" />
-        <option value="$PROJECT_DIR$/analizer/analizerPersistance.js" />
-        <option value="$PROJECT_DIR$/index.js" />
       </list>
     </option>
   </component>
@@ -681,12 +668,12 @@
       <updated>1540589126850</updated>
       <workItem from="1540589133861" duration="2570000" />
       <workItem from="1540683627344" duration="5239000" />
-      <workItem from="1540875059188" duration="42675000" />
+      <workItem from="1540875059188" duration="47716000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50484000" />
+    <option name="totallyTimeSpent" value="55525000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1303" height="780" extended-state="6" />
@@ -1071,10 +1058,120 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/tests.js">
+    <entry file="file://$PROJECT_DIR$/analizer/analizerTest.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="42" column="26" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
+        <state relative-caret-position="497">
+          <caret line="451" column="30" selection-start-line="451" selection-start-column="30" selection-end-line="451" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizer/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/analizer.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="39" column="34" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="694" selection-start-line="694" selection-end-line="694" />
+          <folding>
+            <element signature="e#317#336#0" />
+            <element signature="e#574#592#0" />
+            <element signature="e#766#877#0" />
+            <element signature="e#1307#1318#0" />
+            <element signature="e#1462#1952#0" />
+            <element signature="e#1525#1606#0" />
+            <element signature="e#1560#1599#0" />
+            <element signature="e#1728#1799#0" />
+            <element signature="e#1823#1948#0" />
+            <element signature="e#1893#1940#0" />
+            <element signature="e#1999#2105#0" />
+            <element signature="e#2141#2174#0" />
+            <element signature="e#2182#2337#0" />
+            <element signature="e#2392#2755#0" />
+            <element signature="e#2583#2647#0" />
+            <element signature="e#2664#2724#0" />
+            <element signature="e#2758#3008#0" />
+            <element signature="e#3180#3594#0" />
+            <element signature="e#3646#3991#0" />
+            <element signature="e#3825#3889#0" />
+            <element signature="e#3906#3964#0" />
+            <element signature="e#3995#4574#0" />
+            <element signature="e#4625#4968#0" />
+            <element signature="e#4803#4867#0" />
+            <element signature="e#4884#4941#0" />
+            <element signature="e#4972#5221#0" />
+            <element signature="e#5278#5664#0" />
+            <element signature="e#5483#5552#0" />
+            <element signature="e#5569#5637#0" />
+            <element signature="e#5668#5874#0" />
+            <element signature="e#5930#6314#0" />
+            <element signature="e#6134#6203#0" />
+            <element signature="e#6220#6287#0" />
+            <element signature="e#6317#6558#0" />
+            <element signature="e#6611#6957#0" />
+            <element signature="e#6790#6854#0" />
+            <element signature="e#6871#6930#0" />
+            <element signature="e#6960#7469#0" />
+            <element signature="e#7525#7877#0" />
+            <element signature="e#7707#7771#0" />
+            <element signature="e#7788#7850#0" />
+            <element signature="e#7880#8276#0" />
+            <element signature="e#8327#8629#0" />
+            <element signature="e#8487#8541#0" />
+            <element signature="e#8555#8605#0" />
+            <element signature="e#8633#8862#0" />
+            <element signature="e#8924#9249#0" />
+            <element signature="e#9096#9150#0" />
+            <element signature="e#9164#9225#0" />
+            <element signature="e#9253#10353#0" />
+            <element signature="e#10413#10916#0" />
+            <element signature="e#10639#10693#0" />
+            <element signature="e#10747#10806#0" />
+            <element signature="e#10820#10892#0" />
+            <element signature="e#10920#11513#0" />
+            <element signature="e#11572#12068#0" />
+            <element signature="e#11792#11846#0" />
+            <element signature="e#11900#11959#0" />
+            <element signature="e#12119#12457#0" />
+            <element signature="e#12287#12355#0" />
+            <element signature="e#12374#12430#0" />
+            <element signature="e#12465#12499#0" />
+            <element signature="e#12543#12996#0" />
+            <element signature="e#12999#13036#0" />
+            <element signature="e#13094#13531#0" />
+            <element signature="e#13315#13380#0" />
+            <element signature="e#13397#13504#0" />
+            <element signature="e#13535#13588#0" />
+            <element signature="e#13638#14315#0" />
+            <element signature="e#13973#14038#0" />
+            <element signature="e#14106#14176#0" />
+            <element signature="e#14193#14289#0" />
+            <element signature="e#14318#14370#0" />
+            <element signature="e#14419#15094#0" />
+            <element signature="e#14753#14818#0" />
+            <element signature="e#14886#14956#0" />
+            <element signature="e#14973#15068#0" />
+            <element signature="e#15097#15126#0" />
+            <element signature="e#15175#15540#0" />
+            <element signature="e#15353#15418#0" />
+            <element signature="e#15435#15513#0" />
+            <element signature="e#15657#16151#0" />
+            <element signature="e#15991#16046#0" />
+            <element signature="e#16060#16127#0" />
+            <element signature="e#16191#16239#0" />
+            <element signature="e#16246#16580#0" />
+            <element signature="e#16585#17870#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1182,38 +1279,108 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/analizer/analizerTest.js">
+    <entry file="file://$PROJECT_DIR$/test/tests.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="451" column="30" selection-start-line="451" selection-start-column="30" selection-end-line="451" selection-end-column="30" />
+        <state relative-caret-position="337">
+          <caret line="40" column="20" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/analizer/utils.js">
+    <entry file="file://$PROJECT_DIR$/analizer/analizerPersistance.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/analizer.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="39" column="34" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
+        <state relative-caret-position="570">
+          <caret line="239" column="9" selection-start-line="239" selection-start-column="9" selection-end-line="239" selection-end-column="9" />
+          <folding>
+            <element signature="e#146#237#0" />
+            <element signature="e#621#709#0" />
+            <element signature="e#805#893#0" />
+            <element signature="e#987#1160#0" />
+            <element signature="e#1484#1608#0" />
+            <element signature="n#!!block;n#addVideoGame#0;n#AnalizerPersistance#0" />
+            <element signature="e#1868#2027#0" />
+            <element signature="n#!!block;n#addOffer#0;n#AnalizerPersistance#0" />
+            <element signature="e#2947#3101#0" />
+            <element signature="n#!!block;n#updateOffer#0;n#AnalizerPersistance#0" />
+            <element signature="e#3236#3455#0" />
+            <element signature="e#3272#3445#0" />
+            <element signature="e#3572#3600#0" />
+            <element signature="n#!!block;n#deleteUser#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#deleteVideoGame#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#loadCatalogue#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#loadVideoGames#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#flush#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#flushUsers#1;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#flushUsers#2;n#AnalizerPersistance#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/database/util.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="135">
+          <caret line="9" column="19" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/integrationTests.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="340" column="17" selection-start-line="340" selection-start-column="17" selection-end-line="340" selection-end-column="17" />
+          <folding>
+            <element signature="n#!!block;n#testLoadCatalogueFromFolders#0;n#IntegrationTests#0" />
+            <element signature="e#1026#1070#0" />
+            <element signature="e#1210#1903#0" />
+            <element signature="e#1290#1374#0" />
+            <element signature="e#1466#1514#0" />
+            <element signature="e#1581#1847#0" />
+            <element signature="e#1722#1841#0" />
+            <element signature="n#!!block;n#testPOST#0;n#IntegrationTests#0" />
+            <element signature="e#1959#2122#0" />
+            <element signature="e#2051#2118#0" />
+            <element signature="e#2163#2269#0" />
+            <element signature="e#2177#2198#0" />
+            <element signature="e#2203#2265#0" />
+            <element signature="n#!!block;n#testGET#0;n#IntegrationTests#0" />
+            <element signature="e#2308#2454#0" />
+            <element signature="e#2383#2450#0" />
+            <element signature="e#2495#2601#0" />
+            <element signature="e#2509#2530#0" />
+            <element signature="e#2535#2597#0" />
+            <element signature="n#!!block;n#testLogin#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testLogin2#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testAddSellOffer#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testAddSellOffer2#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testAddBuyOffer#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testAddBuyOffer2#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testUpdateUserProperties#0;n#IntegrationTests#0" />
+            <element signature="e#3424#3507#0" />
+            <element signature="n#!!block;n#testUpdateUserProperties2#0;n#IntegrationTests#0" />
+            <element signature="e#3628#3709#0" />
+            <element signature="n#!!block;n#testDeleteOffer#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testAddRatingToUser#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testGetUserProperties#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testGetCatalogue#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testGetUserSellList#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testGetUserBuyList#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testGetVideoGameSellList#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testGetVideoGameBuyList#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testGetNotifications#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testGetOffersProperties#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testGetRankedUsers#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testGetUserMatchingVideoGames#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testGetVideoGameSellMatches#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testGetVideoGameBuyMatches#0;n#IntegrationTests#0" />
+            <element signature="n#!!block;n#testGetTriplets#0;n#IntegrationTests#0" />
+            <element signature="e#5315#5342#0" />
+            <element signature="e#5428#5457#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/analizer/analizer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="823" column="9" selection-start-line="823" selection-start-column="9" selection-end-line="823" selection-end-column="9" />
+        <state relative-caret-position="525">
+          <caret line="841" column="31" selection-start-line="841" selection-start-column="31" selection-end-line="841" selection-end-column="31" />
           <folding>
             <element signature="n#!!block;n#constructor#0;n#Analizer#0" />
             <element signature="n#!!block;n#loginServiceIdExists#0;n#Analizer#0" />
@@ -1361,197 +1528,6 @@
             <element signature="e#29396#29945#0" />
             <element signature="e#29534#29929#0" />
             <element signature="e#29589#29909#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analizer/analizerPersistance.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="205" column="48" selection-start-line="205" selection-start-column="48" selection-end-line="205" selection-end-column="48" />
-          <folding>
-            <element signature="n#!!block;n#connect#0;n#AnalizerPersistance#0" />
-            <element signature="e#146#237#0" />
-            <element signature="e#278#347#0" />
-            <element signature="e#294#340#0" />
-            <element signature="e#343#369#0" />
-            <element signature="n#!!block;n#end#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#queryAnalizer#0;n#AnalizerPersistance#0" />
-            <element signature="e#499#974#0" />
-            <element signature="e#557#963#0" />
-            <element signature="e#584#764#0" />
-            <element signature="e#621#709#0" />
-            <element signature="e#768#949#0" />
-            <element signature="e#805#893#0" />
-            <element signature="e#987#1160#0" />
-            <element signature="e#1484#1608#0" />
-            <element signature="n#!!block;n#addVideoGame#0;n#AnalizerPersistance#0" />
-            <element signature="e#1868#2027#0" />
-            <element signature="n#!!block;n#addOffer#0;n#AnalizerPersistance#0" />
-            <element signature="e#2947#3101#0" />
-            <element signature="n#!!block;n#updateOffer#0;n#AnalizerPersistance#0" />
-            <element signature="e#3236#3455#0" />
-            <element signature="e#3272#3445#0" />
-            <element signature="e#3572#3600#0" />
-            <element signature="n#!!block;n#deleteUser#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#deleteVideoGame#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#loadCatalogue#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#loadVideoGames#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#flush#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#flushUsers#1;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#flushUsers#2;n#AnalizerPersistance#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/integrationTests.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="324" lean-forward="true" selection-start-line="324" selection-end-line="324" />
-          <folding>
-            <element signature="n#!!block;n#testLoadCatalogueFromFolders#0;n#IntegrationTests#0" />
-            <element signature="e#1026#1070#0" />
-            <element signature="e#1210#1903#0" />
-            <element signature="e#1290#1374#0" />
-            <element signature="e#1466#1514#0" />
-            <element signature="e#1581#1847#0" />
-            <element signature="e#1722#1841#0" />
-            <element signature="n#!!block;n#testPOST#0;n#IntegrationTests#0" />
-            <element signature="e#1959#2122#0" />
-            <element signature="e#2051#2118#0" />
-            <element signature="e#2163#2269#0" />
-            <element signature="e#2177#2198#0" />
-            <element signature="e#2203#2265#0" />
-            <element signature="n#!!block;n#testGET#0;n#IntegrationTests#0" />
-            <element signature="e#2308#2454#0" />
-            <element signature="e#2383#2450#0" />
-            <element signature="e#2495#2601#0" />
-            <element signature="e#2509#2530#0" />
-            <element signature="e#2535#2597#0" />
-            <element signature="n#!!block;n#testLogin#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testLogin2#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testAddSellOffer#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testAddSellOffer2#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testAddBuyOffer#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testAddBuyOffer2#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testUpdateUserProperties#0;n#IntegrationTests#0" />
-            <element signature="e#3424#3507#0" />
-            <element signature="n#!!block;n#testUpdateUserProperties2#0;n#IntegrationTests#0" />
-            <element signature="e#3628#3709#0" />
-            <element signature="n#!!block;n#testDeleteOffer#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testAddRatingToUser#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testGetUserProperties#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testGetCatalogue#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testGetUserSellList#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testGetUserBuyList#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testGetVideoGameSellList#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testGetVideoGameBuyList#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testGetNotifications#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testGetOffersProperties#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testGetRankedUsers#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testGetUserMatchingVideoGames#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testGetVideoGameSellMatches#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testGetVideoGameBuyMatches#0;n#IntegrationTests#0" />
-            <element signature="n#!!block;n#testGetTriplets#0;n#IntegrationTests#0" />
-            <element signature="e#5315#5342#0" />
-            <element signature="e#5428#5457#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="722" column="17" selection-start-line="722" selection-start-column="17" selection-end-line="722" selection-end-column="17" />
-          <folding>
-            <element signature="e#317#336#0" />
-            <element signature="e#574#592#0" />
-            <element signature="e#766#877#0" />
-            <element signature="e#1307#1318#0" />
-            <element signature="e#1462#1952#0" />
-            <element signature="e#1525#1606#0" />
-            <element signature="e#1560#1599#0" />
-            <element signature="e#1728#1799#0" />
-            <element signature="e#1823#1948#0" />
-            <element signature="e#1893#1940#0" />
-            <element signature="e#1999#2105#0" />
-            <element signature="e#2141#2174#0" />
-            <element signature="e#2182#2337#0" />
-            <element signature="e#2392#2755#0" />
-            <element signature="e#2583#2647#0" />
-            <element signature="e#2664#2724#0" />
-            <element signature="e#2758#3008#0" />
-            <element signature="e#3180#3594#0" />
-            <element signature="e#3646#3991#0" />
-            <element signature="e#3825#3889#0" />
-            <element signature="e#3906#3964#0" />
-            <element signature="e#3995#4574#0" />
-            <element signature="e#4625#4968#0" />
-            <element signature="e#4803#4867#0" />
-            <element signature="e#4884#4941#0" />
-            <element signature="e#4972#5221#0" />
-            <element signature="e#5278#5664#0" />
-            <element signature="e#5483#5552#0" />
-            <element signature="e#5569#5637#0" />
-            <element signature="e#5668#5874#0" />
-            <element signature="e#5930#6314#0" />
-            <element signature="e#6134#6203#0" />
-            <element signature="e#6220#6287#0" />
-            <element signature="e#6317#6558#0" />
-            <element signature="e#6611#6957#0" />
-            <element signature="e#6790#6854#0" />
-            <element signature="e#6871#6930#0" />
-            <element signature="e#6960#7469#0" />
-            <element signature="e#7525#7877#0" />
-            <element signature="e#7707#7771#0" />
-            <element signature="e#7788#7850#0" />
-            <element signature="e#7880#8276#0" />
-            <element signature="e#8327#8629#0" />
-            <element signature="e#8487#8541#0" />
-            <element signature="e#8555#8605#0" />
-            <element signature="e#8633#8862#0" />
-            <element signature="e#8924#9249#0" />
-            <element signature="e#9096#9150#0" />
-            <element signature="e#9164#9225#0" />
-            <element signature="e#9253#10353#0" />
-            <element signature="e#10413#10916#0" />
-            <element signature="e#10639#10693#0" />
-            <element signature="e#10747#10806#0" />
-            <element signature="e#10820#10892#0" />
-            <element signature="e#10920#11513#0" />
-            <element signature="e#11572#12068#0" />
-            <element signature="e#11792#11846#0" />
-            <element signature="e#11900#11959#0" />
-            <element signature="e#12119#12457#0" />
-            <element signature="e#12287#12355#0" />
-            <element signature="e#12374#12430#0" />
-            <element signature="e#12465#12499#0" />
-            <element signature="e#12543#12996#0" />
-            <element signature="e#12999#13036#0" />
-            <element signature="e#13094#13531#0" />
-            <element signature="e#13315#13380#0" />
-            <element signature="e#13397#13504#0" />
-            <element signature="e#13535#13588#0" />
-            <element signature="e#13638#14315#0" />
-            <element signature="e#13973#14038#0" />
-            <element signature="e#14106#14176#0" />
-            <element signature="e#14193#14289#0" />
-            <element signature="e#14318#14370#0" />
-            <element signature="e#14419#15094#0" />
-            <element signature="e#14753#14818#0" />
-            <element signature="e#14886#14956#0" />
-            <element signature="e#14973#15068#0" />
-            <element signature="e#15097#15126#0" />
-            <element signature="e#15175#15540#0" />
-            <element signature="e#15353#15418#0" />
-            <element signature="e#15435#15513#0" />
-            <element signature="e#15543#15605#0" />
-            <element signature="e#15657#16151#0" />
-            <element signature="e#15991#16046#0" />
-            <element signature="e#16060#16127#0" />
-            <element signature="e#16191#16239#0" />
-            <element signature="e#16246#16580#0" />
-            <element signature="e#16585#17870#0" />
           </folding>
         </state>
       </provider>

@@ -804,11 +804,29 @@ class Analizer {
 
 
     // Chat Functions
+    // returns a Promise with userProps,
+    // call .then( userProps => { do stuff with userProps } );
 
     getChatUsers(userId){
         let response = this._persistance.getChatIds(userId);
-        response.then( result => {
-            console.log(result);
+        return response.then( result => {
+            //console.log(result);
+            let idPairs = result.result;
+            let ids = new Set();
+            idPairs.forEach( idPair => {
+                if( idPair.srcUserId !== userId ){
+                    ids.add(idPair.srcUserId);
+                }
+
+                if( idPair.destUserId !== userId ){
+                    ids.add(idPair.destUserId);
+                }
+            })
+            let userIds = Array.from(ids);
+            //console.log(ids);
+            let userProps = userIds.map( userId => this.getUser(userId).getProperties() );
+
+            return userProps;
         })
     }
 
@@ -820,7 +838,9 @@ class Analizer {
     getConversation(userId, mUserId){
         let response = this._persistance.getConversation(userId, mUserId);
         response.then( result => {
-            console.log(result);
+            let messages = result.result
+            console.log(JSON.stringify(messages));
+
         })
     }
 

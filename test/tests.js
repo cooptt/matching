@@ -44,6 +44,7 @@ function startTesting(){
 		if(mode==='unit'){
 			runUnitTests();
 		} else if (mode==='integration'){
+			runUnitTests();
 			runIntegrationTests();
 		}
 	}

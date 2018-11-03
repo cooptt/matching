@@ -326,8 +326,8 @@ class IntegrationTests {
 		},3000)
 
 		setTimeout( () => {
-			analizer.getChatUsers(0);
-			analizer.getChatUsers(1);
+			analizer.getChatUsers(0).then( userProps => { console.log('Props: ', userProps)} );
+			analizer.getChatUsers(2).then( userProps => { console.log('Props: ', userProps)} );
 			analizer.getConversation(0,1);
 			analizer.getConversation(1,2);
 			analizer.stopPersistance();

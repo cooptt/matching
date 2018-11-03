@@ -14,13 +14,14 @@ class AnalizerPersistance {
     		if (err){
     			console.log("error with db");
     		} else {
-    		    console.log('connections successfull')
+    		    console.log('Connected with database ... ')
             }
 
     	});
     }
 
     end(){
+        console.log('Connection with database ended')
         this._db.end();
     }
 
@@ -219,7 +220,7 @@ class AnalizerPersistance {
         query += ' or ( srcUserId=' + mUserId ;
         query += ' and destUserId=' + userId + ' ) ';
         query += ' order by dateMillis desc  ;'
-        console.log(query);
+        //console.log(query);
         return this.queryAnalizer(query);
     }
 
