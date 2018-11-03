@@ -724,6 +724,19 @@ app.post('/addRatingToUser', (request,response) => {
 
 // CHAT ENDPOINTS
 
+/*
+/getChatUsers?userId=0
+
+{ action: 'Get chat users ',
+  data:
+   [ { userId: 1,
+       loginServiceId: '17',
+       firstName: null,
+       lastName: null,
+       email: null,
+       myRating: null,
+       myRatingCount: 0 } ] }
+ */
 app.get('/getChatUsers', (request, response) => {
 
     let msg = {};
@@ -744,6 +757,25 @@ app.get('/getChatUsers', (request, response) => {
     }
 })
 
+
+/*
+    /getConversation?userId=0&mUserId=1
+
+    { action: 'Get Conversation',
+  data:
+   [ { srcUserId: 0,
+       destUserId: 1,
+       dateMillis: 1541280501083,
+       content: 'Bien y tu que tal James' },
+     { srcUserId: 1,
+       destUserId: 0,
+       dateMillis: 1541280501081,
+       content: 'Que onda como estas Felipe' },
+     { srcUserId: 0,
+       destUserId: 1,
+       dateMillis: 1541280501079,
+       content: 'Hola soy Felipe' } ] }
+ */
 app.get('/getConversation', (request, response) => {
     let msg = {};
     msg.action = 'Get Conversation';
@@ -765,7 +797,9 @@ app.get('/getConversation', (request, response) => {
     }
 })
 
-
+/*
+    /addMessage?rscUserId=0&destUserId=1', {content:'Hola soy Felipe'}
+ */
 app.post('/addMessage', (request, response) => {
     let msg = {};
     msg.action = 'Add Message';
