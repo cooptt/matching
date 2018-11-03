@@ -1,9 +1,6 @@
 const mysql = require('mysql');
 
-
 class AnalizerPersistance {
-
-
 
     connect(host,user,password,database){
     	this._db = mysql.createConnection({
@@ -62,12 +59,6 @@ class AnalizerPersistance {
     }
 
 
-
-
-
-
-
-
     /*
         properties = {
             videoGameId:5,
@@ -80,16 +71,6 @@ class AnalizerPersistance {
             ("${properties.videoGameId}","${properties.title}","${properties.image}");`;
         return this.queryAnalizer(query);
     }
-
-
-
-
-
-
-
-
-
-
 
     /*
         properties = {
@@ -105,12 +86,6 @@ class AnalizerPersistance {
           ("${properties.offerId}","${properties.userId}","${properties.videoGameId}","${properties.price}","${properties.type}");`;
           return this.queryAnalizer(query);
     }
-
-
-
-
-
-
 
     /*
       // all attributes except userId will change
@@ -140,14 +115,6 @@ class AnalizerPersistance {
       return this.queryAnalizer(query);
     }
 
-
-
-
-
-
-
-
-
      /*
       // all attributes except offerId will change
       properties{
@@ -176,9 +143,6 @@ class AnalizerPersistance {
         return this.queryAnalizer(query);
     }
 
-
-
-
     /*
       userId = '4'
     */
@@ -187,21 +151,15 @@ class AnalizerPersistance {
         return this.queryAnalizer(query);
     }
 
-
-
-
     deleteVideoGame(videoGameId){
         let query = `DELETE FROM VideoGame WHERE videoGameId=${videoGameId};`;
         return this.queryAnalizer(query);
     }
 
-
-
     deleteOffer(offerId){
         let query = `DELETE FROM Offer WHERE offerId=${offerId};`;
         return this.queryAnalizer(query);
     }
-
 
     // Returns All rows of User's table
     loadUsers(){
@@ -215,12 +173,32 @@ class AnalizerPersistance {
         return this.queryAnalizer(query);
     }
 
+    // Returns all rows of Offer
+    loadOffers(){
+        let query = 'SELECT * FROM Offer;';
+        return this.queryAnalizer(query);
+    }
+
+    flushUsers(){
+        let query = 'delete from User ;';
+        return this.queryAnalizer(query);
+    }
+
+    flushVideoGames(){
+        let query = 'delete from VideoGame ;';
+        return this.queryAnalizer(query);
+    }
+
+    flushOffers(){
+        let query = 'delete from Offer ;';
+        return this.queryAnalizer(query);
+    }
+
     // Returns all rows of Offers' table
     loadOffers(){
         let query = `SELECT * FROM Offer;`;
         return this.queryAnalizer(query);
     }
-
 
 }
 

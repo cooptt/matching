@@ -141,11 +141,22 @@ class AnalizerPersistanceTest{
 
 	}
 
+	testParsingResults(){
+		let analizerPersistance = new AnalizerPersistance();
+		analizerPersistance.connect('localhost','root','root','analizer');
+		analizerPersistance.loadCatalogue().then( result => {
+			console.log('my result :', result);
+		})
+
+		analizerPersistance.end();
+	}
+
 	runAllTests(){
 		console.log("AnalizerPersistanceTest started ...");
-		this.testMySQLConnection();
-		this.testSQLFunctions();
-		this.testCloseConnection();
+		//this.testMySQLConnection();
+		//this.testSQLFunctions();
+		//this.testCloseConnection();
+		this.testParsingResults();
 		console.log("AnalizerPersistanceTest ended ...\n");
 	}
 

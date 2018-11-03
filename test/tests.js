@@ -27,11 +27,26 @@ let runIntegrationTests = function() {
 	let integrationTests = new IntegrationTests();
 	let analizerPersistanceTest = new AnalizerPersistanceTest();
 
-	integrationTests.runAllTests();
-	//analizerPersistanceTest.runAllTests();
+	//integrationTests.runAllTests();
+	analizerPersistanceTest.runAllTests();
 }
 
 
 
-runUnitTests();
-runIntegrationTests();
+//runUnitTests();
+//runIntegrationTests();
+
+
+function startTesting(){
+	let args = process.argv;
+	if( args.length>2 ){
+		let mode = args[2];
+		if(mode==='unit'){
+			runUnitTests();
+		} else if (mode==='integration'){
+			runIntegrationTests();
+		}
+	}
+}
+
+startTesting();

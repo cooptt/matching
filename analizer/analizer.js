@@ -3,6 +3,8 @@
 const analizerHelper = require("./analizerHelper");
 const utils = require("./utils");
 const nodemailer = require('nodemailer');
+const analizerPersitance = require('./analizerPersistance')
+const AnalizerPersitance = analizerPersitance.AnalizerPersistance;
 const User = analizerHelper.User;
 const TreeNode = analizerHelper.TreeNode;
 const VideoGame = analizerHelper.VideoGame;
@@ -23,6 +25,11 @@ class Analizer {
     // PUBLIC FUNCTIONS
 
     // Get data functions
+
+    startPersistance(){
+        this._persitance = new AnalizerPersistance();
+        this._persitance.connect('localhost','root','root','analizer');
+    }
 
     loginServiceIdExists(loginServiceId){
         return this._loginServiceMap.has(loginServiceId);
@@ -206,7 +213,12 @@ class Analizer {
         return this._getVideoGameMatches(videoGameId, offerIds);
     }
 
-
+    getTriplets(userId){
+        let triplets = this._getCycles(userId,3);
+        console.log(triplets);
+        let tripletsProps = triplets.map( cycle => this._createCycleProps(cycle) );
+        return tripletsProps;
+    }
 
     
     
@@ -215,14 +227,27 @@ class Analizer {
 
     
 
+    _loadUsers(){
+        let response = this._persitance.loadUsers();
+        if(response.ok) {
+            let users = response.result;
+            console.log(users);
+        } else {
+            console.log('Error while loading users from database ')
+        }
+    }
 
 
     // Add, Update, Delete functions
 
     addUser(loginServiceId) {
-        this._loginServiceMap.set(loginServiceId, this._users.nextId() );
-        this._users.insert( new User(this._users.nextId(), loginServiceId ) );
-        return this.getUserIdFromLoginServiceId(loginServiceId)
+        let userId = this._users.nextId();
+        this._loginServiceMap.set(loginServiceId, userId );
+        this._users.insert( new User(userId, loginServiceId ) );
+        if( this._persitance!==undefined ){
+            this._persitance.addUser( this.getUser(userId).getProperties() );
+        }
+        return userId;
     }
 
     addSellOffer(userId, videoGameId, price) {
@@ -730,12 +755,10 @@ class Analizer {
     }
 
 
-    getTriplets(userId){
-        let triplets = this._getCycles(userId,3);
-        console.log(triplets);
-        let tripletsProps = triplets.map( cycle => this._createCycleProps(cycle) );
-        return tripletsProps;
-    }
+
+
+
+
 
 
 
