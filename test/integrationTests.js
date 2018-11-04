@@ -349,6 +349,44 @@ class IntegrationTests {
 	}
 
 
+    testRankings(){
+        this.testPOST('/signin?loginServiceId=16', {});
+        this.testPOST('/signin?loginServiceId=17', {});
+        this.testPOST('/updateUserProperties?userId=0',{firstName:'Felipe',lastname:'Mendoza',email:'felip@gmail.com',country:'Mexico',city:'Guadalajara'});
+        this.testPOST('/updateUserProperties?userId=1',{firstName:'Jaime',lastname:'Martinez',email:'jimbo@gmail.com',country:'USA',city:'Redwood city'});
+        this.testPOST('/addRatingToUser?ratingUserId=0&ratedUserId=1&rating=4')
+        setTimeout( () =>{
+            this.testGET('/getUserProperties?userId=0');
+            this.testGET('/getUserProperties?userId=1');
+        },2000)
+	}
+
+	testFill(){
+		this.testPOST('/signin?loginServiceId=16', {});
+        this.testPOST('/signin?loginServiceId=17', {});
+        this.testPOST('/signin?loginServiceId=18', {});
+        this.testPOST('/signin?loginServiceId=19', {});
+        this.testPOST('/signin?loginServiceId=20', {});
+        this.testPOST('/updateUserProperties?userId=0',{firstName:'Felipe',lastname:'Mendoza',email:'felip@gmail.com',country:'Mexico',city:'Guadalajara'});
+        this.testPOST('/updateUserProperties?userId=1',{firstName:'Jaime',lastname:'Martinez',email:'jimbo@gmail.com',country:'USA',city:'Redwood city'});
+        this.testPOST('/updateUserProperties?userId=2',{firstName:'Chore',lastname:'Vazquez',email:'vazquez@gmail.com',country:'Canada',city:'Quebec'});
+        this.testPOST('/addRatingToUser?ratingUserId=0&ratedUserId=1&rating=4')
+        this.testPOST('/addRatingToUser?ratingUserId=2&ratedUserId=1&rating=5')
+        this.testPOST('/addRatingToUser?ratingUserId=1&ratedUserId=0&rating=1')
+
+
+        setTimeout( () => {
+        	this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+
+		},1000);
+	}
+
+	testGetAnalizerState(){
+		this.testPOST();
+	}
+
+
+
 
 
 
@@ -381,7 +419,9 @@ class IntegrationTests {
 		//this.testGetTriplets();
         //this.testSaveAndLoadCatalogueFromBD();
 		//this.testSaveAndLoadOffersFromBD();
-		this.testMessages();
+		//this.testMessages();
+		//this.testRankings();
+		this.testFill();
 
 	}
 

@@ -15,7 +15,7 @@ class IdMap {
 
     set(id, item){
     	this._map.set(id, item);
-    	if(id>this._idcount){
+    	if(id>=this._idcount){
     		this._idcount = id+1;
 		}
 	}

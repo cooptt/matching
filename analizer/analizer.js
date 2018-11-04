@@ -69,10 +69,12 @@ class Analizer {
 
     clearDatabase(){
         let promises = [];
+        promises.push(this._persistance.clearRatings());
         promises.push(this._persistance.clearMessages());
         promises.push(this._persistance.clearOffers());
         promises.push(this._persistance.clearVideoGames());
         promises.push(this._persistance.clearUsers());
+
 
         Promise.all(promises).then( results => {
             console.log('Clearing Database ...')
@@ -110,14 +112,14 @@ class Analizer {
             ratingUser.updateUserRating(ratedUserId, rating);
             if( this._persistance!==undefined ){
                 this._persistance.updateRating(ratingUserId, ratedUserId, rating);
-                this._persistance.updateUserProperties(ratedUserId, { rating:rating} );
+                this._persistance.updateUser( { userId:ratedUserId, rating:ratedUser.getMyRating() } );
             }
         } else {
             ratedUser.updateMyRating(rating);
             ratingUser.addUserRating(ratedUserId, rating);
             if( this._persistance!==undefined ){
                 this._persistance.addRating(ratingUserId, ratedUserId, rating);
-                this._persistance.updateUserProperties(ratedUserId, { rating:rating} );
+                this._persistance.updateUser( { userId:ratedUserId, rating:ratedUser.getMyRating() } );
             }
         }
     }
@@ -463,7 +465,7 @@ class Analizer {
                 text: text
             };
             //this._sendEmail(mailOptions);
-            //console.log(text);
+            console.log('Sending email: ', mailOptions);
         }
     }
 
@@ -720,7 +722,7 @@ class Analizer {
 
     _loadUsersFromDB() {
         let response = this._persistance.loadUsers();
-        response.then( result => {
+        return response.then( result => {
             //console.log(result);
             result.result.forEach( props => {
                 let user = new User(props.userId, props.loginServiceId );
@@ -733,7 +735,7 @@ class Analizer {
 
     _loadOffersFromDB(){
         let response = this._persistance.loadOffers();
-        response.then( result => {
+        return response.then( result => {
             console.log(result);
             result.result.forEach( props => {
                 let offer = new Offer(
@@ -757,12 +759,41 @@ class Analizer {
 
     _loadVideoGamesFromDB(){
         let response = this._persistance.loadCatalogue();
-        response.then( result => {
+        return response.then( result => {
             result.result.forEach( props => {
                 let videoGame = new VideoGame(props.videoGameId, props.title, props.image );
                 this._catalogue.set(props.videoGameId, videoGame );
             })
         })
+    }
+
+    _loadRatingsFromDB(){
+        let response = this._persistance.loadRatings();
+        return response.then( result => {
+            console.log('Ratings : ', result.result)
+            result.result.forEach( props => {
+                let ratedUser = this.getUser(props.ratedUserId);
+                let ratingUser = this.getUser(props.ratingUserId);
+                let rating = props.rating;
+                ratedUser.updateMyRating(rating);
+                ratingUser.addUserRating(props.ratedUserId, rating);
+            })
+        })
+    }
+
+    loadDB(){
+        this._loadUsersFromDB().then( () => {
+           this._loadVideoGamesFromDB().then( () => {
+               this._loadOffersFromDB().then( () => {
+                   this._loadRatingsFromDB().then( () => {
+                       console.log('Database loaded ...')
+                   })
+               })
+           })
+        })
+
+
+
     }
 
 

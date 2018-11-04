@@ -7,12 +7,18 @@ const admin = require('firebase-admin') // service firebase
 const Analizer = require('./analizer/analizer').Analizer;
 
 
-
+let analizerType = 0;
 
 const analizer = new Analizer();
 analizer.startPersistance();
-analizer.clearDatabase();
-analizer.loadCatalogueFromFolders('./views/catalogue');
+
+if( analizerType===0 ){
+    analizer.clearDatabase();
+    analizer.loadCatalogueFromFolders('./views/catalogue');
+} else {
+    analizer.loadDB();
+}
+
 
 
 

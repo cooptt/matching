@@ -196,6 +196,82 @@ class AnalizerPersistance {
 
 
 
+    // CREATE DATABASE
+
+    createUserTable(){
+        let query =
+            'create table  User (\n' +
+            'userId int not null,\n' +
+            'loginServiceId varchar(45),\n' +
+            'firstName varchar(45),\n' +
+            'lastName varchar(45),\n' +
+            'email varchar(60),\n' +
+            'country varchar(45),\n' +
+            'city varchar(45),\n' +
+            'rating float,\n' +
+            'primary key (userId)\n' +
+            ');'
+        return this.queryAnalizer(query);
+    }
+
+    createVideoGameTable(){
+        let query =
+            'create table VideoGame (\n' +
+            'videoGameId int not null,\n' +
+            'title varchar(45),\n' +
+            'image varchar(80),\n' +
+            'primary key (videoGameId)\n' +
+            ');'
+
+        return this.queryAnalizer(query);
+    }
+
+    createOfferTable(){
+        let query =
+            'create table Offer(\n' +
+            'offerId int not null,\n' +
+            'userId int not null,\n' +
+            'videoGameId int not null,\n' +
+            'type tinyint,\n' +
+            'price float,\n' +
+            'primary key(offerId),\n' +
+            'foreign key(videoGameId) references VideoGame(videoGameId) on update cascade on delete cascade,\n' +
+            'foreign key (userId) references User(userId) on update cascade on delete cascade\n' +
+            ');'
+
+        return this.queryAnalizer(query);
+    }
+
+    createMessageTable(){
+        let query = 'create table Message(\n' +
+            'srcUserId int not null,\n' +
+            'destUserId int not null,\n' +
+            'dateMillis bigint not null,\n' +
+            'content varchar(256),\n' +
+            'primary key(srcUserId, destUserId, dateMillis),\n' +
+            'foreign key(srcUserId) references User(userId) on update cascade on delete cascade,\n' +
+            'foreign key(destUserId) references User(userId) on update cascade on delete cascade\n' +
+            ');'
+
+        return this.queryAnalizer(query);
+    }
+
+
+    createRatingTable(){
+        let query =
+            '\n' +
+            'create table Rating(\n' +
+            'ratingUserId int not null,\n' +
+            'ratedUserId int not null,\n' +
+            'rating int,\n' +
+            'primary key(ratingUserId, ratedUserId),\n' +
+            'foreign key(ratingUserId) references User(userId) on update cascade on delete cascade,\n' +
+            'foreign key(ratedUserId) references User(userId) on update cascade on delete cascade\n' +
+            ');'
+
+        return this.queryAnalizer(query);
+    }
+
 
 
 
@@ -220,6 +296,15 @@ class AnalizerPersistance {
         let query = 'delete from Message ;';
         return this.queryAnalizer(query);
     }
+
+    clearRatings(){
+        let query = 'delete from Rating ;';
+        return this.queryAnalizer(query);
+    }
+
+
+
+
 
 
 
@@ -266,13 +351,18 @@ class AnalizerPersistance {
         query += ' rating=' + rating + ' ; ';
         return this.queryAnalizer(query);
    }
-   
+
    updateRating(ratingUserId, ratedUserId, rating){
         let query = ' update  Rating set '
         query += ' rating=' + rating;
         query += ' where ratingUserId=' + ratingUserId  ;
         query += ' and ratedUserId=' + ratedUserId + '; ';
         return this.queryAnalizer(query);
+   }
+
+   loadRatings(){
+       let query = 'SELECT * FROM Rating;';
+       return this.queryAnalizer(query);
    }
 
 
