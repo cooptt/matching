@@ -39,3 +39,13 @@ primary key(srcUserId, destUserId, dateMillis),
 foreign key(srcUserId) references User(userId) on update cascade on delete cascade,
 foreign key(destUserId) references User(userId) on update cascade on delete cascade
 );
+
+
+create table Rating(
+ratingUserId int not null,
+ratedUserId int not null,
+rating int,
+primary key(ratingUserId, ratedUserId),
+foreign key(ratingUserId) references User(userId) on update cascade on delete cascade,
+foreign key(ratedUserId) references User(userId) on update cascade on delete cascade
+);

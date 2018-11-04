@@ -20,12 +20,6 @@ class AnalizerPersistance {
     	});
     }
 
-    end(){
-        console.log('Connection with database ended')
-        this._db.end();
-    }
-
-
     // returns a promise
     queryAnalizer(query){
         return new Promise( (resolve,reject) => {
@@ -48,6 +42,14 @@ class AnalizerPersistance {
         })
     }
 
+    end(){
+        console.log('Connection with database ended')
+        this._db.end();
+    }
+
+
+    // USERS
+
     /*
         properties = {
             userId:4,
@@ -63,6 +65,51 @@ class AnalizerPersistance {
         return this.queryAnalizer(query);
     }
 
+    /*
+      // all attributes except userId will change
+      properties{
+        userId: 4,
+        firstName: "newName",
+        lastName: "newLastName"
+
+      }
+
+    */
+    updateUser(properties){
+        let query  = "UPDATE User SET ";
+
+        let first = true;
+        for(let value in properties){
+            if(value != "userId"){
+                if(first==false)
+                    query += ","
+                query += `${value}="${properties[value]}"`;
+                first = false;
+
+            }
+        }
+        query += ` WHERE userId="${properties.userId}";`
+
+        return this.queryAnalizer(query);
+    }
+
+    /*
+      userId = '4'
+    */
+    deleteUser(userId){
+        let query = `DELETE FROM User WHERE userId=${userId};`;
+        return this.queryAnalizer(query);
+    }
+
+    // Returns All rows of User's table
+    loadUsers(){
+        let query = `SELECT * FROM User;`;
+        return this.queryAnalizer(query);
+    }
+
+
+
+    // VIDEOGAMES
 
     /*
         properties = {
@@ -77,6 +124,21 @@ class AnalizerPersistance {
         return this.queryAnalizer(query);
     }
 
+    // Returns all rows of VideoGames's table
+    loadCatalogue(){
+        let query = `SELECT * FROM VideoGame;`;
+        return this.queryAnalizer(query);
+    }
+
+    deleteVideoGame(videoGameId){
+        let query = `DELETE FROM VideoGame WHERE videoGameId=${videoGameId};`;
+        return this.queryAnalizer(query);
+    }
+
+
+
+    // OFFERS
+
     /*
         properties = {
             offerId:74,
@@ -90,34 +152,6 @@ class AnalizerPersistance {
       let query = `INSERT INTO Offer(offerId,userId,videoGameId,price,type) VALUES \
           ("${properties.offerId}","${properties.userId}","${properties.videoGameId}","${properties.price}","${properties.type}");`;
           return this.queryAnalizer(query);
-    }
-
-    /*
-      // all attributes except userId will change
-      properties{
-        userId: 4,
-        firstName: "newName",
-        lastName: "newLastName"
-
-      }
-
-    */
-    updateUser(properties){
-      let query  = "UPDATE User SET ";
-
-      let first = true;
-      for(let value in properties){
-          if(value != "userId"){
-              if(first==false)
-                query += ","
-              query += `${value}="${properties[value]}"`;
-              first = false;
-
-          }
-      }
-      query += ` WHERE userId="${properties.userId}";`
-
-      return this.queryAnalizer(query);
     }
 
      /*
@@ -148,33 +182,8 @@ class AnalizerPersistance {
         return this.queryAnalizer(query);
     }
 
-    /*
-      userId = '4'
-    */
-    deleteUser(userId){
-        let query = `DELETE FROM User WHERE userId=${userId};`;
-        return this.queryAnalizer(query);
-    }
-
-    deleteVideoGame(videoGameId){
-        let query = `DELETE FROM VideoGame WHERE videoGameId=${videoGameId};`;
-        return this.queryAnalizer(query);
-    }
-
     deleteOffer(offerId){
         let query = `DELETE FROM Offer WHERE offerId=${offerId};`;
-        return this.queryAnalizer(query);
-    }
-
-    // Returns All rows of User's table
-    loadUsers(){
-        let query = `SELECT * FROM User;`;
-        return this.queryAnalizer(query);
-    }
-
-    // Returns all rows of VideoGames's table
-    loadCatalogue(){
-        let query = `SELECT * FROM VideoGame;`;
         return this.queryAnalizer(query);
     }
 
@@ -183,6 +192,11 @@ class AnalizerPersistance {
         let query = 'SELECT * FROM Offer;';
         return this.queryAnalizer(query);
     }
+
+
+
+
+
 
 
     // CLEAR DATABASE
@@ -220,7 +234,6 @@ class AnalizerPersistance {
         return this.queryAnalizer(query);
     }
 
-
     getConversation(userId, mUserId){
         let query = 'select * from Message ';
         query += ' where ( srcUserId=' + userId ;
@@ -241,6 +254,28 @@ class AnalizerPersistance {
         query += ' ;'
         return this.queryAnalizer(query);
     }
+
+
+
+    // RATING FUNCTIONS
+
+   addRating(ratingUserId, ratedUserId, rating){
+        let query = ' insert into Rating set '
+        query += ' ratingUserId=' + ratingUserId + ', ';
+        query += ' ratedUserId=' + ratedUserId + ', ';
+        query += ' rating=' + rating + ' ; ';
+        return this.queryAnalizer(query);
+   }
+   
+   updateRating(ratingUserId, ratedUserId, rating){
+        let query = ' update  Rating set '
+        query += ' rating=' + rating;
+        query += ' where ratingUserId=' + ratingUserId  ;
+        query += ' and ratedUserId=' + ratedUserId + '; ';
+        return this.queryAnalizer(query);
+   }
+
+
 }
 
 

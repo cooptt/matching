@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f92063d-9c98-402d-a0fe-a432fb37a4d8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analizer/analizer.js" beforeDir="false" afterPath="$PROJECT_DIR$/analizer/analizer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analizer/analizerPersistance.js" beforeDir="false" afterPath="$PROJECT_DIR$/analizer/analizerPersistance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/analizer.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/analizer.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -28,37 +30,37 @@
       <usages-collector id="statistics.vcs.git.usages" />
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="23705" />
-          <entry key="sql" value="1268" />
+          <entry key="js" value="25232" />
+          <entry key="sql" value="1575" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JavaScript" value="16" />
-          <entry key="SQL" value="7" />
+          <entry key="SQL" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="js" value="16" />
-          <entry key="sql" value="7" />
+          <entry key="sql" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="23705" />
-          <entry key="SQL" value="1268" />
+          <entry key="JavaScript" value="25232" />
+          <entry key="SQL" value="1575" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="727" column="22" selection-start-line="727" selection-start-column="22" selection-end-line="727" selection-end-column="22" />
+            <state relative-caret-position="457">
+              <caret line="42" column="28" lean-forward="true" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
               <folding>
                 <element signature="e#317#336#0" />
                 <element signature="e#574#592#0" />
@@ -77,6 +79,7 @@
                 <element signature="e#2583#2647#0" />
                 <element signature="e#2664#2724#0" />
                 <element signature="e#2758#3008#0" />
+                <element signature="e#3058#3177#0" />
                 <element signature="e#3180#3594#0" />
                 <element signature="e#3646#3991#0" />
                 <element signature="e#3825#3889#0" />
@@ -118,25 +121,50 @@
                 <element signature="e#11572#12068#0" />
                 <element signature="e#11792#11846#0" />
                 <element signature="e#11900#11959#0" />
+                <element signature="e#11973#12044#0" />
                 <element signature="e#12119#12457#0" />
                 <element signature="e#12287#12355#0" />
                 <element signature="e#12374#12430#0" />
                 <element signature="e#12465#12499#0" />
                 <element signature="e#12543#12996#0" />
+                <element signature="e#12720#12818#0" />
+                <element signature="e#12822#12871#0" />
                 <element signature="e#12999#13036#0" />
+                <element signature="e#13094#13531#0" />
                 <element signature="e#13315#13380#0" />
+                <element signature="e#13397#13504#0" />
                 <element signature="e#13535#13588#0" />
                 <element signature="e#13638#14315#0" />
                 <element signature="e#13973#14038#0" />
                 <element signature="e#14106#14176#0" />
                 <element signature="e#14193#14289#0" />
                 <element signature="e#14318#14370#0" />
+                <element signature="e#14419#15094#0" />
                 <element signature="e#14753#14818#0" />
                 <element signature="e#14886#14956#0" />
+                <element signature="e#14973#15068#0" />
                 <element signature="e#15097#15126#0" />
+                <element signature="e#15175#15540#0" />
                 <element signature="e#15353#15418#0" />
                 <element signature="e#15435#15513#0" />
+                <element signature="e#15543#15605#0" />
+                <element signature="e#15657#16151#0" />
+                <element signature="e#15991#16046#0" />
                 <element signature="e#16060#16127#0" />
+                <element signature="e#16219#16452#0" />
+                <element signature="e#16212#16220#0" />
+                <element signature="e#16392#16408#0" />
+                <element signature="e#16483#16499#0" />
+                <element signature="e#16542#16566#0" />
+                <element signature="e#16891#17344#0" />
+                <element signature="e#16741#17266#0" />
+                <element signature="e#17024#17093#0" />
+                <element signature="e#17112#17264#0" />
+                <element signature="e#17181#17257#0" />
+                <element signature="e#17947#18028#0" />
+                <element signature="e#17317#17869#0" />
+                <element signature="e#17653#17722#0" />
+                <element signature="e#17741#17843#0" />
                 <element signature="e#16191#16239#0" />
                 <element signature="e#16246#16580#0" />
                 <element signature="e#16585#17870#0" />
@@ -148,8 +176,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/integrationTests.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="346" column="48" lean-forward="true" selection-start-line="346" selection-start-column="26" selection-end-line="346" selection-end-column="48" />
+            <state relative-caret-position="277">
+              <caret line="348" column="4" selection-start-line="348" selection-start-column="4" selection-end-line="348" selection-end-column="4" />
               <folding>
                 <element signature="n#!!block;n#testLoadCatalogueFromFolders#0;n#IntegrationTests#0" />
                 <element signature="e#1026#1070#0" />
@@ -212,126 +240,118 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/analizer/analizer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="768" column="9" selection-start-line="768" selection-start-column="9" selection-end-line="768" selection-end-column="9" />
+            <state relative-caret-position="240">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
               <folding>
                 <element signature="n#!!block;n#constructor#0;n#Analizer#0" />
+                <element signature="n#!!block;n#loadCatalogueFromFolders#0;n#Analizer#0" />
+                <element signature="e#911#1596#0" />
+                <element signature="e#932#982#0" />
+                <element signature="e#1035#1584#0" />
+                <element signature="e#1173#1568#0" />
+                <element signature="e#1228#1548#0" />
+                <element signature="n#!!block;n#startPersistance#0;n#Analizer#0" />
+                <element signature="n#!!block;n#stopPersistance#0;n#Analizer#0" />
+                <element signature="n#!!block;n#clearDatabase#0;n#Analizer#0" />
+                <element signature="e#2177#2237#0" />
                 <element signature="n#!!block;n#loginServiceIdExists#0;n#Analizer#0" />
                 <element signature="n#!!block;n#userIdExists#0;n#Analizer#0" />
-                <element signature="n#!!block;n#videoGameIdExists#0;n#Analizer#0" />
-                <element signature="n#!!block;n#offerIdExists#0;n#Analizer#0" />
+                <element signature="n#!!block;n#addUser#0;n#Analizer#0" />
+                <element signature="e#1331#1421#0" />
+                <element signature="n#!!block;n#addRatingToUser#0;n#Analizer#0" />
+                <element signature="e#1477#1907#0" />
+                <element signature="e#1711#1897#0" />
+                <element signature="e#1913#2260#0" />
+                <element signature="e#2067#2250#0" />
+                <element signature="n#!!block;n#updateUserProperties#0;n#Analizer#0" />
+                <element signature="e#1413#1518#0" />
                 <element signature="n#!!block;n#getUserIdFromLoginServiceId#0;n#Analizer#0" />
                 <element signature="n#!!block;n#getUsersSize#0;n#Analizer#0" />
-                <element signature="n#!!block;n#getOffersSize#0;n#Analizer#0" />
-                <element signature="n#!!block;n#getCatalogueSize#0;n#Analizer#0" />
                 <element signature="n#!!block;n#getUserProperties#0;n#Analizer#0" />
-                <element signature="n#!!block;n#getCatalogue#0;n#Analizer#0" />
                 <element signature="n#!!block;n#getUserSellList#0;n#Analizer#0" />
                 <element signature="n#!!block;n#getUserBuyList#0;n#Analizer#0" />
-                <element signature="n#!!block;n#getUserSellListWithMatching#0;n#Analizer#0" />
-                <element signature="e#2773#2826#0" />
-                <element signature="e#2877#3364#0" />
-                <element signature="e#3217#3270#0" />
-                <element signature="e#3274#3328#0" />
+                <element signature="n#!!block;n#getNotifications#0;n#Analizer#0" />
+                <element signature="e#3212#4001#0" />
+                <element signature="e#3284#3990#0" />
+                <element signature="n#!!block;n#videoGameIdExists#0;n#Analizer#0" />
+                <element signature="n#!!block;n#getCatalogue#0;n#Analizer#0" />
+                <element signature="n#!!block;n#getCatalogueSize#0;n#Analizer#0" />
                 <element signature="n#!!block;n#getVideoGameSellList#0;n#Analizer#0" />
                 <element signature="n#!!block;n#getVideoGameBuyList#0;n#Analizer#0" />
-                <element signature="n#!!block;n#getNotifications#0;n#Analizer#0" />
-                <element signature="e#4056#4857#0" />
-                <element signature="e#4128#4834#0" />
-                <element signature="n#!!block;n#getOffersProperties#0;n#Analizer#0" />
-                <element signature="e#5014#5380#0" />
-                <element signature="n#!!block;n#getRankedUsers#0;n#Analizer#0" />
-                <element signature="n#!!block;n#getUserMatchingVideoGames#0;n#Analizer#0" />
-                <element signature="e#6061#6264#0" />
-                <element signature="e#6172#6254#0" />
-                <element signature="e#6363#6503#0" />
-                <element signature="e#6555#6781#0" />
-                <element signature="n#!!block;n#getVideoGameSellMatches#0;n#Analizer#0" />
-                <element signature="e#6992#7051#0" />
-                <element signature="n#!!block;n#getVideoGameBuyMatches#0;n#Analizer#0" />
-                <element signature="n#!!block;n#getTriplets#0;n#Analizer#0" />
-                <element signature="n#!!block;n#addUser#0;n#Analizer#0" />
-                <element signature="e#7764#7853#0" />
+                <element signature="n#!!block;n#offerIdExists#0;n#Analizer#0" />
                 <element signature="n#!!block;n#addSellOffer#0;n#Analizer#0" />
-                <element signature="e#8237#8312#0" />
+                <element signature="e#4570#4646#0" />
                 <element signature="n#!!block;n#addBuyOffer#0;n#Analizer#0" />
-                <element signature="e#8784#8859#0" />
-                <element signature="n#!!block;n#addRatingToUser#0;n#Analizer#0" />
-                <element signature="e#10174#10370#0" />
-                <element signature="e#10376#10492#0" />
-                <element signature="n#!!block;n#updateUserProperties#0;n#Analizer#0" />
-                <element signature="e#10654#10758#0" />
-                <element signature="n#!!block;n#updateOfferProperties#0;n#Analizer#0" />
-                <element signature="n#!!block;n#deleteUser#0;n#Analizer#0" />
+                <element signature="e#5119#5195#0" />
+                <element signature="n#!!block;n#getOffersSize#0;n#Analizer#0" />
+                <element signature="n#!!block;n#getOffersProperties#0;n#Analizer#0" />
+                <element signature="e#2550#2916#0" />
                 <element signature="n#!!block;n#deleteOffer#0;n#Analizer#0" />
-                <element signature="e#10106#10130#0" />
+                <element signature="e#5272#5335#0" />
+                <element signature="e#7477#7577#0" />
+                <element signature="n#!!block;n#getChatUsers#0;n#Analizer#0" />
+                <element signature="e#7705#8313#0" />
+                <element signature="e#7855#8105#0" />
+                <element signature="e#7906#7972#0" />
+                <element signature="e#8024#8091#0" />
+                <element signature="n#!!block;n#addMessage#0;n#Analizer#0" />
+                <element signature="e#8527#8635#0" />
+                <element signature="n#!!block;n#getConversation#0;n#Analizer#0" />
+                <element signature="e#8789#8834#0" />
+                <element signature="n#!!block;n#getRankedUsers#0;n#Analizer#0" />
+                <element signature="n#!!block;n#getTriplets#0;n#Analizer#0" />
+                <element signature="n#!!block;n#_createUserOffersList#0;n#Analizer#0" />
+                <element signature="e#10317#10682#0" />
+                <element signature="n#!!block;n#_createVideoGameOffersList#0;n#Analizer#0" />
+                <element signature="n#!!block;n#_fillMatchingOffer#0;n#Analizer#0" />
+                <element signature="e#11424#11966#0" />
                 <element signature="n#!!block;n#getOffer#0;n#Analizer#0" />
                 <element signature="n#!!block;n#getUser#0;n#Analizer#0" />
                 <element signature="n#!!block;n#getVideoGame#0;n#Analizer#0" />
                 <element signature="n#!!block;n#addVideoGame#0;n#Analizer#0" />
                 <element signature="e#11839#11920#0" />
                 <element signature="n#!!block;n#_getUsers#0;n#Analizer#0" />
-                <element signature="n#!!block;n#_createUserOffersList#0;n#Analizer#0" />
-                <element signature="e#12562#12927#0" />
-                <element signature="n#!!block;n#_createVideoGameOffersList#0;n#Analizer#0" />
-                <element signature="e#13094#13382#0" />
-                <element signature="n#!!block;n#_getMatchingOfferIds#0;n#Analizer#0" />
-                <element signature="e#13571#13694#0" />
-                <element signature="e#13733#13855#0" />
-                <element signature="n#!!block;n#_createNotifications#0;n#Analizer#0" />
-                <element signature="e#13976#14190#0" />
-                <element signature="n#!!block;n#_removeNotifications#0;n#Analizer#0" />
-                <element signature="e#14407#14621#0" />
-                <element signature="n#!!block;n#_rankUsers#0;n#Analizer#0" />
-                <element signature="e#14756#14816#0" />
-                <element signature="e#14922#15993#0" />
-                <element signature="e#15114#15181#0" />
-                <element signature="e#15268#15983#0" />
-                <element signature="e#15478#15969#0" />
-                <element signature="e#15635#15732#0" />
-                <element signature="e#15683#15692#0" />
-                <element signature="e#15694#15706#0" />
-                <element signature="e#16059#16123#0" />
-                <element signature="e#16154#16201#0" />
-                <element signature="e#16271#16423#0" />
                 <element signature="n#!!block;n#_sendEmail#0;n#Analizer#0" />
-                <element signature="e#16540#16686#0" />
-                <element signature="e#16586#16676#0" />
-                <element signature="e#16753#16910#0" />
-                <element signature="e#16778#16829#0" />
-                <element signature="e#16835#16900#0" />
+                <element signature="e#8633#8779#0" />
+                <element signature="e#8679#8769#0" />
+                <element signature="e#8846#9003#0" />
+                <element signature="e#8871#8922#0" />
+                <element signature="e#8928#8993#0" />
                 <element signature="n#!!block;n#_sendNotification#0;n#Analizer#0" />
-                <element signature="e#17059#17968#0" />
-                <element signature="e#17449#17498#0" />
-                <element signature="e#17530#17580#0" />
-                <element signature="e#17709#17880#0" />
-                <element signature="e#17894#17925#0" />
-                <element signature="e#17985#18024#0" />
+                <element signature="e#9542#9591#0" />
+                <element signature="e#9623#9673#0" />
+                <element signature="e#9802#9973#0" />
+                <element signature="e#9987#10018#0" />
+                <element signature="n#!!block;n#_createNotifications#0;n#Analizer#0" />
+                <element signature="n#!!block;n#_removeNotifications#0;n#Analizer#0" />
+                <element signature="e#10607#10821#0" />
+                <element signature="e#13209#13248#0" />
                 <element signature="n#!!block;n#_offersMatch#0;n#Analizer#0" />
-                <element signature="e#18295#18331#0" />
-                <element signature="e#18473#18509#0" />
-                <element signature="e#16951#16991#0" />
+                <element signature="e#13519#13555#0" />
+                <element signature="e#13697#13733#0" />
+                <element signature="n#!!block;n#_getMatchingOfferIds#0;n#Analizer#0" />
+                <element signature="e#13911#14034#0" />
+                <element signature="e#14073#14195#0" />
+                <element signature="e#13769#13809#0" />
                 <element signature="n#!!block;n#_getMatching#0;n#Analizer#0" />
-                <element signature="e#18611#18700#0" />
-                <element signature="e#18735#18824#0" />
-                <element signature="e#18926#19539#0" />
-                <element signature="e#19011#19528#0" />
-                <element signature="e#19069#19514#0" />
-                <element signature="e#19315#19496#0" />
-                <element signature="e#19577#19762#0" />
-                <element signature="n#!!block;n#_getMyOfferMatching#0;n#Analizer#0" />
-                <element signature="e#20019#20169#0" />
-                <element signature="e#20112#20159#0" />
-                <element signature="n#!!block;n#_fillMatchingOffer#0;n#Analizer#0" />
-                <element signature="e#21791#22333#0" />
-                <element signature="e#22346#22426#0" />
-                <element signature="n#!!block;n#_getVideoGameMatches#1;n#Analizer#0" />
-                <element signature="e#22569#22628#0" />
-                <element signature="e#22725#23635#0" />
-                <element signature="e#22781#23625#0" />
-                <element signature="e#22903#23008#0" />
-                <element signature="e#23105#23611#0" />
-                <element signature="e#23401#23593#0" />
+                <element signature="e#13881#13970#0" />
+                <element signature="e#14005#14094#0" />
+                <element signature="e#14196#14809#0" />
+                <element signature="e#14281#14798#0" />
+                <element signature="e#14339#14784#0" />
+                <element signature="e#14585#14766#0" />
+                <element signature="n#!!block;n#_rankUsers#0;n#Analizer#0" />
+                <element signature="e#10956#11016#0" />
+                <element signature="e#11122#12193#0" />
+                <element signature="e#11314#11381#0" />
+                <element signature="e#11468#12183#0" />
+                <element signature="e#11678#12169#0" />
+                <element signature="e#11835#11932#0" />
+                <element signature="e#11883#11892#0" />
+                <element signature="e#11894#11906#0" />
+                <element signature="e#12259#12323#0" />
+                <element signature="e#12354#12401#0" />
+                <element signature="e#12471#12623#0" />
                 <element signature="n#!!block;n#_getUserSellMatches#0;n#Analizer#0" />
                 <element signature="e#22560#23187#0" />
                 <element signature="e#22807#23175#0" />
@@ -350,8 +370,6 @@
                 <element signature="e#26590#27412#0" />
                 <element signature="e#26960#27362#0" />
                 <element signature="n#!!block;n#_getCycles#0;n#Analizer#0" />
-                <element signature="n#!!block;n#startPersistance#0;n#Analizer#0" />
-                <element signature="n#!!block;n#stopPersistance#0;n#Analizer#0" />
                 <element signature="n#!!block;n#_loadUsersFromDB#0;n#Analizer#0" />
                 <element signature="e#26440#26800#0" />
                 <element signature="e#26521#26789#0" />
@@ -363,72 +381,88 @@
                 <element signature="n#!!block;n#_loadVideoGamesFromDB#0;n#Analizer#0" />
                 <element signature="e#27903#28136#0" />
                 <element signature="e#27949#28125#0" />
-                <element signature="e#26955#26972#0" />
-                <element signature="n#!!block;n#getChatUsers#0;n#Analizer#0" />
-                <element signature="e#27089#27113#0" />
-                <element signature="e#27242#27274#0" />
-                <element signature="e#27293#27333#0" />
-                <element signature="e#27427#27493#0" />
-                <element signature="n#!!block;n#addMessage#0;n#Analizer#0" />
-                <element signature="e#28027#28074#0" />
-                <element signature="n#!!block;n#getConversation#0;n#Analizer#0" />
-                <element signature="e#27498#27522#0" />
-                <element signature="e#28111#28527#0" />
-                <element signature="e#28533#29129#0" />
-                <element signature="n#!!block;n#loadCatalogueFromFolders#0;n#Analizer#0" />
-                <element signature="e#29272#29957#0" />
-                <element signature="e#29293#29343#0" />
-                <element signature="e#29396#29945#0" />
-                <element signature="e#29534#29929#0" />
-                <element signature="e#29589#29909#0" />
+                <element signature="e#30589#30815#0" />
+                <element signature="n#!!block;n#getVideoGameSellMatches#0;n#Analizer#0" />
+                <element signature="e#31026#31085#0" />
+                <element signature="n#!!block;n#getVideoGameBuyMatches#0;n#Analizer#0" />
+                <element signature="n#!!block;n#getUserMatchingVideoGames#0;n#Analizer#0" />
+                <element signature="e#30843#31046#0" />
+                <element signature="e#30954#31036#0" />
+                <element signature="e#31145#31285#0" />
+                <element signature="n#!!block;n#updateOfferProperties#0;n#Analizer#0" />
+                <element signature="n#!!block;n#getUserSellListWithMatching#0;n#Analizer#0" />
+                <element signature="e#30725#30778#0" />
+                <element signature="e#30829#31316#0" />
+                <element signature="e#31169#31222#0" />
+                <element signature="e#31226#31280#0" />
+                <element signature="n#!!block;n#deleteUser#0;n#Analizer#0" />
+                <element signature="e#30715#30900#0" />
+                <element signature="n#!!block;n#_getMyOfferMatching#0;n#Analizer#0" />
+                <element signature="e#31157#31307#0" />
+                <element signature="e#31250#31297#0" />
+                <element signature="e#30237#30653#0" />
+                <element signature="e#30659#31255#0" />
+                <element signature="n#!!block;n#_getVideoGameMatches#0;n#Analizer#0" />
+                <element signature="e#29952#30011#0" />
+                <element signature="e#30108#31018#0" />
+                <element signature="e#30164#31008#0" />
+                <element signature="e#30286#30391#0" />
+                <element signature="e#30488#30994#0" />
+                <element signature="e#30784#30976#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/analizer/analizerPersistance.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="204" column="16" selection-start-line="204" selection-start-column="16" selection-end-line="204" selection-end-column="16" />
+            <state relative-caret-position="367">
+              <caret line="268" column="3" selection-start-line="268" selection-start-column="3" selection-end-line="268" selection-end-column="3" />
               <folding>
                 <element signature="n#!!block;n#connect#0;n#AnalizerPersistance#0" />
                 <element signature="e#146#237#0" />
                 <element signature="e#278#347#0" />
                 <element signature="e#294#340#0" />
                 <element signature="e#343#369#0" />
-                <element signature="n#!!block;n#end#0;n#AnalizerPersistance#0" />
                 <element signature="n#!!block;n#queryAnalizer#0;n#AnalizerPersistance#0" />
-                <element signature="e#499#974#0" />
-                <element signature="e#557#963#0" />
-                <element signature="e#584#764#0" />
-                <element signature="e#621#709#0" />
-                <element signature="e#768#949#0" />
-                <element signature="e#805#893#0" />
+                <element signature="e#533#1048#0" />
+                <element signature="e#591#1037#0" />
+                <element signature="e#618#838#0" />
+                <element signature="e#655#743#0" />
+                <element signature="e#842#1023#0" />
+                <element signature="e#879#967#0" />
+                <element signature="n#!!block;n#end#0;n#AnalizerPersistance#0" />
                 <element signature="e#987#1160#0" />
                 <element signature="n#!!block;n#addUser#0;n#AnalizerPersistance#0" />
+                <element signature="e#1670#1838#0" />
+                <element signature="n#!!block;n#updateUser#0;n#AnalizerPersistance#0" />
+                <element signature="e#1965#2167#0" />
+                <element signature="e#1998#2159#0" />
+                <element signature="e#2305#2333#0" />
+                <element signature="n#!!block;n#deleteUser#0;n#AnalizerPersistance#0" />
+                <element signature="n#!!block;n#loadUsers#0;n#AnalizerPersistance#0" />
                 <element signature="e#1484#1608#0" />
                 <element signature="n#!!block;n#addVideoGame#0;n#AnalizerPersistance#0" />
+                <element signature="n#!!block;n#loadCatalogue#0;n#AnalizerPersistance#0" />
+                <element signature="n#!!block;n#deleteVideoGame#0;n#AnalizerPersistance#0" />
                 <element signature="e#1868#2027#0" />
                 <element signature="n#!!block;n#addOffer#0;n#AnalizerPersistance#0" />
-                <element signature="e#2333#2501#0" />
-                <element signature="n#!!block;n#updateUser#0;n#AnalizerPersistance#0" />
-                <element signature="e#2628#2830#0" />
-                <element signature="e#2661#2822#0" />
                 <element signature="e#2947#3101#0" />
                 <element signature="n#!!block;n#updateOffer#0;n#AnalizerPersistance#0" />
                 <element signature="e#3236#3455#0" />
                 <element signature="e#3272#3445#0" />
-                <element signature="e#3572#3600#0" />
-                <element signature="n#!!block;n#deleteUser#0;n#AnalizerPersistance#0" />
-                <element signature="n#!!block;n#deleteVideoGame#0;n#AnalizerPersistance#0" />
                 <element signature="n#!!block;n#deleteOffer#0;n#AnalizerPersistance#0" />
-                <element signature="n#!!block;n#loadUsers#0;n#AnalizerPersistance#0" />
-                <element signature="n#!!block;n#loadCatalogue#0;n#AnalizerPersistance#0" />
                 <element signature="n#!!block;n#loadVideoGames#0;n#AnalizerPersistance#0" />
+                <element signature="n#!!block;n#flush#0;n#AnalizerPersistance#0" />
+                <element signature="n#!!block;n#flushUsers#1;n#AnalizerPersistance#0" />
+                <element signature="n#!!block;n#flushUsers#2;n#AnalizerPersistance#0" />
+                <element signature="n#!!block;n#clearOffers#1;n#AnalizerPersistance#0" />
                 <element signature="n#!!block;n#getChatIds#0;n#AnalizerPersistance#0" />
                 <element signature="n#!!block;n#getChatUsers#0;n#AnalizerPersistance#0" />
                 <element signature="n#!!block;n#addMessage#0;n#AnalizerPersistance#0" />
+                <element signature="n#!!block;n#addRating#0;n#AnalizerPersistance#0" />
+                <element signature="n#!!block;n#addRating#1;n#AnalizerPersistance#0" />
               </folding>
             </state>
           </provider>
@@ -437,8 +471,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database/util.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+            <state relative-caret-position="285">
+              <caret line="19" selection-start-line="19" selection-end-line="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/analizer.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="29" column="30" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -587,13 +630,13 @@
         <option value="$PROJECT_DIR$/test/analizerTest.js" />
         <option value="$PROJECT_DIR$/test/analizerPersistanceTest.js" />
         <option value="$PROJECT_DIR$/analizer/utils.js" />
-        <option value="$PROJECT_DIR$/database/analizer.sql" />
         <option value="$PROJECT_DIR$/test/tests.js" />
         <option value="$PROJECT_DIR$/database/util.sql" />
-        <option value="$PROJECT_DIR$/analizer/analizerPersistance.js" />
         <option value="$PROJECT_DIR$/test/integrationTests.js" />
-        <option value="$PROJECT_DIR$/analizer/analizer.js" />
+        <option value="$PROJECT_DIR$/database/analizer.sql" />
         <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/analizer/analizer.js" />
+        <option value="$PROJECT_DIR$/analizer/analizerPersistance.js" />
       </list>
     </option>
   </component>
@@ -693,18 +736,18 @@
       <updated>1540589126850</updated>
       <workItem from="1540589133861" duration="2570000" />
       <workItem from="1540683627344" duration="5239000" />
-      <workItem from="1540875059188" duration="54760000" />
+      <workItem from="1540875059188" duration="60815000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62569000" />
+    <option name="totallyTimeSpent" value="68624000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1303" height="780" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.20500782" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.20478088" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -1097,13 +1140,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/analizer.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="39" column="34" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/analizer/analizerHelper.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1208,234 +1244,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/util.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analizer/analizerPersistance.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="204" column="16" selection-start-line="204" selection-start-column="16" selection-end-line="204" selection-end-column="16" />
-          <folding>
-            <element signature="n#!!block;n#connect#0;n#AnalizerPersistance#0" />
-            <element signature="e#146#237#0" />
-            <element signature="e#278#347#0" />
-            <element signature="e#294#340#0" />
-            <element signature="e#343#369#0" />
-            <element signature="n#!!block;n#end#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#queryAnalizer#0;n#AnalizerPersistance#0" />
-            <element signature="e#499#974#0" />
-            <element signature="e#557#963#0" />
-            <element signature="e#584#764#0" />
-            <element signature="e#621#709#0" />
-            <element signature="e#768#949#0" />
-            <element signature="e#805#893#0" />
-            <element signature="e#987#1160#0" />
-            <element signature="n#!!block;n#addUser#0;n#AnalizerPersistance#0" />
-            <element signature="e#1484#1608#0" />
-            <element signature="n#!!block;n#addVideoGame#0;n#AnalizerPersistance#0" />
-            <element signature="e#1868#2027#0" />
-            <element signature="n#!!block;n#addOffer#0;n#AnalizerPersistance#0" />
-            <element signature="e#2333#2501#0" />
-            <element signature="n#!!block;n#updateUser#0;n#AnalizerPersistance#0" />
-            <element signature="e#2628#2830#0" />
-            <element signature="e#2661#2822#0" />
-            <element signature="e#2947#3101#0" />
-            <element signature="n#!!block;n#updateOffer#0;n#AnalizerPersistance#0" />
-            <element signature="e#3236#3455#0" />
-            <element signature="e#3272#3445#0" />
-            <element signature="e#3572#3600#0" />
-            <element signature="n#!!block;n#deleteUser#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#deleteVideoGame#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#deleteOffer#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#loadUsers#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#loadCatalogue#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#loadVideoGames#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#getChatIds#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#getChatUsers#0;n#AnalizerPersistance#0" />
-            <element signature="n#!!block;n#addMessage#0;n#AnalizerPersistance#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analizer/analizer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="768" column="9" selection-start-line="768" selection-start-column="9" selection-end-line="768" selection-end-column="9" />
-          <folding>
-            <element signature="n#!!block;n#constructor#0;n#Analizer#0" />
-            <element signature="n#!!block;n#loginServiceIdExists#0;n#Analizer#0" />
-            <element signature="n#!!block;n#userIdExists#0;n#Analizer#0" />
-            <element signature="n#!!block;n#videoGameIdExists#0;n#Analizer#0" />
-            <element signature="n#!!block;n#offerIdExists#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getUserIdFromLoginServiceId#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getUsersSize#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getOffersSize#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getCatalogueSize#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getUserProperties#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getCatalogue#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getUserSellList#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getUserBuyList#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getUserSellListWithMatching#0;n#Analizer#0" />
-            <element signature="e#2773#2826#0" />
-            <element signature="e#2877#3364#0" />
-            <element signature="e#3217#3270#0" />
-            <element signature="e#3274#3328#0" />
-            <element signature="n#!!block;n#getVideoGameSellList#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getVideoGameBuyList#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getNotifications#0;n#Analizer#0" />
-            <element signature="e#4056#4857#0" />
-            <element signature="e#4128#4834#0" />
-            <element signature="n#!!block;n#getOffersProperties#0;n#Analizer#0" />
-            <element signature="e#5014#5380#0" />
-            <element signature="n#!!block;n#getRankedUsers#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getUserMatchingVideoGames#0;n#Analizer#0" />
-            <element signature="e#6061#6264#0" />
-            <element signature="e#6172#6254#0" />
-            <element signature="e#6363#6503#0" />
-            <element signature="e#6555#6781#0" />
-            <element signature="n#!!block;n#getVideoGameSellMatches#0;n#Analizer#0" />
-            <element signature="e#6992#7051#0" />
-            <element signature="n#!!block;n#getVideoGameBuyMatches#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getTriplets#0;n#Analizer#0" />
-            <element signature="n#!!block;n#addUser#0;n#Analizer#0" />
-            <element signature="e#7764#7853#0" />
-            <element signature="n#!!block;n#addSellOffer#0;n#Analizer#0" />
-            <element signature="e#8237#8312#0" />
-            <element signature="n#!!block;n#addBuyOffer#0;n#Analizer#0" />
-            <element signature="e#8784#8859#0" />
-            <element signature="n#!!block;n#addRatingToUser#0;n#Analizer#0" />
-            <element signature="e#10174#10370#0" />
-            <element signature="e#10376#10492#0" />
-            <element signature="n#!!block;n#updateUserProperties#0;n#Analizer#0" />
-            <element signature="e#10654#10758#0" />
-            <element signature="n#!!block;n#updateOfferProperties#0;n#Analizer#0" />
-            <element signature="n#!!block;n#deleteUser#0;n#Analizer#0" />
-            <element signature="n#!!block;n#deleteOffer#0;n#Analizer#0" />
-            <element signature="e#10106#10130#0" />
-            <element signature="n#!!block;n#getOffer#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getUser#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getVideoGame#0;n#Analizer#0" />
-            <element signature="n#!!block;n#addVideoGame#0;n#Analizer#0" />
-            <element signature="e#11839#11920#0" />
-            <element signature="n#!!block;n#_getUsers#0;n#Analizer#0" />
-            <element signature="n#!!block;n#_createUserOffersList#0;n#Analizer#0" />
-            <element signature="e#12562#12927#0" />
-            <element signature="n#!!block;n#_createVideoGameOffersList#0;n#Analizer#0" />
-            <element signature="e#13094#13382#0" />
-            <element signature="n#!!block;n#_getMatchingOfferIds#0;n#Analizer#0" />
-            <element signature="e#13571#13694#0" />
-            <element signature="e#13733#13855#0" />
-            <element signature="n#!!block;n#_createNotifications#0;n#Analizer#0" />
-            <element signature="e#13976#14190#0" />
-            <element signature="n#!!block;n#_removeNotifications#0;n#Analizer#0" />
-            <element signature="e#14407#14621#0" />
-            <element signature="n#!!block;n#_rankUsers#0;n#Analizer#0" />
-            <element signature="e#14756#14816#0" />
-            <element signature="e#14922#15993#0" />
-            <element signature="e#15114#15181#0" />
-            <element signature="e#15268#15983#0" />
-            <element signature="e#15478#15969#0" />
-            <element signature="e#15635#15732#0" />
-            <element signature="e#15683#15692#0" />
-            <element signature="e#15694#15706#0" />
-            <element signature="e#16059#16123#0" />
-            <element signature="e#16154#16201#0" />
-            <element signature="e#16271#16423#0" />
-            <element signature="n#!!block;n#_sendEmail#0;n#Analizer#0" />
-            <element signature="e#16540#16686#0" />
-            <element signature="e#16586#16676#0" />
-            <element signature="e#16753#16910#0" />
-            <element signature="e#16778#16829#0" />
-            <element signature="e#16835#16900#0" />
-            <element signature="n#!!block;n#_sendNotification#0;n#Analizer#0" />
-            <element signature="e#17059#17968#0" />
-            <element signature="e#17449#17498#0" />
-            <element signature="e#17530#17580#0" />
-            <element signature="e#17709#17880#0" />
-            <element signature="e#17894#17925#0" />
-            <element signature="e#17985#18024#0" />
-            <element signature="n#!!block;n#_offersMatch#0;n#Analizer#0" />
-            <element signature="e#18295#18331#0" />
-            <element signature="e#18473#18509#0" />
-            <element signature="e#16951#16991#0" />
-            <element signature="n#!!block;n#_getMatching#0;n#Analizer#0" />
-            <element signature="e#18611#18700#0" />
-            <element signature="e#18735#18824#0" />
-            <element signature="e#18926#19539#0" />
-            <element signature="e#19011#19528#0" />
-            <element signature="e#19069#19514#0" />
-            <element signature="e#19315#19496#0" />
-            <element signature="e#19577#19762#0" />
-            <element signature="n#!!block;n#_getMyOfferMatching#0;n#Analizer#0" />
-            <element signature="e#20019#20169#0" />
-            <element signature="e#20112#20159#0" />
-            <element signature="n#!!block;n#_fillMatchingOffer#0;n#Analizer#0" />
-            <element signature="e#21791#22333#0" />
-            <element signature="e#22346#22426#0" />
-            <element signature="n#!!block;n#_getVideoGameMatches#1;n#Analizer#0" />
-            <element signature="e#22569#22628#0" />
-            <element signature="e#22725#23635#0" />
-            <element signature="e#22781#23625#0" />
-            <element signature="e#22903#23008#0" />
-            <element signature="e#23105#23611#0" />
-            <element signature="e#23401#23593#0" />
-            <element signature="n#!!block;n#_getUserSellMatches#0;n#Analizer#0" />
-            <element signature="e#22560#23187#0" />
-            <element signature="e#22807#23175#0" />
-            <element signature="e#22984#23161#0" />
-            <element signature="n#!!block;n#_getUserBuyMatches#0;n#Analizer#0" />
-            <element signature="e#23527#24147#0" />
-            <element signature="e#23767#24135#0" />
-            <element signature="e#23944#24121#0" />
-            <element signature="e#25711#25864#0" />
-            <element signature="n#!!block;n#_dfs#0;n#Analizer#0" />
-            <element signature="e#25948#26120#0" />
-            <element signature="e#25984#26110#0" />
-            <element signature="e#26125#26449#0" />
-            <element signature="e#26219#26438#0" />
-            <element signature="n#!!block;n#_createCycleProps#0;n#Analizer#0" />
-            <element signature="e#26590#27412#0" />
-            <element signature="e#26960#27362#0" />
-            <element signature="n#!!block;n#_getCycles#0;n#Analizer#0" />
-            <element signature="n#!!block;n#startPersistance#0;n#Analizer#0" />
-            <element signature="n#!!block;n#stopPersistance#0;n#Analizer#0" />
-            <element signature="n#!!block;n#_loadUsersFromDB#0;n#Analizer#0" />
-            <element signature="e#26440#26800#0" />
-            <element signature="e#26521#26789#0" />
-            <element signature="n#!!block;n#_loadOffersFromDB#0;n#Analizer#0" />
-            <element signature="e#27294#28154#0" />
-            <element signature="e#27373#28143#0" />
-            <element signature="e#27649#27841#0" />
-            <element signature="e#27879#28073#0" />
-            <element signature="n#!!block;n#_loadVideoGamesFromDB#0;n#Analizer#0" />
-            <element signature="e#27903#28136#0" />
-            <element signature="e#27949#28125#0" />
-            <element signature="e#26955#26972#0" />
-            <element signature="n#!!block;n#getChatUsers#0;n#Analizer#0" />
-            <element signature="e#27089#27113#0" />
-            <element signature="e#27242#27274#0" />
-            <element signature="e#27293#27333#0" />
-            <element signature="e#27427#27493#0" />
-            <element signature="n#!!block;n#addMessage#0;n#Analizer#0" />
-            <element signature="e#28027#28074#0" />
-            <element signature="n#!!block;n#getConversation#0;n#Analizer#0" />
-            <element signature="e#27498#27522#0" />
-            <element signature="e#28111#28527#0" />
-            <element signature="e#28533#29129#0" />
-            <element signature="n#!!block;n#loadCatalogueFromFolders#0;n#Analizer#0" />
-            <element signature="e#29272#29957#0" />
-            <element signature="e#29293#29343#0" />
-            <element signature="e#29396#29945#0" />
-            <element signature="e#29534#29929#0" />
-            <element signature="e#29589#29909#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/tests.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="337">
@@ -1443,10 +1251,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/database/util.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/analizer.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="29" column="30" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/integrationTests.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="346" column="48" lean-forward="true" selection-start-line="346" selection-start-column="26" selection-end-line="346" selection-end-column="48" />
+        <state relative-caret-position="277">
+          <caret line="348" column="4" selection-start-line="348" selection-start-column="4" selection-end-line="348" selection-end-column="4" />
           <folding>
             <element signature="n#!!block;n#testLoadCatalogueFromFolders#0;n#IntegrationTests#0" />
             <element signature="e#1026#1070#0" />
@@ -1498,8 +1320,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="727" column="22" selection-start-line="727" selection-start-column="22" selection-end-line="727" selection-end-column="22" />
+        <state relative-caret-position="457">
+          <caret line="42" column="28" lean-forward="true" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
           <folding>
             <element signature="e#317#336#0" />
             <element signature="e#574#592#0" />
@@ -1518,6 +1340,7 @@
             <element signature="e#2583#2647#0" />
             <element signature="e#2664#2724#0" />
             <element signature="e#2758#3008#0" />
+            <element signature="e#3058#3177#0" />
             <element signature="e#3180#3594#0" />
             <element signature="e#3646#3991#0" />
             <element signature="e#3825#3889#0" />
@@ -1559,28 +1382,280 @@
             <element signature="e#11572#12068#0" />
             <element signature="e#11792#11846#0" />
             <element signature="e#11900#11959#0" />
+            <element signature="e#11973#12044#0" />
             <element signature="e#12119#12457#0" />
             <element signature="e#12287#12355#0" />
             <element signature="e#12374#12430#0" />
             <element signature="e#12465#12499#0" />
             <element signature="e#12543#12996#0" />
+            <element signature="e#12720#12818#0" />
+            <element signature="e#12822#12871#0" />
             <element signature="e#12999#13036#0" />
+            <element signature="e#13094#13531#0" />
             <element signature="e#13315#13380#0" />
+            <element signature="e#13397#13504#0" />
             <element signature="e#13535#13588#0" />
             <element signature="e#13638#14315#0" />
             <element signature="e#13973#14038#0" />
             <element signature="e#14106#14176#0" />
             <element signature="e#14193#14289#0" />
             <element signature="e#14318#14370#0" />
+            <element signature="e#14419#15094#0" />
             <element signature="e#14753#14818#0" />
             <element signature="e#14886#14956#0" />
+            <element signature="e#14973#15068#0" />
             <element signature="e#15097#15126#0" />
+            <element signature="e#15175#15540#0" />
             <element signature="e#15353#15418#0" />
             <element signature="e#15435#15513#0" />
+            <element signature="e#15543#15605#0" />
+            <element signature="e#15657#16151#0" />
+            <element signature="e#15991#16046#0" />
             <element signature="e#16060#16127#0" />
+            <element signature="e#16219#16452#0" />
+            <element signature="e#16212#16220#0" />
+            <element signature="e#16392#16408#0" />
+            <element signature="e#16483#16499#0" />
+            <element signature="e#16542#16566#0" />
+            <element signature="e#16891#17344#0" />
+            <element signature="e#16741#17266#0" />
+            <element signature="e#17024#17093#0" />
+            <element signature="e#17112#17264#0" />
+            <element signature="e#17181#17257#0" />
+            <element signature="e#17947#18028#0" />
+            <element signature="e#17317#17869#0" />
+            <element signature="e#17653#17722#0" />
+            <element signature="e#17741#17843#0" />
             <element signature="e#16191#16239#0" />
             <element signature="e#16246#16580#0" />
             <element signature="e#16585#17870#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizer/analizer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="n#!!block;n#constructor#0;n#Analizer#0" />
+            <element signature="n#!!block;n#loadCatalogueFromFolders#0;n#Analizer#0" />
+            <element signature="e#911#1596#0" />
+            <element signature="e#932#982#0" />
+            <element signature="e#1035#1584#0" />
+            <element signature="e#1173#1568#0" />
+            <element signature="e#1228#1548#0" />
+            <element signature="n#!!block;n#startPersistance#0;n#Analizer#0" />
+            <element signature="n#!!block;n#stopPersistance#0;n#Analizer#0" />
+            <element signature="n#!!block;n#clearDatabase#0;n#Analizer#0" />
+            <element signature="e#2177#2237#0" />
+            <element signature="n#!!block;n#loginServiceIdExists#0;n#Analizer#0" />
+            <element signature="n#!!block;n#userIdExists#0;n#Analizer#0" />
+            <element signature="n#!!block;n#addUser#0;n#Analizer#0" />
+            <element signature="e#1331#1421#0" />
+            <element signature="n#!!block;n#addRatingToUser#0;n#Analizer#0" />
+            <element signature="e#1477#1907#0" />
+            <element signature="e#1711#1897#0" />
+            <element signature="e#1913#2260#0" />
+            <element signature="e#2067#2250#0" />
+            <element signature="n#!!block;n#updateUserProperties#0;n#Analizer#0" />
+            <element signature="e#1413#1518#0" />
+            <element signature="n#!!block;n#getUserIdFromLoginServiceId#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getUsersSize#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getUserProperties#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getUserSellList#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getUserBuyList#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getNotifications#0;n#Analizer#0" />
+            <element signature="e#3212#4001#0" />
+            <element signature="e#3284#3990#0" />
+            <element signature="n#!!block;n#videoGameIdExists#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getCatalogue#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getCatalogueSize#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getVideoGameSellList#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getVideoGameBuyList#0;n#Analizer#0" />
+            <element signature="n#!!block;n#offerIdExists#0;n#Analizer#0" />
+            <element signature="n#!!block;n#addSellOffer#0;n#Analizer#0" />
+            <element signature="e#4570#4646#0" />
+            <element signature="n#!!block;n#addBuyOffer#0;n#Analizer#0" />
+            <element signature="e#5119#5195#0" />
+            <element signature="n#!!block;n#getOffersSize#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getOffersProperties#0;n#Analizer#0" />
+            <element signature="e#2550#2916#0" />
+            <element signature="n#!!block;n#deleteOffer#0;n#Analizer#0" />
+            <element signature="e#5272#5335#0" />
+            <element signature="e#7477#7577#0" />
+            <element signature="n#!!block;n#getChatUsers#0;n#Analizer#0" />
+            <element signature="e#7705#8313#0" />
+            <element signature="e#7855#8105#0" />
+            <element signature="e#7906#7972#0" />
+            <element signature="e#8024#8091#0" />
+            <element signature="n#!!block;n#addMessage#0;n#Analizer#0" />
+            <element signature="e#8527#8635#0" />
+            <element signature="n#!!block;n#getConversation#0;n#Analizer#0" />
+            <element signature="e#8789#8834#0" />
+            <element signature="n#!!block;n#getRankedUsers#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getTriplets#0;n#Analizer#0" />
+            <element signature="n#!!block;n#_createUserOffersList#0;n#Analizer#0" />
+            <element signature="e#10317#10682#0" />
+            <element signature="n#!!block;n#_createVideoGameOffersList#0;n#Analizer#0" />
+            <element signature="n#!!block;n#_fillMatchingOffer#0;n#Analizer#0" />
+            <element signature="e#11424#11966#0" />
+            <element signature="n#!!block;n#getOffer#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getUser#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getVideoGame#0;n#Analizer#0" />
+            <element signature="n#!!block;n#addVideoGame#0;n#Analizer#0" />
+            <element signature="e#11839#11920#0" />
+            <element signature="n#!!block;n#_getUsers#0;n#Analizer#0" />
+            <element signature="n#!!block;n#_sendEmail#0;n#Analizer#0" />
+            <element signature="e#8633#8779#0" />
+            <element signature="e#8679#8769#0" />
+            <element signature="e#8846#9003#0" />
+            <element signature="e#8871#8922#0" />
+            <element signature="e#8928#8993#0" />
+            <element signature="n#!!block;n#_sendNotification#0;n#Analizer#0" />
+            <element signature="e#9542#9591#0" />
+            <element signature="e#9623#9673#0" />
+            <element signature="e#9802#9973#0" />
+            <element signature="e#9987#10018#0" />
+            <element signature="n#!!block;n#_createNotifications#0;n#Analizer#0" />
+            <element signature="n#!!block;n#_removeNotifications#0;n#Analizer#0" />
+            <element signature="e#10607#10821#0" />
+            <element signature="e#13209#13248#0" />
+            <element signature="n#!!block;n#_offersMatch#0;n#Analizer#0" />
+            <element signature="e#13519#13555#0" />
+            <element signature="e#13697#13733#0" />
+            <element signature="n#!!block;n#_getMatchingOfferIds#0;n#Analizer#0" />
+            <element signature="e#13911#14034#0" />
+            <element signature="e#14073#14195#0" />
+            <element signature="e#13769#13809#0" />
+            <element signature="n#!!block;n#_getMatching#0;n#Analizer#0" />
+            <element signature="e#13881#13970#0" />
+            <element signature="e#14005#14094#0" />
+            <element signature="e#14196#14809#0" />
+            <element signature="e#14281#14798#0" />
+            <element signature="e#14339#14784#0" />
+            <element signature="e#14585#14766#0" />
+            <element signature="n#!!block;n#_rankUsers#0;n#Analizer#0" />
+            <element signature="e#10956#11016#0" />
+            <element signature="e#11122#12193#0" />
+            <element signature="e#11314#11381#0" />
+            <element signature="e#11468#12183#0" />
+            <element signature="e#11678#12169#0" />
+            <element signature="e#11835#11932#0" />
+            <element signature="e#11883#11892#0" />
+            <element signature="e#11894#11906#0" />
+            <element signature="e#12259#12323#0" />
+            <element signature="e#12354#12401#0" />
+            <element signature="e#12471#12623#0" />
+            <element signature="n#!!block;n#_getUserSellMatches#0;n#Analizer#0" />
+            <element signature="e#22560#23187#0" />
+            <element signature="e#22807#23175#0" />
+            <element signature="e#22984#23161#0" />
+            <element signature="n#!!block;n#_getUserBuyMatches#0;n#Analizer#0" />
+            <element signature="e#23527#24147#0" />
+            <element signature="e#23767#24135#0" />
+            <element signature="e#23944#24121#0" />
+            <element signature="e#25711#25864#0" />
+            <element signature="n#!!block;n#_dfs#0;n#Analizer#0" />
+            <element signature="e#25948#26120#0" />
+            <element signature="e#25984#26110#0" />
+            <element signature="e#26125#26449#0" />
+            <element signature="e#26219#26438#0" />
+            <element signature="n#!!block;n#_createCycleProps#0;n#Analizer#0" />
+            <element signature="e#26590#27412#0" />
+            <element signature="e#26960#27362#0" />
+            <element signature="n#!!block;n#_getCycles#0;n#Analizer#0" />
+            <element signature="n#!!block;n#_loadUsersFromDB#0;n#Analizer#0" />
+            <element signature="e#26440#26800#0" />
+            <element signature="e#26521#26789#0" />
+            <element signature="n#!!block;n#_loadOffersFromDB#0;n#Analizer#0" />
+            <element signature="e#27294#28154#0" />
+            <element signature="e#27373#28143#0" />
+            <element signature="e#27649#27841#0" />
+            <element signature="e#27879#28073#0" />
+            <element signature="n#!!block;n#_loadVideoGamesFromDB#0;n#Analizer#0" />
+            <element signature="e#27903#28136#0" />
+            <element signature="e#27949#28125#0" />
+            <element signature="e#30589#30815#0" />
+            <element signature="n#!!block;n#getVideoGameSellMatches#0;n#Analizer#0" />
+            <element signature="e#31026#31085#0" />
+            <element signature="n#!!block;n#getVideoGameBuyMatches#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getUserMatchingVideoGames#0;n#Analizer#0" />
+            <element signature="e#30843#31046#0" />
+            <element signature="e#30954#31036#0" />
+            <element signature="e#31145#31285#0" />
+            <element signature="n#!!block;n#updateOfferProperties#0;n#Analizer#0" />
+            <element signature="n#!!block;n#getUserSellListWithMatching#0;n#Analizer#0" />
+            <element signature="e#30725#30778#0" />
+            <element signature="e#30829#31316#0" />
+            <element signature="e#31169#31222#0" />
+            <element signature="e#31226#31280#0" />
+            <element signature="n#!!block;n#deleteUser#0;n#Analizer#0" />
+            <element signature="e#30715#30900#0" />
+            <element signature="n#!!block;n#_getMyOfferMatching#0;n#Analizer#0" />
+            <element signature="e#31157#31307#0" />
+            <element signature="e#31250#31297#0" />
+            <element signature="e#30237#30653#0" />
+            <element signature="e#30659#31255#0" />
+            <element signature="n#!!block;n#_getVideoGameMatches#0;n#Analizer#0" />
+            <element signature="e#29952#30011#0" />
+            <element signature="e#30108#31018#0" />
+            <element signature="e#30164#31008#0" />
+            <element signature="e#30286#30391#0" />
+            <element signature="e#30488#30994#0" />
+            <element signature="e#30784#30976#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizer/analizerPersistance.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="268" column="3" selection-start-line="268" selection-start-column="3" selection-end-line="268" selection-end-column="3" />
+          <folding>
+            <element signature="n#!!block;n#connect#0;n#AnalizerPersistance#0" />
+            <element signature="e#146#237#0" />
+            <element signature="e#278#347#0" />
+            <element signature="e#294#340#0" />
+            <element signature="e#343#369#0" />
+            <element signature="n#!!block;n#queryAnalizer#0;n#AnalizerPersistance#0" />
+            <element signature="e#533#1048#0" />
+            <element signature="e#591#1037#0" />
+            <element signature="e#618#838#0" />
+            <element signature="e#655#743#0" />
+            <element signature="e#842#1023#0" />
+            <element signature="e#879#967#0" />
+            <element signature="n#!!block;n#end#0;n#AnalizerPersistance#0" />
+            <element signature="e#987#1160#0" />
+            <element signature="n#!!block;n#addUser#0;n#AnalizerPersistance#0" />
+            <element signature="e#1670#1838#0" />
+            <element signature="n#!!block;n#updateUser#0;n#AnalizerPersistance#0" />
+            <element signature="e#1965#2167#0" />
+            <element signature="e#1998#2159#0" />
+            <element signature="e#2305#2333#0" />
+            <element signature="n#!!block;n#deleteUser#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#loadUsers#0;n#AnalizerPersistance#0" />
+            <element signature="e#1484#1608#0" />
+            <element signature="n#!!block;n#addVideoGame#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#loadCatalogue#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#deleteVideoGame#0;n#AnalizerPersistance#0" />
+            <element signature="e#1868#2027#0" />
+            <element signature="n#!!block;n#addOffer#0;n#AnalizerPersistance#0" />
+            <element signature="e#2947#3101#0" />
+            <element signature="n#!!block;n#updateOffer#0;n#AnalizerPersistance#0" />
+            <element signature="e#3236#3455#0" />
+            <element signature="e#3272#3445#0" />
+            <element signature="n#!!block;n#deleteOffer#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#loadVideoGames#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#flush#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#flushUsers#1;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#flushUsers#2;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#clearOffers#1;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#getChatIds#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#getChatUsers#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#addMessage#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#addRating#0;n#AnalizerPersistance#0" />
+            <element signature="n#!!block;n#addRating#1;n#AnalizerPersistance#0" />
           </folding>
         </state>
       </provider>

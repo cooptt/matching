@@ -22,9 +22,65 @@ class Analizer {
         this._loginServiceMap = new Map();
     }
 
-    // PUBLIC FUNCTIONS
 
 
+    // CONFIGURATION
+
+    loadCatalogueFromFolders(cataloguePath) {
+        console.log('Loading videogames from folders ...')
+        const fs = require('fs');
+
+        fs.readdir(cataloguePath, (err, consoleFolders) => {
+            if(err){
+                throw err;
+            }
+            consoleFolders.forEach(consoleFolder => {
+
+
+                let consolePath = cataloguePath + '/' + consoleFolder;
+
+                fs.readdir(consolePath, (err, imagesNames) => {
+                    imagesNames.forEach(imageName => {
+
+
+                        let videoGamePath = 'catalogue/' + consoleFolder + '/' + imageName;
+
+                        let videoGameName = imageName.replace(/_/g, ' ').slice(0, imageName.length - 4);
+
+                        this.addVideoGame(videoGameName, videoGamePath);
+                    });
+                })
+
+            });
+        });
+
+        return;
+    }
+
+    startPersistance(){
+        this._persistance = new AnalizerPersistance();
+        this._persistance.connect('localhost','root','root','analizer');
+    }
+
+    stopPersistance(){
+        this._persistance.end();
+        delete this._persistance;
+    }
+
+    clearDatabase(){
+        let promises = [];
+        promises.push(this._persistance.clearMessages());
+        promises.push(this._persistance.clearOffers());
+        promises.push(this._persistance.clearVideoGames());
+        promises.push(this._persistance.clearUsers());
+
+        Promise.all(promises).then( results => {
+            console.log('Clearing Database ...')
+        })
+    }
+
+
+    // USER
 
     loginServiceIdExists(loginServiceId){
         return this._loginServiceMap.has(loginServiceId);
@@ -34,17 +90,45 @@ class Analizer {
         return this._users.has(userId);
     }
 
-    videoGameIdExists(videoGameId){
-        return this._catalogue.has(videoGameId);
+    addUser(loginServiceId) {
+        let userId = this._users.nextId();
+        this._loginServiceMap.set(loginServiceId, userId );
+        this._users.insert( new User(userId, loginServiceId ) );
+        if( this._persistance!==undefined ){
+            this._persistance.addUser( this.getUser(userId).getProperties() );
+        }
+        return userId;
     }
 
-    offerIdExists(offerId){
-        return this._offers.has(offerId);
+    addRatingToUser(ratingUserId, ratedUserId, rating){
+        let ratingUser = this.getUser(ratingUserId);
+        let ratedUser = this.getUser(ratedUserId);
+
+        if( ratingUser.hasUserRating(ratedUserId) ){
+            let oldRating = ratingUser.getUserRating(ratedUserId);
+            ratedUser.changeMyRating(oldRating,rating);
+            ratingUser.updateUserRating(ratedUserId, rating);
+            if( this._persistance!==undefined ){
+                this._persistance.updateRating(ratingUserId, ratedUserId, rating);
+                this._persistance.updateUserProperties(ratedUserId, { rating:rating} );
+            }
+        } else {
+            ratedUser.updateMyRating(rating);
+            ratingUser.addUserRating(ratedUserId, rating);
+            if( this._persistance!==undefined ){
+                this._persistance.addRating(ratingUserId, ratedUserId, rating);
+                this._persistance.updateUserProperties(ratedUserId, { rating:rating} );
+            }
+        }
     }
 
-
-
-    // Get data functions
+    updateUserProperties(userId, properties){
+        this.getUser(userId).updateProperties(properties);
+        if( this._persistance!==undefined ){
+            properties.userId = userId;
+            this._persistance.updateUser(properties);
+        }
+    }
 
     getUserIdFromLoginServiceId(loginServiceId){
         return this._loginServiceMap.get(loginServiceId);
@@ -54,23 +138,9 @@ class Analizer {
         return this._users.size();
     }
 
-    getOffersSize(){
-        return this._offers.size();
-    }
-
-    getCatalogueSize(){
-        return this._catalogue.size();
-    }
-   
     getUserProperties(userId){
         let user = this.getUser(userId);
         return user.getProperties();
-    }
-   
-    getCatalogue() {
-        let catalogue = [];
-        this._catalogue.getValues().forEach( videoGame => catalogue.push(videoGame.getProperties()) )
-        return catalogue;
     }
 
     getUserSellList(userId){
@@ -78,54 +148,13 @@ class Analizer {
         var buyList = user.getSellList(); // Array of offerids
         return this._createUserOffersList(buyList);
     }
-    
+
     getUserBuyList(userId){
         var user = this.getUser(userId);
         var buyList = user.getBuyList(); // Array of offerids
         return this._createUserOffersList(buyList);
     }
 
-    getUserSellListWithMatching(myUserId, userId){
-        var user = this.getUser(userId);
-        var sellList = user.getSellList(); // Array of offerIds
-        let myUser = this.getUser(myUserId);
-        let myOfferIds = myUser.getBuyList();
-        let matches = this._getMatching(myOfferIds, sellList);
-        //console.log('matches:', matches);
-        let matchingOffers = new Set();
-        matches.forEach( match => {
-            matchingOffers.add(match[1]);
-        })
-        let sellListM = sellList.map( offerId => {
-            let offer = this.getOffer(offerId)
-            let videoGame = this.getVideoGame(offer.getVideoGameId());
-            let props = videoGame.getProperties();
-            props.offerId = offerId;
-            props.price = offer.getPrice();
-            props.type = offer.getType();
-
-            if( matchingOffers.has(offerId) ){
-                props.matches = true;
-            }else{
-                props.matches = false;
-            }
-            return props;
-        })
-        return sellListM;
-    }
-
-    getVideoGameSellList(videoGameId){
-        let videoGame = this.getVideoGame(videoGameId);
-        let sellOfferIds = videoGame.getSellOfferIds();
-        return this._createVideoGameOffersList(sellOfferIds);
-    }
-
-    getVideoGameBuyList(videoGameId){
-        let videoGame = this.getVideoGame(videoGameId);
-        let buyOfferIds = videoGame.getBuyOfferIds();
-        return this._createVideoGameOffersList(buyOfferIds);
-    }
-  
     getNotifications(userId){
         let offerIdPairs = this.getUser(userId).getNotifications();
         let notifications = [];
@@ -144,94 +173,51 @@ class Analizer {
                 notifications.push(notificationProps);
                 repeatedOfferIds.add(offerIdPair.outOfferId);
             }
-            
+
         });
         return notifications;
     }
 
-    getOffersProperties(){
-        let offersPropertiesList = [] 
-        this._offers.getValues().forEach( offer => {
-            let user = this.getUser(offer.getUserId());
-            let videoGame = this.getVideoGame(offer.getVideoGameId());
-            let prop = Object.assign(offer.getProperties(),
-                                    videoGame.getProperties(),
-                                    user.getProperties() );
-            offersPropertiesList.push(prop);
-        } );
-        offersPropertiesList = offersPropertiesList.reverse();
-        return offersPropertiesList;
 
+
+
+
+
+    // VIDEOGAME
+
+    videoGameIdExists(videoGameId){
+        return this._catalogue.has(videoGameId);
     }
 
-    getRankedUsers(userId){
-        let user = this.getUser(userId);
-        let offerIds = user.getSellList();
-        offerIds = offerIds.concat(user.getBuyList());
-        let ranks = this._rankUsers(userId, offerIds);
-        return ranks
+    getCatalogue() {
+        let catalogue = [];
+        this._catalogue.getValues().forEach( videoGame => catalogue.push(videoGame.getProperties()) )
+        return catalogue;
     }
 
-    getUserMatchingVideoGames(userId){
-        let user = this.getUser(userId);
-        let offerIds = user.getSellList();
-        offerIds = offerIds.concat(user.getBuyList());
-        let offers = offerIds.map( id => this.getOffer(id) );
-        let matchingVideoGamesIds = new Set()
-        offers.forEach( offer => {
-            let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
-            if(mOfferIds.length>0){
-                matchingVideoGamesIds.add(offer.getVideoGameId());
-            }
-        });
-
-        let matchingVideoGamesProps = []
-        for(let videoGameId of matchingVideoGamesIds ){
-            let videoGame = this.getVideoGame(videoGameId);
-            matchingVideoGamesProps.push(videoGame.getProperties());
-        }
-        return matchingVideoGamesProps;
+    getCatalogueSize(){
+        return this._catalogue.size();
     }
 
-    /* Calculate all sell offers belonging to userId
-    that matches with  offer from any other user
-    returns array of objects containing properties
-    of both matching users and info from the owner
-    of the matching user*/
-    getVideoGameSellMatches(userId, videoGameId){
-        let user = this.getUser(userId);
-        let offerIds = user.getSellList();
-        return this._getVideoGameMatches(videoGameId, offerIds);
+    getVideoGameSellList(videoGameId){
+        let videoGame = this.getVideoGame(videoGameId);
+        let sellOfferIds = videoGame.getSellOfferIds();
+        return this._createVideoGameOffersList(sellOfferIds);
     }
 
-    /* Same as getVideoGameSellMatches() but with buy Offers */
-    getVideoGameBuyMatches(userId, videoGameId){
-        let user = this.getUser(userId)
-        let offerIds = user.getBuyList();
-        return this._getVideoGameMatches(videoGameId, offerIds);
-    }
-
-    getTriplets(userId){
-        let triplets = this._getCycles(userId,3);
-        console.log(triplets);
-        let tripletsProps = triplets.map( cycle => this._createCycleProps(cycle) );
-        return tripletsProps;
+    getVideoGameBuyList(videoGameId){
+        let videoGame = this.getVideoGame(videoGameId);
+        let buyOfferIds = videoGame.getBuyOfferIds();
+        return this._createVideoGameOffersList(buyOfferIds);
     }
 
 
 
 
+    // OFFER
 
-    // Add, Update, Delete functions
-
-    addUser(loginServiceId) {
-        let userId = this._users.nextId();
-        this._loginServiceMap.set(loginServiceId, userId );
-        this._users.insert( new User(userId, loginServiceId ) );
-        if( this._persistance!==undefined ){
-            this._persistance.addUser( this.getUser(userId).getProperties() );
-        }
-        return userId;
+    offerIdExists(offerId){
+        return this._offers.has(offerId);
     }
 
     addSellOffer(userId, videoGameId, price) {
@@ -258,35 +244,22 @@ class Analizer {
         this._createNotifications(offerId, offerIds);
     }
 
-    addRatingToUser(ratingUserId, ratedUserId, rating){
-        let ratingUser = this.getUser(ratingUserId);
-        let ratedUser = this.getUser(ratedUserId);
-
-        if( ratingUser.hasUserRating(ratedUserId) ){
-            let oldRating = ratingUser.getUserRating(ratedUserId);
-            ratedUser.changeMyRating(oldRating,rating);
-            ratingUser.updateUserRating(ratedUserId, rating);
-        } else {
-            ratedUser.updateMyRating(rating);
-            ratingUser.addUserRating(ratedUserId, rating);
-        }
+    getOffersSize(){
+        return this._offers.size();
     }
 
-
-
-    updateUserProperties(userId, properties){
-        this.getUser(userId).updateProperties(properties);
-        if( this._persistance!==undefined ){
-            properties.userId = userId;
-            this._persistance.updateUser(properties);
-        }
-    }
-
-    updateOfferProperties(offerId, properties){
-        //this.getOffer(offerId).updateProperties(properties);
-    }
-
-    deleteUser() {
+    getOffersProperties(){
+        let offersPropertiesList = []
+        this._offers.getValues().forEach( offer => {
+            let user = this.getUser(offer.getUserId());
+            let videoGame = this.getVideoGame(offer.getVideoGameId());
+            let prop = Object.assign(offer.getProperties(),
+                videoGame.getProperties(),
+                user.getProperties() );
+            offersPropertiesList.push(prop);
+        } );
+        offersPropertiesList = offersPropertiesList.reverse();
+        return offersPropertiesList;
 
     }
 
@@ -302,51 +275,81 @@ class Analizer {
         }
     }
 
-    
-
-    
 
 
+    // CHAT
 
+    /* returns a Promise with userProps,
+     call .then( userProps => { do stuff with userProps } ); */
+    getChatUsers(userId){
+        let response = this._persistance.getChatIds(userId);
+        return response.then( result => {
+            //console.log(result);
+            let idPairs = result.result;
+            let ids = new Set();
+            idPairs.forEach( idPair => {
+                if( idPair.srcUserId !== userId ){
+                    ids.add(idPair.srcUserId);
+                }
 
+                if( idPair.destUserId !== userId ){
+                    ids.add(idPair.destUserId);
+                }
+            })
+            let userIds = Array.from(ids);
+            //console.log(ids);
+            let userProps = userIds.map( userId => this.getUser(userId).getProperties() );
 
-
-
-
-
-
-
-
-    // PRIVATE FUNCTIONS
-
-
-    getOffer(offerId){
-        return this._offers.get(offerId);
+            return userProps;
+        })
     }
 
-    getUser(userId) {
-        return this._users.get(userId);
-    }
-    
-    getVideoGame(videoGameId) {
-        return this._catalogue.get(videoGameId);
+    addMessage(rscUserId, destUserId, content){
+        let dateMillis = (new Date()).getTime();
+        let response = this._persistance.addMessage(rscUserId, destUserId, dateMillis, content);
     }
 
-    addVideoGame(title, image){
-        let videoGame = new VideoGame(this._catalogue.nextId(), title, image);
-        this._catalogue.insert(videoGame);
-        if( this._persistance!==undefined ){
-            this._persistance.addVideoGame(videoGame.getProperties());
-        }
+    /* Returns a Promise with an array of messages;
+     call .then ( messages => {do stuff with messages} ); */
+    getConversation(userId, mUserId){
+        let response = this._persistance.getConversation(userId, mUserId);
+        return response.then( result => {
+            return  result.result
+        })
     }
 
 
 
-    _getUsers() {
-        let users = [];
-        this._users.getValues().forEach( user => users.push(user.getProperties()));
-        return users;
+
+    // RANKING AND TRIPLETS
+
+    getRankedUsers(userId){
+        let user = this.getUser(userId);
+        let offerIds = user.getSellList();
+        offerIds = offerIds.concat(user.getBuyList());
+        let ranks = this._rankUsers(userId, offerIds);
+        return ranks
     }
+
+    getTriplets(userId){
+        let triplets = this._getCycles(userId,3);
+        console.log(triplets);
+        let tripletsProps = triplets.map( cycle => this._createCycleProps(cycle) );
+        return tripletsProps;
+    }
+
+
+
+
+
+
+
+
+
+    /**************************   PRIVATE ***************************************************/
+
+
+    // HELPER FUNCTIONS
 
     _createUserOffersList(offerIdList){
         var userOffersList = [];
@@ -373,15 +376,95 @@ class Analizer {
         return videoGameOffersList;
     }
 
-    _getMatchingOfferIds(offerId){
-        let offer = this.getOffer(offerId);
-        let offerIds = []
-        if(offer.getType()===this._SELL){
-            offerIds = this.getVideoGame(offer.getVideoGameId()).getBuyOfferIdsGreaterEqThan(offer.getPrice());
-        } else if( offer.getType()===this._BUY ){
-            offerIds = this.getVideoGame(offer.getVideoGameId()).getSellOfferIdsLowerEqThan(offer.getPrice());
+    _fillMatchingOffer(myOfferId, matchingOfferId){
+        let myOffer = this.getOffer(myOfferId);
+        let matchingOffer = this.getOffer(matchingOfferId);
+        let matchingUser = this.getUser(matchingOffer.getUserId());
+        return {
+            myOfferId:myOffer.getOfferId(),
+            myOfferPrice:myOffer.getPrice(),
+            myOfferType:myOffer.getType(),
+            matchingOfferId:matchingOffer.getOfferId(),
+            matchingOfferPrice:matchingOffer.getPrice(),
+            matchingOfferType:matchingOffer.getType(),
+            matchingUserId:matchingUser.getUserId(),
+            matchingUserFirstName:matchingUser.getFirstName(),
+            matchingUserLastName:matchingUser.getLastName(),
+            matchingUserEmail:matchingUser.getEmail()
         }
-        return offerIds;
+    }
+
+    getOffer(offerId){
+        return this._offers.get(offerId);
+    }
+
+    getUser(userId) {
+        return this._users.get(userId);
+    }
+    
+    getVideoGame(videoGameId) {
+        return this._catalogue.get(videoGameId);
+    }
+
+    addVideoGame(title, image){
+        let videoGame = new VideoGame(this._catalogue.nextId(), title, image);
+        this._catalogue.insert(videoGame);
+        if( this._persistance!==undefined ){
+            this._persistance.addVideoGame(videoGame.getProperties());
+        }
+    }
+
+    _getUsers() {
+        let users = [];
+        this._users.getValues().forEach( user => users.push(user.getProperties()));
+        return users;
+    }
+
+
+
+    // NOTIFICATIONS
+
+    _sendEmail(mailOptions){
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'cooperativapascaltt@gmail.com',
+                pass: 'Cooperativa2018' }
+        });
+
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response); }
+        });
+    }
+
+    _sendNotification(userId, offerId){
+        let destinationEmail = this.getUser(userId).getEmail();
+        if(destinationEmail!==null){
+            let offer = this.getOffer(offerId);
+            let ownerUser = this.getUser(offer.getUserId());
+            let videoGame = this.getVideoGame(offer.getVideoGameId());
+            let text = "User " + ownerUser.getFirstName() + ' ' + ownerUser.getLastName() ;
+            text += ' submitted a new offer that might be interesting to you:\n'
+            if(offer.getType()===0){
+                text += 'Buying '
+            } else if ( offer.getType()===1 ){
+                text += 'Selling '
+            }
+            text += videoGame.getTitle() + ' for ';
+            text += '$ ' + offer.getPrice();
+
+            let mailOptions = {
+                from: 'cooperativapascaltt@gmail.com',
+                to: destinationEmail,
+                subject: 'New offer match',
+                text: text
+            };
+            //this._sendEmail(mailOptions);
+            //console.log(text);
+        }
     }
 
     _createNotifications(originOfferId, offerIds){
@@ -400,6 +483,69 @@ class Analizer {
             let offer = this.getOffer(offerId);
             this.getUser(offer.getUserId()).deleteNotification(originOfferId, offerId);
         })
+    }
+
+
+
+
+    // MATCHING AND RANKING
+
+    /* returns true if these offer match */
+    _offersMatch(offerIdA, offerIdB){
+        let offerA = this.getOffer(offerIdA);
+        let offerB = this.getOffer(offerIdB);
+        if(offerA.getType()===this._BUY
+            && offerB.getType()===this._SELL
+            && offerA.getPrice()>= offerB.getPrice() ){
+            return true;
+        }
+
+        if(offerB.getType()===this._BUY
+            && offerA.getType()===this._SELL
+            && offerA.getPrice()<= offerB.getPrice() ){
+            return true;
+        }
+
+        return false;
+    }
+
+    _getMatchingOfferIds(offerId){
+        let offer = this.getOffer(offerId);
+        let offerIds = []
+        if(offer.getType()===this._SELL){
+            offerIds = this.getVideoGame(offer.getVideoGameId()).getBuyOfferIdsGreaterEqThan(offer.getPrice());
+        } else if( offer.getType()===this._BUY ){
+            offerIds = this.getVideoGame(offer.getVideoGameId()).getSellOfferIdsLowerEqThan(offer.getPrice());
+        }
+        return offerIds;
+    }
+
+    /* Returns of posible relations where */
+    _getMatching(offerIds, mOfferIds){
+        offerIds.sort( (a,b) => {
+            return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
+        });
+        mOfferIds.sort((a,b) => {
+            return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
+        })
+        let matches = [];
+        let repOfferIds = new Set();
+        offerIds.forEach( offerId => {
+            let repUserIds = new Set();
+            mOfferIds.forEach( mOfferId => {
+                if( this._offersMatch(offerId,mOfferId)){
+                    let mOffer = this.getOffer(mOfferId);
+                    let mUserId = this.getUser(mOffer.getUserId());
+                    if( repUserIds.has(mUserId)===false
+                        && repOfferIds.has(mOfferId)===false){
+                        repUserIds.add(mUserId);
+                        repOfferIds.add(mOfferId);
+                        matches.push([offerId,mOfferId]);
+                    }
+                }
+            })
+        })
+        return matches;
     }
 
     _rankUsers(userId, offerIds){
@@ -453,177 +599,6 @@ class Analizer {
         }
         return usersProps;
     }
-
-    _sendEmail(mailOptions){
-        let transporter = nodemailer.createTransport({
-          service: 'gmail',
-          auth: {
-            user: 'cooperativapascaltt@gmail.com',
-            pass: 'Cooperativa2018' }
-        });
-
-        transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
-                console.log(error);
-            } else { 
-                console.log('Email sent: ' + info.response); }
-        });
-    }
-
-    _sendNotification(userId, offerId){
-        let destinationEmail = this.getUser(userId).getEmail();
-        if(destinationEmail!==null){
-            let offer = this.getOffer(offerId);
-            let ownerUser = this.getUser(offer.getUserId());
-            let videoGame = this.getVideoGame(offer.getVideoGameId());
-            let text = "User " + ownerUser.getFirstName() + ' ' + ownerUser.getLastName() ;
-            text += ' submitted a new offer that might be interesting to you:\n'
-            if(offer.getType()===0){
-                text += 'Buying '
-            } else if ( offer.getType()===1 ){
-                text += 'Selling '
-            }
-            text += videoGame.getTitle() + ' for ';
-            text += '$ ' + offer.getPrice();
-
-            let mailOptions = {
-              from: 'cooperativapascaltt@gmail.com',
-              to: destinationEmail,
-              subject: 'New offer match',
-              text: text
-            };
-            //this._sendEmail(mailOptions);
-            //console.log(text);
-        }     
-    }
-
-    /* returns true if these offer match */
-    _offersMatch(offerIdA, offerIdB){
-        let offerA = this.getOffer(offerIdA);
-        let offerB = this.getOffer(offerIdB);
-        if(offerA.getType()===this._BUY
-            && offerB.getType()===this._SELL 
-            && offerA.getPrice()>= offerB.getPrice() ){
-            return true;
-        }
-
-        if(offerB.getType()===this._BUY
-            && offerA.getType()===this._SELL 
-            && offerA.getPrice()<= offerB.getPrice() ){
-            return true;
-        }
-
-        return false;
-    }
-
-
-    /* Returns of posible relations where */
-    _getMatching(offerIds, mOfferIds){
-        offerIds.sort( (a,b) => {
-            return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
-        });
-        mOfferIds.sort((a,b) => {
-            return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
-        })
-        let matches = [];
-        let repOfferIds = new Set();
-        offerIds.forEach( offerId => {
-            let repUserIds = new Set();
-            mOfferIds.forEach( mOfferId => {
-                if( this._offersMatch(offerId,mOfferId)){
-                    let mOffer = this.getOffer(mOfferId);
-                    let mUserId = this.getUser(mOffer.getUserId());
-                    if( repUserIds.has(mUserId)===false 
-                        && repOfferIds.has(mOfferId)===false){
-                        repUserIds.add(mUserId);
-                        repOfferIds.add(mOfferId);
-                        matches.push([offerId,mOfferId]);
-                    }
-                }
-            })
-        })
-        return matches;
-    }
-
-
-    /* 
-        myOffer: one of my offers,
-        returns the offerId of any offer matching myOffer
-        belonging to matchingUserId, is there are no matches
-        returns null
-    */
-    _getMyOfferMatching(myOfferId, matchingUserId){
-        let myOffer = this.getOffer(myOfferId);
-        let matchingUser = this.getUser(matchingUserId);
-        let offerIds = matchingUser.getSellAndBuyList();
-        for(let i=0;i<offerIds.length;i++){
-            let offerId = offerIds[i]
-            if(this._offersMatch(myOfferId, offerId)){
-                return offerId;
-            }
-        }
-
-        return null;
-    }
-
-
-
-    // MY PROFILE VIEW
-
-
-    _fillMatchingOffer(myOfferId, matchingOfferId){
-        let myOffer = this.getOffer(myOfferId);
-        let matchingOffer = this.getOffer(matchingOfferId);
-        let matchingUser = this.getUser(matchingOffer.getUserId());
-        return {
-            myOfferId:myOffer.getOfferId(),
-            myOfferPrice:myOffer.getPrice(),
-            myOfferType:myOffer.getType(),
-            matchingOfferId:matchingOffer.getOfferId(),
-            matchingOfferPrice:matchingOffer.getPrice(),
-            matchingOfferType:matchingOffer.getType(),
-            matchingUserId:matchingUser.getUserId(),
-            matchingUserFirstName:matchingUser.getFirstName(),
-            matchingUserLastName:matchingUser.getLastName(),
-            matchingUserEmail:matchingUser.getEmail()
-        } 
-    }
-
-    /* returns every match for all offerIds that 
-    are related with videoGameId*/
-    _getVideoGameMatches(videoGameId, offerIds){
-        let offers = offerIds.map( id =>  this.getOffer(id)  );
-        offers.sort( (a,b) =>{
-            return a.getPrice() - b.getPrice();
-        })
-        let matches = []
-        let repOfferIds = new Set();
-        offers.forEach( offer => {
-            if( offer.getVideoGameId()===videoGameId ){
-                let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
-                mOfferIds.sort( (a,b) => {
-                    return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
-                })
-                let repUserIds = new Set();
-                for(let i=0;i<mOfferIds.length;i++){
-                    let mOfferId = mOfferIds[i];
-                    let mOffer = this.getOffer(mOfferId);
-                    let mUserId = this.getUser(mOffer.getUserId());
-                    if( repUserIds.has(mUserId)===false && 
-                        repOfferIds.has(mOfferId)===false ){
-                        repOfferIds.add(mOfferId);
-                        repUserIds.add(mUserId);
-                        matches.push([offer.getOfferId(), mOfferId])
-                    }
-                }
-            }
-        } );
-
-        let matchesProps = matches.map( pairIds => this._fillMatchingOffer(pairIds[0],pairIds[1]));
-        return matchesProps;
-    }
-
-
 
 
 
@@ -740,34 +715,8 @@ class Analizer {
 
 
 
+    // PERSISTANCE
 
-
-
-    // Persistance Functions
-
-
-
-    startPersistance(){
-        this._persistance = new AnalizerPersistance();
-        this._persistance.connect('localhost','root','root','analizer');
-    }
-
-    stopPersistance(){
-        this._persistance.end();
-        delete this._persistance;
-    }
-
-    clearDatabase(){
-        let promises = [];
-        promises.push(this._persistance.clearMessages());
-        promises.push(this._persistance.clearOffers());
-        promises.push(this._persistance.clearVideoGames());
-        promises.push(this._persistance.clearUsers());
-
-        Promise.all(promises).then( results => {
-            console.log('Clearing Database ...')
-        })
-    }
 
     _loadUsersFromDB() {
         let response = this._persistance.loadUsers();
@@ -817,51 +766,112 @@ class Analizer {
     }
 
 
-    // Chat Functions
-    // returns a Promise with userProps,
-    // call .then( userProps => { do stuff with userProps } );
 
-    getChatUsers(userId){
-        let response = this._persistance.getChatIds(userId);
-        return response.then( result => {
-            //console.log(result);
-            let idPairs = result.result;
-            let ids = new Set();
-            idPairs.forEach( idPair => {
-                if( idPair.srcUserId !== userId ){
-                    ids.add(idPair.srcUserId);
-                }
 
-                if( idPair.destUserId !== userId ){
-                    ids.add(idPair.destUserId);
-                }
-            })
-            let userIds = Array.from(ids);
-            //console.log(ids);
-            let userProps = userIds.map( userId => this.getUser(userId).getProperties() );
 
-            return userProps;
+
+
+
+
+
+
+    // USELESS FUNCTIONS
+
+    /* Calculate all sell offers belonging to userId
+   that matches with  offer from any other user
+   returns array of objects containing properties
+   of both matching users and info from the owner
+   of the matching user*/
+    getVideoGameSellMatches(userId, videoGameId){
+        let user = this.getUser(userId);
+        let offerIds = user.getSellList();
+        return this._getVideoGameMatches(videoGameId, offerIds);
+    }
+
+    /* Same as getVideoGameSellMatches() but with buy Offers */
+    getVideoGameBuyMatches(userId, videoGameId){
+        let user = this.getUser(userId)
+        let offerIds = user.getBuyList();
+        return this._getVideoGameMatches(videoGameId, offerIds);
+    }
+
+    getUserMatchingVideoGames(userId){
+        let user = this.getUser(userId);
+        let offerIds = user.getSellList();
+        offerIds = offerIds.concat(user.getBuyList());
+        let offers = offerIds.map( id => this.getOffer(id) );
+        let matchingVideoGamesIds = new Set()
+        offers.forEach( offer => {
+            let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
+            if(mOfferIds.length>0){
+                matchingVideoGamesIds.add(offer.getVideoGameId());
+            }
+        });
+
+        let matchingVideoGamesProps = []
+        for(let videoGameId of matchingVideoGamesIds ){
+            let videoGame = this.getVideoGame(videoGameId);
+            matchingVideoGamesProps.push(videoGame.getProperties());
+        }
+        return matchingVideoGamesProps;
+    }
+
+    updateOfferProperties(offerId, properties){
+        //this.getOffer(offerId).updateProperties(properties);
+    }
+
+    getUserSellListWithMatching(myUserId, userId){
+        var user = this.getUser(userId);
+        var sellList = user.getSellList(); // Array of offerIds
+        let myUser = this.getUser(myUserId);
+        let myOfferIds = myUser.getBuyList();
+        let matches = this._getMatching(myOfferIds, sellList);
+        //console.log('matches:', matches);
+        let matchingOffers = new Set();
+        matches.forEach( match => {
+            matchingOffers.add(match[1]);
         })
-    }
+        let sellListM = sellList.map( offerId => {
+            let offer = this.getOffer(offerId)
+            let videoGame = this.getVideoGame(offer.getVideoGameId());
+            let props = videoGame.getProperties();
+            props.offerId = offerId;
+            props.price = offer.getPrice();
+            props.type = offer.getType();
 
-    addMessage(rscUserId, destUserId, content){
-        let dateMillis = (new Date()).getTime();
-        let response = this._persistance.addMessage(rscUserId, destUserId, dateMillis, content);
-    }
-
-    // Returns a Primise with an array of messages;
-    // call .then ( messages => {do stuff with messages} );
-    getConversation(userId, mUserId){
-        let response = this._persistance.getConversation(userId, mUserId);
-        return response.then( result => {
-            return  result.result
+            if( matchingOffers.has(offerId) ){
+                props.matches = true;
+            }else{
+                props.matches = false;
+            }
+            return props;
         })
+        return sellListM;
     }
 
+    deleteUser() {
 
+    }
 
+    /*
+        myOffer: one of my offers,
+        returns the offerId of any offer matching myOffer
+        belonging to matchingUserId, is there are no matches
+        returns null
+    */
+    _getMyOfferMatching(myOfferId, matchingUserId){
+        let myOffer = this.getOffer(myOfferId);
+        let matchingUser = this.getUser(matchingUserId);
+        let offerIds = matchingUser.getSellAndBuyList();
+        for(let i=0;i<offerIds.length;i++){
+            let offerId = offerIds[i]
+            if(this._offersMatch(myOfferId, offerId)){
+                return offerId;
+            }
+        }
 
-
+        return null;
+    }
 
     /*
     _addOffersConnections(newOfferId, offerIds){
@@ -891,36 +901,38 @@ class Analizer {
     }
     */
 
-
-    loadCatalogueFromFolders(cataloguePath) {
-        console.log('Loading videogames from folders ...')
-        const fs = require('fs');
-
-        fs.readdir(cataloguePath, (err, consoleFolders) => {
-            if(err){
-                throw err;        
-            }
-            consoleFolders.forEach(consoleFolder => {
-
-
-                let consolePath = cataloguePath + '/' + consoleFolder;
-
-                fs.readdir(consolePath, (err, imagesNames) => {
-                    imagesNames.forEach(imageName => {
-                       
-
-                        let videoGamePath = 'catalogue/' + consoleFolder + '/' + imageName;
-
-                        let videoGameName = imageName.replace(/_/g, ' ').slice(0, imageName.length - 4);
-
-                        this.addVideoGame(videoGameName, videoGamePath);
-                    });
+    /* returns every match for all offerIds that
+    are related with videoGameId*/
+    _getVideoGameMatches(videoGameId, offerIds){
+        let offers = offerIds.map( id =>  this.getOffer(id)  );
+        offers.sort( (a,b) =>{
+            return a.getPrice() - b.getPrice();
+        })
+        let matches = []
+        let repOfferIds = new Set();
+        offers.forEach( offer => {
+            if( offer.getVideoGameId()===videoGameId ){
+                let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
+                mOfferIds.sort( (a,b) => {
+                    return this.getOffer(a).getPrice() - this.getOffer(b).getPrice();
                 })
+                let repUserIds = new Set();
+                for(let i=0;i<mOfferIds.length;i++){
+                    let mOfferId = mOfferIds[i];
+                    let mOffer = this.getOffer(mOfferId);
+                    let mUserId = this.getUser(mOffer.getUserId());
+                    if( repUserIds.has(mUserId)===false &&
+                        repOfferIds.has(mOfferId)===false ){
+                        repOfferIds.add(mOfferId);
+                        repUserIds.add(mUserId);
+                        matches.push([offer.getOfferId(), mOfferId])
+                    }
+                }
+            }
+        } );
 
-            });
-        });
-
-        return;
+        let matchesProps = matches.map( pairIds => this._fillMatchingOffer(pairIds[0],pairIds[1]));
+        return matchesProps;
     }
  
 }

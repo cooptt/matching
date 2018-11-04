@@ -726,7 +726,6 @@ app.post('/addRatingToUser', (request,response) => {
 
 /*
 /getChatUsers?userId=0
-
 { action: 'Get chat users ',
   data:
    [ { userId: 1,
@@ -798,7 +797,8 @@ app.get('/getConversation', (request, response) => {
 })
 
 /*
-    /addMessage?rscUserId=0&destUserId=1', {content:'Hola soy Felipe'}
+    /addMessage?rscUserId=0&destUserId=1
+     body: {content:'Hola soy Felipe'}
  */
 app.post('/addMessage', (request, response) => {
     let msg = {};
