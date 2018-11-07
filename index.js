@@ -10,8 +10,6 @@ const catalogue_path = './views/catalogue'
 
 const analizer = new Analizer();
 
-
-
 let args = process.argv;
 if( args.length>2){
     let analizerType = args[2] ;
@@ -24,12 +22,6 @@ if( args.length>2){
         analizer.loadDB();
     }
 }
-
-
-
-
-
-
 
 const app = express()
 
@@ -71,12 +63,12 @@ app.use(express.static('views')) // static files (public folder)
       // check if the user is logged in
       // if it is, attach to the request
       // else ...
-const checkAuth = (request,response,next) =>{
-    if (!(request.headers && request.headers.authorization)) {
-     return res.status(400).json({
-       status: 'not logged in'
-     });
-   }
+    const checkAuth = (request,response,next) =>{
+        if (!(request.headers && request.headers.authorization)) {
+            return res.status(400).json({
+            status: 'not logged in'
+            });
+    }
 
    let idToken = request.headers.authorization
 
