@@ -559,6 +559,66 @@ app.get('/getVideoGameBuyMatches', (request, response) => {
 	response.json(msg);
 })
 
+/*[
+     [ { userId: 0,
+      firstName: 'Felipe',
+      lastName: null,
+      videoGameId: 0,
+      title: 'Halo',
+      image: 'halo.jpg',
+      offerId: 1,
+      price: 500,
+      diff: 0 },
+    { userId: 1,
+      firstName: 'Jimbo',
+      lastName: null,
+      videoGameId: 1,
+      title: 'Gow',
+      image: 'gow.jpg',
+      offerId: 3,
+      price: 500,
+      diff: 0 },
+    { userId: 2,
+      firstName: 'Chore',
+      lastName: null,
+      videoGameId: 2,
+      title: 'Crash',
+      image: 'crash.jpg',
+      offerId: 5,
+      price: 500,
+      diff: 0 } ],
+
+  [ { userId: 0,
+      firstName: 'Felipe',
+      lastName: null,
+      videoGameId: 0,
+      title: 'Halo',
+      image: 'halo.jpg',
+      offerId: 1,
+      price: 500,
+      diff: 0 },
+    { userId: 1,
+      firstName: 'Jimbo',
+      lastName: null,
+      videoGameId: 1,
+      title: 'Gow',
+      image: 'gow.jpg',
+      offerId: 3,
+      price: 500,
+      diff: 0 },
+    { userId: 2,
+      firstName: 'Chore',
+      lastName: null,
+      videoGameId: 4,
+      title: 'Dbz',
+      image: 'dbz.jpg',
+      offerId: 8,
+      price: 500,
+      diff: 0 } ],
+  ]
+
+
+*/
 
 app.get('/getTriplets', (request, response) => {
     let msg = {}
