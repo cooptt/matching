@@ -6,24 +6,34 @@ const admin = require('firebase-admin') // service firebase
 //const analizer = require('./src/analizer')  //// analizer
 const Analizer = require('./analizer/analizer').Analizer;
 
-
-let analizerType = 1;
+const catalogue_path = './views/catalogue'
 
 const analizer = new Analizer();
-analizer.startPersistance();
 
-if( analizerType===0 ){
-    analizer.clearDatabase();
-    analizer.loadCatalogueFromFolders('./views/catalogue');
-} else if( analizerType===1 ){
-    analizer.loadDB();
+
+
+let args = process.argv;
+if( args.length>2){
+    let analizerType = args[2] ;
+    if( analizerType==='cleardb' ){
+        analizer.startPersistance();
+        analizer.clearDatabase();
+        analizer.loadCatalogueFromFolders(catalogue_path);
+    } else if( analizerType==='loaddb' ) {
+        analizer.startPersistance();
+        analizer.loadDB();
+    }
 }
+
+
+
 
 
 
 
 const app = express()
 
+app.disable('etag');
 // server firebase
 // firebase > settings >> Service accounts
 const serviceAccount = require('./auth-99adf-firebase-adminsdk-navvq-246070dc0d.json')
@@ -34,6 +44,7 @@ const firebaseAdmin = admin.initializeApp({
 });
 // config
 let port = process.env.PORT || 8080
+//let port = 80
 
 
 // engine template
@@ -43,6 +54,13 @@ app.set('views',__dirname + '/views') // static files (public folder)
 
 
 //middlewares
+//middlewares
+app.use((req, res, next)=> {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 app.use(bodyParser.json()) //parse the input to json
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(logger('dev')) //logs
@@ -86,7 +104,6 @@ const tmpAuth = (request, response, next) => {
 app.get('/',(request,response)=>{
   response.render('home.ejs')
 })
-
 
 
 
@@ -759,6 +776,8 @@ app.get('/getChatUsers', (request, response) => {
             msg.data = userProps;
             response.json(msg);
         })
+    } else{
+        response.json(msg);
     }
 })
 
@@ -799,6 +818,8 @@ app.get('/getConversation', (request, response) => {
             msg.data = messages;
             response.json(msg);
         })
+    } else {
+        response.json(msg)
     }
 })
 

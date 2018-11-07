@@ -164,7 +164,7 @@ class AnalizerPersistance {
       }
 
     */
-    updateOffer(properties){
+    /*updateOffer(properties){
         let query  = "UPDATE Offer SET ";
 
         let first = true;
@@ -180,7 +180,7 @@ class AnalizerPersistance {
         query += ` WHERE offerId="${properties.offerId}";`
 
         return this.queryAnalizer(query);
-    }
+    }*/
 
     deleteOffer(offerId){
         let query = `DELETE FROM Offer WHERE offerId=${offerId};`;
@@ -325,7 +325,7 @@ class AnalizerPersistance {
         query += ' and destUserId=' + mUserId + ' ) ';
         query += ' or ( srcUserId=' + mUserId ;
         query += ' and destUserId=' + userId + ' ) ';
-        query += ' order by dateMillis desc  ;'
+        query += ' order by dateMillis asc  ;'
         //console.log(query);
         return this.queryAnalizer(query);
     }

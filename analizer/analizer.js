@@ -81,6 +81,21 @@ class Analizer {
         })
     }
 
+    loadDB(){
+        this._loadUsersFromDB().then( () => {
+            this._loadVideoGamesFromDB().then( () => {
+                this._loadOffersFromDB().then( () => {
+                    this._loadRatingsFromDB().then( () => {
+                        console.log('Database loaded ...')
+                    })
+                })
+            })
+        })
+
+
+
+    }
+
 
     // USER
 
@@ -736,7 +751,7 @@ class Analizer {
     _loadOffersFromDB(){
         let response = this._persistance.loadOffers();
         return response.then( result => {
-            console.log(result);
+            //console.log(result);
             result.result.forEach( props => {
                 let offer = new Offer(
                     props.offerId,
@@ -770,7 +785,7 @@ class Analizer {
     _loadRatingsFromDB(){
         let response = this._persistance.loadRatings();
         return response.then( result => {
-            console.log('Ratings : ', result.result)
+            //console.log('Ratings : ', result.result)
             result.result.forEach( props => {
                 let ratedUser = this.getUser(props.ratedUserId);
                 let ratingUser = this.getUser(props.ratingUserId);
@@ -781,20 +796,7 @@ class Analizer {
         })
     }
 
-    loadDB(){
-        this._loadUsersFromDB().then( () => {
-           this._loadVideoGamesFromDB().then( () => {
-               this._loadOffersFromDB().then( () => {
-                   this._loadRatingsFromDB().then( () => {
-                       console.log('Database loaded ...')
-                   })
-               })
-           })
-        })
 
-
-
-    }
 
 
 

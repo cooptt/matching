@@ -76,7 +76,7 @@ class User {
     }
 
     // OfferIds
-    getSellList(){
+     getSellList(){
         return Array.from(this._sellList);
     }
 
@@ -375,7 +375,7 @@ class Offer {
         this._videoGameId = videoGameId;
         this._price = price  // float
         this._type = type;  // 0: buy,  1: sell
-        this._connections = new Set();
+        //this._connections = new Set();
     }
 
     getOfferId(){

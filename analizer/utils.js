@@ -34,7 +34,6 @@ class IdMap {
         return this._idcount;
     }
 
-
     getValues(){
     	return Array.from( this._map.values() );
     }
@@ -46,7 +45,6 @@ class IdMap {
     has(id){
     	return this._map.has(id);
     }
-
 
 }
 

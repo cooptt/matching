@@ -361,29 +361,85 @@ class IntegrationTests {
         },2000)
 	}
 
-	testFill(){
+	testFillUsers(){
 		this.testPOST('/signin?loginServiceId=16', {});
         this.testPOST('/signin?loginServiceId=17', {});
         this.testPOST('/signin?loginServiceId=18', {});
         this.testPOST('/signin?loginServiceId=19', {});
         this.testPOST('/signin?loginServiceId=20', {});
-        this.testPOST('/updateUserProperties?userId=0',{firstName:'Felipe',lastname:'Mendoza',email:'felip@gmail.com',country:'Mexico',city:'Guadalajara'});
-        this.testPOST('/updateUserProperties?userId=1',{firstName:'Jaime',lastname:'Martinez',email:'jimbo@gmail.com',country:'USA',city:'Redwood city'});
-        this.testPOST('/updateUserProperties?userId=2',{firstName:'Chore',lastname:'Vazquez',email:'vazquez@gmail.com',country:'Canada',city:'Quebec'});
+        this.testPOST('/updateUserProperties?userId=0',{firstName:'Felipe',lastName:'Mendoza',email:'felip@gmail.com',country:'Mexico',city:'Guadalajara'});
+        this.testPOST('/updateUserProperties?userId=1',{firstName:'Jaime',lastName:'Martinez',email:'jimbo@gmail.com',country:'USA',city:'Redwood city'});
+        this.testPOST('/updateUserProperties?userId=2',{firstName:'Chore',lastName:'Vazquez',email:'vazquez@gmail.com',country:'Canada',city:'Quebec'});
         this.testPOST('/addRatingToUser?ratingUserId=0&ratedUserId=1&rating=4')
         this.testPOST('/addRatingToUser?ratingUserId=2&ratedUserId=1&rating=5')
         this.testPOST('/addRatingToUser?ratingUserId=1&ratedUserId=0&rating=1')
 
 
         setTimeout( () => {
-        	this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+
 
 		},1000);
 	}
 
+	testFillOffers(){
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=1&price=700',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=2&price=300',{});
+        this.testPOST('/addBuyOffer?userId=0&videoGameId=3&price=1000',{});
+        this.testPOST('/addBuyOffer?userId=0&videoGameId=4&price=350',{});
+
+
+
+        this.testPOST('/addSellOffer?userId=1&videoGameId=7&price=500',{});
+        this.testPOST('/addSellOffer?userId=1&videoGameId=3&price=700',{});
+        this.testPOST('/addSellOffer?userId=1&videoGameId=4&price=300',{});
+        this.testPOST('/addBuyOffer?userId=1&videoGameId=0&price=1000',{});
+        this.testPOST('/addBuyOffer?userId=1&videoGameId=2&price=350',{});
+
+        this.testPOST('/addSellOffer?userId=2&videoGameId=5&price=500',{});
+        this.testPOST('/addSellOffer?userId=2&videoGameId=6&price=700',{});
+        this.testPOST('/addSellOffer?userId=2&videoGameId=2&price=300',{});
+        this.testPOST('/addBuyOffer?userId=2&videoGameId=3&price=1000',{});
+        this.testPOST('/addBuyOffer?userId=2&videoGameId=7&price=350',{});
+    }
+
+
+    testFillMessages(){
+        this.testPOST('/addMessage?rscUserId=0&destUserId=1', {content:'Hola soy Felipe'})
+        this.testPOST('/addMessage?rscUserId=1&destUserId=0', {content:'Que onda como estas Felipe'})
+        this.testPOST('/addMessage?rscUserId=0&destUserId=1', {content:'Bien y tu que tal James'})
+    }
+
 	testGetAnalizerState(){
 		this.testPOST();
 	}
+
+	testDemonstration1(){
+        this.testPOST('/signin?loginServiceId=16', {});
+        this.testPOST('/signin?loginServiceId=17', {});
+        this.testPOST('/signin?loginServiceId=18', {});
+        this.testPOST('/signin?loginServiceId=19', {});
+        this.testPOST('/signin?loginServiceId=20', {});
+        this.testPOST('/signin?loginServiceId=21', {});
+        this.testPOST('/updateUserProperties?userId=0',{firstName:'Felipe',lastName:'Mendoza',email:'felip@gmail.com',country:'Mexico',city:'Guadalajara'});
+        this.testPOST('/updateUserProperties?userId=1',{firstName:'Jaime',lastName:'Martinez',email:'jimbo@gmail.com',country:'USA',city:'Redwood city'});
+        this.testPOST('/updateUserProperties?userId=2',{firstName:'Chore',lastName:'Vazquez',email:'vazquez@gmail.com',country:'Canada',city:'Quebec'});
+        this.testPOST('/updateUserProperties?userId=3',{firstName:'Juanita',lastName:'Toledo',email:'juanita@gmail.com',country:'China',city:'Beijin'});
+        this.testPOST('/updateUserProperties?userId=4',{firstName:'Norman',lastName:'Saucedo',email:'norman@gmail.com',country:'Mexico',city:'Monterrey'});
+        this.testPOST('/updateUserProperties?userId=5',{firstName:'Nidia',lastName:'Cortez',email:'nidia@gmail.com',country:'Mexico',city:'CDMX'});
+
+        setTimeout( ()=> {
+            this.testPOST('/addSellOffer?userId=1&videoGameId=0&price=500',{});
+            this.testPOST('/addBuyOffer?userId=1&videoGameId=1&price=600',{});
+
+            this.testPOST('/addSellOffer?userId=2&videoGameId=0&price=700',{});
+            this.testPOST('/addBuyOffer?userId=2&videoGameId=2&price=400',{});
+        })
+
+    }
+
+
+
 
 
 
@@ -421,7 +477,13 @@ class IntegrationTests {
 		//this.testSaveAndLoadOffersFromBD();
 		//this.testMessages();
 		//this.testRankings();
-		this.testFill();
+		//this.testFill();
+		//this.testMessages();
+
+        // this.testFillOffers();
+        //this.testFillUsers();
+        //this.testFillMessages();
+        this.testDemonstration1();
 
 	}
 
