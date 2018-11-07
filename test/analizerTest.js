@@ -1087,6 +1087,8 @@ class AnalizerTest {
 
         let found = analizer._getCycles(userId1, 3);
 
+        console.log(analizer.getTriplets(0));
+
 		let result = true;
 
 		original = JSON.stringify(original);
