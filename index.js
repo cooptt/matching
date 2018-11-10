@@ -619,7 +619,11 @@ app.get('/getVideoGameBuyMatches', (request, response) => {
 	response.json(msg);
 })
 
-/*[
+/*
+
+    /getTriplets?userId=0
+
+[
      [ { userId: 0,
       firstName: 'Felipe',
       lastName: null,

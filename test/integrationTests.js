@@ -438,6 +438,20 @@ class IntegrationTests {
 
     }
 
+    testIntegrationSpeed(){
+
+    	this.testPOST('/signin?loginServiceId=16', {});
+    	this.testPOST('/addSellOffer?userId=1&videoGameId=0&price=500',{});
+    	this.testPOST('/addBuyOffer?userId=1&videoGameId=1&price=600',{});
+
+
+    	this.testGET('/getUserSellList?userId=0');
+		this.testGET('/getVideoGameSellList');
+		this.testGet('/getRankedUsersByBenefit?userId=0')
+		this.testGet('/getTriplets?userId=0')
+
+    }
+
 
 
 
