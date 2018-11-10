@@ -41,7 +41,7 @@ class IntegrationTest{
     }
 
 
-    async addOffers(users,numberVideogames){
+    async addOffers(users){
         let numberUsers = users.length;
         const videoGamesList = await axios.get('http://localhost:8080/getCatalogue');
         let videoGames = videoGamesList.data.data;
@@ -77,6 +77,29 @@ class IntegrationTest{
         return users;
     }
 
+    async getOffers(users){
+        let numberUsers = users.length;
+        let count = 0;
+
+        let start = new Date();
+        for(let i=0;i<numberUsers;i++){
+            let userId = users[i];
+
+            const response = await axios.get(`http://localhost:8080/getUserSellList?userId=${userId}`);
+            if(Array.isArray(response.data.data)){
+              count ++;
+            }
+
+            const response2 =  await axios.get(`http://localhost:8080/getUserBuyList?userId=${userId}`);
+            if(Array.isArray(response2.data.data)){
+              count ++;
+            }
+        }
+        let end = new Date();
+        console.log(`${count} offers get / ${2*numberUsers} requested `);
+        console.log(`Time: ${(end.getTime()-start.getTime())/1000} seconds`);
+        return users;
+    }
 
     run(numberUsers){
       this.loadUsers(numberUsers)
@@ -85,7 +108,11 @@ class IntegrationTest{
       })
       .then( response =>{
           return this.addOffers(response);
-      }).catch ( error => {
+      })
+      .then( response =>{
+          return this.getOffers(response);
+      })
+      .catch ( error => {
           console.log('Error: ',error);
       })
     }
@@ -94,7 +121,7 @@ class IntegrationTest{
 
 const main = () =>{
   let integrationTest = new IntegrationTest();
-  integrationTest.run(10);
+  integrationTest.run(1000);
 }
 
 main();
