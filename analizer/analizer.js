@@ -345,12 +345,47 @@ class Analizer {
         let offerIds = user.getSellList();
         offerIds = offerIds.concat(user.getBuyList());
         let ranks = this._rankUsers(userId, offerIds);
-        return ranks
+
+
+        ranks.sort( (a,b) => {
+            return b[1][0]-a[1][0];
+        })
+
+        let usersProps = []
+        for(let i=0;i<ranks.length;i++){
+            let obj = this.getUser(ranks[i][0]).getProperties();
+            obj.matches = ranks[i][1][0];
+            usersProps.push(obj);
+        }
+
+
+        return  usersProps;
+    }
+
+    getRankedUsersByBenefit(userId){
+        let user = this.getUser(userId);
+        let offerIds = user.getSellList();
+        offerIds = offerIds.concat(user.getBuyList());
+        let ranks = this._rankUsers(userId, offerIds);
+
+
+        ranks.sort( (a,b) => {
+            return b[1][1]-a[1][1];
+        })
+
+        let usersProps = []
+        for(let i=0;i<ranks.length;i++){
+            let obj = this.getUser(ranks[i][0]).getProperties();
+            obj.benefit = ranks[i][1][1];
+            usersProps.push(obj);
+        }
+
+        return  usersProps;
     }
 
     getTriplets(userId){
         let triplets = this._getCycles(userId,3);
-        console.log(triplets);
+        //console.log(triplets);
         let tripletsProps = triplets.map( cycle => this._createCycleProps(cycle) );
         return tripletsProps;
     }
@@ -565,6 +600,8 @@ class Analizer {
         return matches;
     }
 
+
+
     _rankUsers(userId, offerIds){
         let offers = offerIds.map( id => this.getOffer(id) );
         offers.sort( (a,b) => {
@@ -604,18 +641,15 @@ class Analizer {
             ranks.push( [key, rankings.get(key) ] );
         }
 
-        ranks.sort( (a,b) => {
-            return b[1][0]-a[1][0];
-        })
-
-        let usersProps = []
-        for(let i=0;i<ranks.length;i++){
-            let obj = this.getUser(ranks[i][0]).getProperties();
-            obj.matches = ranks[i][1][0];
-            usersProps.push(obj);
-        }
-        return usersProps;
+        return ranks;
+        
     }
+
+
+
+
+
+
 
 
 

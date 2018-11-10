@@ -427,6 +427,58 @@ app.get('/getRankedUsers', (request, response) => {
 
 
 /*
+    /getRankedUsersByBenefit?userId=0
+
+    [ { userId: 2,
+        loginServiceId: 19,
+        firstName: 'Chore',
+        lastName: null,
+        email: null,
+        myRating: null,
+        myRatingCount: 0,
+        benefit: 1200 },
+      { userId: 3,
+        loginServiceId: 20,
+        firstName: 'Peyo',
+        lastName: null,
+        email: null,
+        myRating: null,
+        myRatingCount: 0,
+        benefit: 800 },
+      { userId: 1,
+        loginServiceId: 18,
+        firstName: 'Jimbo',
+        lastName: null,
+        email: null,
+        myRating: null,
+        myRatingCount: 0,
+        benefit: 200 } ];
+
+*/
+
+app.get('/getRankedUsersByBenefit', (request, response) => {
+    let msg = {}
+    msg.action = 'Get Ranked Users by Benefit ';
+    let userId = parseInt(request.query.userId);
+    let isValid = true;
+
+    if(analizer.userIdExists(userId)===false){
+        isValid = false;
+        msg.data = 'Invalid UserId';
+    }
+
+    if(isValid){
+        msg.data = analizer.getRankedUsersByBenefit(userId);
+    }
+
+    response.json(msg);
+})
+
+
+
+
+
+/*
 	/getUserMatchingVideoGames?userId=0
 
 	[ 
