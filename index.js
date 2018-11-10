@@ -11,7 +11,6 @@ const catalogue_path = './views/catalogue'
 const analizer = new Analizer();
 
 
-
 let args = process.argv;
 if( args.length>2){
     let analizerType = args[2] ;
@@ -25,6 +24,9 @@ if( args.length>2){
     }
 }
 
+module.exports ={
+  analizer // to Integration Tests
+}
 
 
 
@@ -67,6 +69,8 @@ app.use(logger('dev')) //logs
 app.use(express.static('views')) // static files (public folder)
 
 
+let  testRoute = require('./test/test');
+app.use('/tests/',testRoute);
       // id token
       // check if the user is logged in
       // if it is, attach to the request
@@ -81,7 +85,7 @@ const checkAuth = (request,response,next) =>{
    let idToken = request.headers.authorization
 
    admin.auth().verifyIdToken(idToken)
-    .then(function(decodedToken) { 
+    .then(function(decodedToken) {
       request.loginServiceId = decodedToken.uid;
       next()
 
@@ -135,14 +139,14 @@ app.get('/getUserProperties',  (request, response) => {
     if(isValid){
       msg.data = analizer.getUserProperties(userId);
     }
-    
+
     response.json(msg);
 })
 
 /*
 	/getCatalogue
 
-    [ 
+    [
         { videoGameId:0, title: 'God of War', image: 'god_of_war.jpg' },
         { videoGameId:1, title: 'Halo', image: 'halo.jpg' },
         { videoGameId:2, title: 'Call of Duty', image: 'catalogue/call_of_duty.jpg' } ]
@@ -481,7 +485,7 @@ app.get('/getRankedUsersByBenefit', (request, response) => {
 /*
 	/getUserMatchingVideoGames?userId=0
 
-	[ 
+	[
 		{ videoGameId: 0, title: 'Halo', image: 'halo.jpg' },
 		{ videoGameId: 1, title: 'Call of Duty',image: 'call_of_duty.jpg' },
 		{ videoGameId: 2, title: 'Gow', image: 'gow.jpg' } ]
@@ -823,7 +827,7 @@ app.post('/deleteOffer', (request, response) => {
 
     if(isValid){
       analizer.deleteOffer(offerId);
-      msg.data = "Offer Deleted" 
+      msg.data = "Offer Deleted"
     }
 
     response.json(msg);
@@ -842,7 +846,7 @@ app.post('/addRatingToUser', (request,response) => {
 
 	let isValid = true;
 
-	if(analizer.userIdExists(ratingUserId)===false 
+	if(analizer.userIdExists(ratingUserId)===false
 		|| analizer.userIdExists(ratedUserId)===false ){
 		isValid = false;
 		msg.data = "Invalid userIds";
@@ -1040,13 +1044,3 @@ app.post('/user/videogames/buy',checkAuth,(request,response)=>{
 
 
 */
-
-
-
-
-
-
-
-
-
-

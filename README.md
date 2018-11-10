@@ -11,4 +11,11 @@ npm install
 node  index.js
 ```
 
+
+####  Integration tests
+```
+node index.js
+node test/integration/IntegrationTest.js
+```
+
 #### open in localhost:8080
