@@ -112,7 +112,7 @@ class Analizer {
 
     addUser(loginServiceId) {
         let userId = this._users.nextId();
-        let userImage = 'profile' + (userId%this._userImagesCount+1) + '.png'
+        let userImage = 'Fotos/profile' + (userId%this._userImagesCount+1) + '.png'
         this._loginServiceMap.set(loginServiceId, userId );
         let user = new User(userId, loginServiceId );
         user.updateProperties({userImage:userImage})
