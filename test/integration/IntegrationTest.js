@@ -2,7 +2,7 @@ const axios = require('axios');
 
 
 
-class IntegrationTest{
+class IntegrationTestComponents{
     async loadUsers(numberUsers){
         let newUsers = [];
         let start = new Date();
@@ -18,8 +18,6 @@ class IntegrationTest{
         console.log(`Time: ${(end.getTime()-start.getTime())/1000} seconds`);
         return newUsers;
     }
-
-
     async updateUsers(users){
         let numberUsers = users.length;
         let start = new Date();
@@ -31,16 +29,15 @@ class IntegrationTest{
                 lastName: `LastName${i}`,
                 email: `email${i}@gmail.com`,
             });
-            if(response.data.data === 'User Properties updated')
-                count ++;
+            if(response.data.data === 'User Properties updated'){
+              count ++;
+            }
         }
         let end = new Date();
         console.log(`${count} users updated / ${numberUsers} attemps`);
         console.log(`Time: ${(end.getTime()-start.getTime())/1000} seconds`);
         return users;
     }
-
-
     async addOffers(users){
         let numberUsers = users.length;
         const videoGamesList = await axios.get('http://localhost:8080/getCatalogue');
@@ -52,22 +49,23 @@ class IntegrationTest{
             let userId = users[i];
 
             for(let j=0;j<videoGames.length;j++){
-                let value = Math.floor(Math.random() * 3);
-                // 0 no
-                // 1 offer
-                // 2 buy
-                if(value===1){
+                let value = Math.floor(Math.random() * 2);
+                // 0 sell
+                // 1 buy
+                if(value==0){
                       let price = Math.floor(Math.random()*900) + 100;
                       const response = await axios.post(`http://localhost:8080/addSellOffer?userId=${userId}&videoGameId=${videoGames[j].videoGameId}&price=${price}`);
                       total ++;
-                      if(response.data.data === 'Offer Added')
+                      if(response.data.data === 'Offer Added'){
                         count ++;
-                }else if(value===2){
+                      }
+                }else{
                       let price = Math.floor(Math.random()*900) + 100;
                       const response = await axios.post(`http://localhost:8080/addBuyOffer?userId=${userId}&videoGameId=${videoGames[j].videoGameId}&price=${price}`);
                       total ++;
-                      if(response.data.data === 'Offer Added')
+                      if(response.data.data === 'Offer Added'){
                         count ++;
+                      }
                 }
             }
         }
@@ -76,8 +74,7 @@ class IntegrationTest{
         console.log(`Time: ${(end.getTime()-start.getTime())/1000} seconds`);
         return users;
     }
-
-    async getOffers(users){
+    async getOffersByUser(users){
         let numberUsers = users.length;
         let count = 0;
 
@@ -100,8 +97,26 @@ class IntegrationTest{
         console.log(`Time: ${(end.getTime()-start.getTime())/1000} seconds`);
         return users;
     }
+    async getOffersByVideoGame(users){
+        let numberUsers = users.length;
+        let count = 0;
+        const videoGamesList = await axios.get('http://localhost:8080/getCatalogue');
+        let videoGames = videoGamesList.data.data;
 
-    run(numberUsers){
+        let start = new Date();
+        for(let i=0;i<videoGames.length;i++){
+            console.log(videoGames[i]);
+            const response1 = await axios.get(`http://localhost:8080/getVideoGameSellList?videoGameId=${videoGames[i].videoGameId}`)
+            const response2 = await axios.get(`http://localhost:8080/getVideoGameBuyList?videoGameId=${videoGames[i].videoGameId}`)
+            count +=2;
+        }
+        let end = new Date();
+        console.log(`Get offers of ${videoGames.length} videogames, ${count} requests`);
+        console.log(`Time: ${(end.getTime()-start.getTime())/1000} seconds`);
+        return users;
+    }
+
+    runIntegrationTestsComponents(numberUsers){
       this.loadUsers(numberUsers)
       .then( (response)=>{
           return this.updateUsers(response)
@@ -110,7 +125,10 @@ class IntegrationTest{
           return this.addOffers(response);
       })
       .then( response =>{
-          return this.getOffers(response);
+          return this.getOffersByUser(response);
+      })
+      .then( response=>{
+          return this.getOffersByVideoGame(response);
       })
       .catch ( error => {
           console.log('Error: ',error);
@@ -118,10 +136,132 @@ class IntegrationTest{
     }
 }
 
+class IntegrationTestBestMatchings{
+    async addUsers(){
+      let integrationTest = new IntegrationTestComponents();
+      const users = await integrationTest.loadUsers(3)
+      const usersUpdated = await integrationTest.updateUsers(users);
+
+    }
+    async addOffers(users){
+        // USER 0
+        const user0AddOffer1 = await axios.post(`http://localhost:8080/addBuyOffer?userId=${0}&videoGameId=${0}&price=${500}`);
+        const user0AddOffer2 = await axios.post(`http://localhost:8080/addSellOffer?userId=${0}&videoGameId=${1}&price=${500}`);
+        const user0AddOffer3 = await axios.post(`http://localhost:8080/addBuyOffer?userId=${0}&videoGameId=${2}&price=${500}`);
+        const user0AddOffer4 = await axios.post(`http://localhost:8080/addSellOffer?userId=${0}&videoGameId=${3}&price=${500}`);
+        const user0AddOffer5 = await axios.post(`http://localhost:8080/addSellOffer?userId=${0}&videoGameId=${4}&price=${500}`);
+
+        console.log(user0AddOffer1.data.data);
+        console.log(user0AddOffer2.data.data);
+        console.log(user0AddOffer3.data.data);
+        console.log(user0AddOffer4.data.data);
+        console.log(user0AddOffer5.data.data);
+
+
+
+        // USER 1
+        const user1AddOffer1 = await axios.post(`http://localhost:8080/addSellOffer?userId=${1}&videoGameId=${0}&price=${500}`);
+        const user1AddOffer2 = await axios.post(`http://localhost:8080/addBuyOffer?userId=${1}&videoGameId=${1}&price=${500}`);
+        const user1AddOffer3 = await axios.post(`http://localhost:8080/addSellOffer?userId=${1}&videoGameId=${2}&price=${500}`);
+        const user1AddOffer4 = await axios.post(`http://localhost:8080/addBuyOffer?userId=${1}&videoGameId=${3}&price=${500}`);
+        const user1AddOffer5 = await axios.post(`http://localhost:8080/addBuyOffer?userId=${1}&videoGameId=${4}&price=${500}`);
+
+        console.log(user1AddOffer1.data.data);
+        console.log(user1AddOffer2.data.data);
+        console.log(user1AddOffer3.data.data);
+        console.log(user1AddOffer4.data.data);
+        console.log(user1AddOffer5.data.data);
+
+
+        // USER 2
+        const user2AddOffer1 = await axios.post(`http://localhost:8080/addBuyOffer?userId=${2}&videoGameId=${1}&price=${600}`);
+        const user2AddOffer2 = await axios.post(`http://localhost:8080/addBuyOffer?userId=${2}&videoGameId=${3}&price=${600}`);
+        const user2AddOffer3 = await axios.post(`http://localhost:8080/addBuyOffer?userId=${2}&videoGameId=${4}&price=${600}`);
+
+        console.log(user2AddOffer1.data.data);
+        console.log(user2AddOffer2.data.data);
+        console.log(user2AddOffer3.data.data);
+    }
+    async getRankedUsers(){
+        const rankedUsers = await axios.get(`http://localhost:8080/getRankedUsers?userId=${0}`);
+        console.log('Users order by number of matchings');
+        console.log(rankedUsers.data);
+        console.log('Users order by benefit');
+        const rankedUsersByBenefit = await axios.get(`http://localhost:8080/getRankedUsersByBenefit?userId=${0}`)
+        console.log(rankedUsersByBenefit.data);
+    }
+    runIntegrationTestBestMatchings(){
+        this.addUsers()
+        .then( ()=>{
+            return this.addOffers()
+        })
+        .then ( ()=>{
+            return this.getRankedUsers();
+        })
+        .catch( (error)=>{
+            console.log(error);
+        })
+    }
+
+
+
+}
+
+
+class IntegrationTestTriplets{
+  async addUsers(){
+    let integrationTest = new IntegrationTestComponents();
+    const users = await integrationTest.loadUsers(3)
+    const usersUpdated = await integrationTest.updateUsers(users);
+    return users;
+  }
+  async addOffers(users){
+      // USER 0
+      const user0AddOffer1 = await axios.post(`http://localhost:8080/addBuyOffer?userId=${0}&videoGameId=${2}&price=${100}`);
+      const user0AddOffer2 = await axios.post(`http://localhost:8080/addSellOffer?userId=${0}&videoGameId=${0}&price=${100}`);
+
+      console.log(user0AddOffer1.data.data);
+      console.log(user0AddOffer2.data.data);
+
+
+
+      // USER 1
+      const user1AddOffer1 = await axios.post(`http://localhost:8080/addSellOffer?userId=${1}&videoGameId=${1}&price=${100}`);
+      const user1AddOffer2 = await axios.post(`http://localhost:8080/addBuyOffer?userId=${1}&videoGameId=${0}&price=${100}`);
+
+      console.log(user1AddOffer1.data.data);
+      console.log(user1AddOffer2.data.data);
+
+
+      // USER 2
+      const user2AddOffer1 = await axios.post(`http://localhost:8080/addBuyOffer?userId=${2}&videoGameId=${1}&price=${100}`);
+      const user2AddOffer2 = await axios.post(`http://localhost:8080/addSellOffer?userId=${2}&videoGameId=${2}&price=${100}`);
+
+      console.log(user2AddOffer1.data.data);
+      console.log(user2AddOffer2.data.data);
+  }
+  async getTriplets(){
+      const triplets = await axios.get(`http://localhost:8080/getTriplets?userId=${0}`);
+      console.log('Triplets');
+      console.log(triplets.data.data);
+  }
+  runIntegrationTestTriplets(){
+      this.addUsers()
+      .then( ()=>{
+          return this.addOffers()
+      })
+      .then ( ()=>{
+          return this.getTriplets();
+      })
+      .catch( (error)=>{
+          console.log(error);
+      })
+  }
+}
+
 
 const main = () =>{
-  let integrationTest = new IntegrationTest();
-  integrationTest.run(1000);
+
 }
 
 main();
