@@ -33,6 +33,9 @@ if( args.length>2){
 
 const app = express()
 
+let port = process.env.PORT || 8080
+
+
 app.disable('etag');
 // server firebase
 // firebase > settings >> Service accounts
@@ -43,7 +46,6 @@ const firebaseAdmin = admin.initializeApp({
     databaseURL: "https://auth-99adf.firebaseio.com"
 });
 // config
-let port = process.env.PORT || 8080
 //let port = 80
 
 
@@ -108,6 +110,114 @@ app.get('/',(request,response)=>{
 
 
 
+/*
+	/signin?loginServiceId=1234
+*/
+app.post('/signin', (request, response) => {
+    let msg = {};
+    msg.action = 'Sign in';
+    let loginServiceId = request.query.loginServiceId
+
+    if( analizer.loginServiceIdExists(loginServiceId)===false ){
+        analizer.addUser(loginServiceId);
+        msg.res = "New user registered Succesfully";
+    }else{
+        msg.res = "User already registered"
+    }
+    msg.data = analizer.getUserProperties( analizer.getUserIdFromLoginServiceId(loginServiceId) );
+    response.json(msg);
+})
+
+
+
+
+
+// USER
+
+
+/*
+	/getUserSellList?userId=0
+
+    [{
+        offerId:0,
+        videoGameId:0,
+        title:"God of War",
+        image:"god_of_war.jpg",
+        price:300 },
+    {
+        offerId:1,
+        videoGameId:1,
+        title:"Halo",
+        image:"halo.jpg",
+        price:500 },
+    {
+        offerId:2,
+        videoGameId:2,
+        title:"Call of Duty",
+        image:"call_of_duty.jpg",
+        price:400 } ]
+*/
+app.get('/getUserSellList', (request, response) => {
+    let msg = {};
+    msg.action = 'Get User Sell List';
+    let userId = parseInt(request.query.userId);
+
+    let isValid = true;
+
+    if(analizer.userIdExists(userId)===false){
+        isValid = false;
+        msg.data = 'Invalid UserId'
+    }
+
+    if(isValid){
+        msg.data = analizer.getUserSellList(userId);
+    }
+
+    response.json(msg);
+})
+
+/*
+		/getUserBuyList?userId=0
+
+        [
+            {
+                offerId:0,
+                videoGameId:0,
+                title:"God of War",
+                image:"god_of_war.jpg",
+                price:300 },
+            {
+                offerId:1,
+                videoGameId:1,
+                title:"Halo",
+                image:"halo.jpg",
+                price:500 },
+            {
+                offerId:2,
+                videoGameId:2,
+                title:"Call of Duty",
+                image:"call_of_duty.jpg",
+                price:400 }
+        ]
+    */
+app.get('/getUserBuyList', (request, response) => {
+    let msg = {};
+    msg.action = 'Get User Buy List';
+    let userId = parseInt(request.query.userId);
+
+    let isValid = true;
+
+    if(analizer.userIdExists(userId)===false){
+        isValid = false;
+        msg.data = 'Invalid UserId'
+    }
+
+    if(isValid){
+        msg.data = analizer.getUserBuyList(userId);
+    }
+
+    response.json(msg);
+})
 
 /*
 	/getUserProperties?userId=0
@@ -140,6 +250,94 @@ app.get('/getUserProperties',  (request, response) => {
 })
 
 /*
+	/getNotifications?userId=0
+
+    [ { userId: 1,
+        loginServiceId: 17,
+        firstName: null,
+        lastName: null,
+        email: null,
+        title: 'Halo',
+        image: 'halo.jpg',
+        price: 600,
+        type: 0 } ]
+*/
+app.get('/getNotifications', (request, response) => {
+    let msg = {};
+    msg.action = 'Get Notifications';
+    let userId = parseInt(request.query.userId);
+
+    let isValid = true;
+
+
+    if(analizer.userIdExists(userId)===false){
+        isValid = false;
+        msg.data = 'Invalid UserId'
+    }
+
+    if(isValid){
+        msg.data = analizer.getNotifications(userId);
+    }
+
+    response.json(msg);
+})
+
+/*
+	/updateUserProperties?userId=0
+*/
+app.post('/updateUserProperties', (request, response) => {
+    let msg = {};
+    msg.action = 'Update User Properties ';
+    let userId = parseInt(request.query.userId);
+    let properties = request.body;
+
+    let isValid = true;
+
+    if( analizer.userIdExists(userId)===false ){
+        isValid = false;
+        msg.data = "Invalid UserId";
+    }
+
+    if(isValid){
+        analizer.updateUserProperties(userId, properties);
+        msg.data = 'User Properties updated'
+    }
+
+    response.json(msg);
+})
+
+/*
+	/addRatingToUser?ratingUserId=1&ratedUserId=0&rating=4
+
+*/
+app.post('/addRatingToUser', (request,response) => {
+    let msg = {};
+    msg.action = 'Add Rating to User';
+    let ratingUserId = parseInt(request.query.ratingUserId);
+    let ratedUserId = parseInt(request.query.ratedUserId);
+    let rating = parseInt(request.query.rating);
+
+    let isValid = true;
+
+    if(analizer.userIdExists(ratingUserId)===false
+        || analizer.userIdExists(ratedUserId)===false ){
+        isValid = false;
+        msg.data = "Invalid userIds";
+    }
+
+    if(isValid){
+        analizer.addRatingToUser(ratingUserId, ratedUserId, rating);
+    }
+
+    response.json(msg);
+})
+
+
+
+
+// VIDEOGAME
+
+/*
 	/getCatalogue
 
     [ 
@@ -155,90 +353,6 @@ app.get('/getCatalogue',  (request, response) => {
 })
 
 /*
-	/getUserSellList?userId=0
-
-    [{
-        offerId:0,
-        videoGameId:0,
-        title:"God of War",
-        image:"god_of_war.jpg",
-        price:300 },
-    {
-        offerId:1,
-        videoGameId:1,
-        title:"Halo",
-        image:"halo.jpg",
-        price:500 },
-    {
-        offerId:2,
-        videoGameId:2,
-        title:"Call of Duty",
-        image:"call_of_duty.jpg",
-        price:400 } ]
-*/
-app.get('/getUserSellList', (request, response) => {
-    let msg = {};
-    msg.action = 'Get User Sell List';
-    let userId = parseInt(request.query.userId);
-
-    let isValid = true;
-
-    if(analizer.userIdExists(userId)===false){
-      isValid = false;
-      msg.data = 'Invalid UserId'
-    }
-
-    if(isValid){
-      msg.data = analizer.getUserSellList(userId);
-    }
-
-    response.json(msg);
-})
-
-	/*
-		/getUserBuyList?userId=0
-
-        [
-            {
-                offerId:0,
-                videoGameId:0,
-                title:"God of War",
-                image:"god_of_war.jpg",
-                price:300 },
-            {
-                offerId:1,
-                videoGameId:1,
-                title:"Halo",
-                image:"halo.jpg",
-                price:500 },
-            {
-                offerId:2,
-                videoGameId:2,
-                title:"Call of Duty",
-                image:"call_of_duty.jpg",
-                price:400 }
-        ]
-    */
-app.get('/getUserBuyList', (request, response) => {
-    let msg = {};
-    msg.action = 'Get User Buy List';
-    let userId = parseInt(request.query.userId);
-
-    let isValid = true;
-
-    if(analizer.userIdExists(userId)===false){
-      isValid = false;
-      msg.data = 'Invalid UserId'
-    }
-
-    if(isValid){
-      msg.data = analizer.getUserBuyList(userId);
-    }
-
-    response.json(msg);
-})
-
-	/*
 		/getVideoGameSellList?videoGameId=0
 
         [{
@@ -270,7 +384,6 @@ app.get('/getVideoGameSellList', (request, response) => {
 
     response.json(msg);
 })
-
 
 /*
 	/getVideoGameBuyList?videoGameId=1
@@ -305,38 +418,13 @@ app.get('/getVideoGameBuyList', (request, response) => {
     response.json(msg);
 })
 
-/*
-	/getNotifications?userId=0
-
-    [ { userId: 1,
-        loginServiceId: 17,
-        firstName: null,
-        lastName: null,
-        email: null,
-        title: 'Halo',
-        image: 'halo.jpg',
-        price: 600,
-        type: 0 } ]
-*/
-app.get('/getNotifications', (request, response) => {
-    let msg = {};
-    msg.action = 'Get Notifications';
-    let userId = parseInt(request.query.userId);
-
-    let isValid = true;
 
 
-    if(analizer.userIdExists(userId)===false){
-      isValid = false;
-      msg.data = 'Invalid UserId'
-    }
 
-    if(isValid){
-      msg.data = analizer.getNotifications(userId);
-    }
 
-    response.json(msg);
-})
+
+// OFFERS
+
 
 /*
     Get all the offers in the system
@@ -386,89 +474,84 @@ app.get('/getOffersProperties', (request, response) => {
 })
 
 /*
-	/getRankedUsers?userId=0
-
-	[ { userId: 2,
-	    loginServiceId: 18,
-	    firstName: null,
-	    lastName: null,
-	    email: null,
-	    matches: 4 },
-	  { userId: 3,
-	    loginServiceId: 19,
-	    firstName: null,
-	    lastName: null,
-	    email: null,
-	    matches: 3 },
-	  { userId: 1,
-	    loginServiceId: 17,
-	    firstName: null,
-	    lastName: null,
-	    email: null,
-	    matches: 1 } ]
+	/addSellOffer?userId=0&videoGameId=0&price=500
 */
-app.get('/getRankedUsers', (request, response) => {
-	let msg = {}
-	msg.action = 'Get Ranked Users';
-	let userId = parseInt(request.query.userId);
-	let isValid = true;
-
-	if(analizer.userIdExists(userId)===false){
-		isValid = false;
-		msg.data = 'Invalid UserId';
-	}
-
-	if(isValid){
-		msg.data = analizer.getRankedUsers(userId);
-	}
-
-	response.json(msg);
-})
-
-
-/*
-    /getRankedUsersByBenefit?userId=0
-
-    [ { userId: 2,
-        loginServiceId: 19,
-        firstName: 'Chore',
-        lastName: null,
-        email: null,
-        myRating: null,
-        myRatingCount: 0,
-        benefit: 1200 },
-      { userId: 3,
-        loginServiceId: 20,
-        firstName: 'Peyo',
-        lastName: null,
-        email: null,
-        myRating: null,
-        myRatingCount: 0,
-        benefit: 800 },
-      { userId: 1,
-        loginServiceId: 18,
-        firstName: 'Jimbo',
-        lastName: null,
-        email: null,
-        myRating: null,
-        myRatingCount: 0,
-        benefit: 200 } ];
-
-*/
-
-app.get('/getRankedUsersByBenefit', (request, response) => {
-    let msg = {}
-    msg.action = 'Get Ranked Users by Benefit ';
+app.post('/addSellOffer', (request, response) => {
+    let msg = {};
+    msg.action = 'Add sell offer'
     let userId = parseInt(request.query.userId);
+    let videoGameId = parseInt(request.query.videoGameId);
+    let price = parseFloat(request.query.price).toFixed(2);
+    price = parseFloat(price);
+
     let isValid = true;
 
-    if(analizer.userIdExists(userId)===false){
+    if(isValid && analizer.userIdExists(userId)===false){
         isValid = false;
         msg.data = 'Invalid UserId';
     }
 
+    if(isValid && analizer.videoGameIdExists(videoGameId)===false){
+        isValid = false;
+        msg.data = 'Invalid VideoGameId';
+    }
+
     if(isValid){
-        msg.data = analizer.getRankedUsersByBenefit(userId);
+        analizer.addSellOffer(userId, videoGameId, price);
+        msg.data = 'Offer Added';
+    }
+    response.json(msg);
+})
+
+/*
+	/addBuyOffer?userId=0&videoGameId=1&price=600
+*/
+app.post('/addBuyOffer', (request, response) => {
+    let msg = {};
+    msg.action = 'Add buy offer'
+    let userId = parseInt(request.query.userId);
+    let videoGameId = parseInt(request.query.videoGameId);
+    let price = parseFloat(request.query.price).toFixed(2);
+    price = parseFloat(price);
+
+    let isValid = true;
+
+    if(isValid && analizer.userIdExists(userId)===false){
+        isValid = false;
+        msg.data = 'Invalid UserId';
+    }
+
+    if(isValid && analizer.videoGameIdExists(videoGameId)===false){
+        isValid = false;
+        msg.data = 'Invalid VideoGameId';
+    }
+
+    if(isValid){
+        analizer.addBuyOffer(userId, videoGameId, price);
+        msg.data = 'Offer Added';
+    }
+    response.json(msg);
+})
+
+/*
+	/deleteOffer?offerId=0
+*/
+app.post('/deleteOffer', (request, response) => {
+    let msg = {};
+    msg.action = 'Delete Offer';
+    let offerId = parseInt(request.query.offerId);
+
+    let isValid = true;
+
+
+    if(analizer.offerIdExists(offerId)===false){
+        isValid = false;
+        msg.data = 'Invalid offerId'
+    }
+
+    if(isValid){
+        analizer.deleteOffer(offerId);
+        msg.data = "Offer Deleted"
     }
 
     response.json(msg);
@@ -477,147 +560,8 @@ app.get('/getRankedUsersByBenefit', (request, response) => {
 
 
 
+// ALGORITHM
 
-/*
-	/getUserMatchingVideoGames?userId=0
-
-	[ 
-		{ videoGameId: 0, title: 'Halo', image: 'halo.jpg' },
-		{ videoGameId: 1, title: 'Call of Duty',image: 'call_of_duty.jpg' },
-		{ videoGameId: 2, title: 'Gow', image: 'gow.jpg' } ]
-*/
-app.get('/getUserMatchingVideoGames', (request, response) => {
-	let msg = {}
-	msg.action = 'Get User Matching VideoGames';
-	let userId = parseInt(request.query.userId);
-	let isValid = true;
-
-	if(analizer.userIdExists(userId)===false){
-		isValid = false;
-		msg.data = 'Invalid UserId';
-	}
-
-	if(isValid){
-		msg.data = analizer.getUserMatchingVideoGames(userId);
-	}
-
-	response.json(msg);
-})
-
-
-/*
-    Calculate all sell offers belonging to userId
-    that matches with  offer from any other user
-    returns array of objects containing properties
-    of both matching users and info from the owner
-    of the matching user
-
-	/getVideoGameSellMatches?userId=0&videoGameId=0
-
-	[ { myOfferId: 0,
-	    myOfferPrice: 400,
-	    myOfferType: 1,
-	    matchingOfferId: 4,
-	    matchingOfferPrice: 500,
-	    matchingOfferType: 0,
-	    matchingUserId: 1,
-	    matchingUserFirstName: 'Jimbo',
-	    matchingUserLastName: null,
-	    matchingUserEmail: null },
-	  { myOfferId: 0,
-	    myOfferPrice: 400,
-	    myOfferType: 1,
-	    matchingOfferId: 5,
-	    matchingOfferPrice: 800,
-	    matchingOfferType: 0,
-	    matchingUserId: 2,
-	    matchingUserFirstName: 'Chore',
-	    matchingUserLastName: null,
-	    matchingUserEmail: null },
-	  { myOfferId: 1,
-	    myOfferPrice: 500,
-	    myOfferType: 1,
-	    matchingOfferId: 3,
-	    matchingOfferPrice: 600,
-	    matchingOfferType: 0,
-	    matchingUserId: 1,
-	    matchingUserFirstName: 'Jimbo',
-	    matchingUserLastName: null,
-	    matchingUserEmail: null } ]
-
-*/
-app.get('/getVideoGameSellMatches', (request, response) => {
-	let msg = {}
-	msg.action = 'Get VideoGame Sell Matches';
-	let userId = parseInt(request.query.userId);
-	let videoGameId = parseInt(request.query.videoGameId);
-	let isValid = true;
-
-	if(analizer.userIdExists(userId)===false){
-		isValid = false;
-		msg.data = 'Invalid UserId';
-	}
-
-	if(analizer.videoGameIdExists(videoGameId)===false){
-		isValid = false;
-		msg.data = 'Invalid VideoGameId';
-	}
-
-	if(isValid){
-		msg.data = analizer.getVideoGameSellMatches(userId, videoGameId);
-	}
-
-	response.json(msg);
-})
-
-
-/*
-	/getVideoGameBuyMatches?userId=1&videoGameId=0
-
-	[ { myOfferId: 4,
-	    myOfferPrice: 500,
-	    myOfferType: 0,
-	    matchingOfferId: 0,
-	    matchingOfferPrice: 400,
-	    matchingOfferType: 1,
-	    matchingUserId: 0,
-	    matchingUserFirstName: null,
-	    matchingUserLastName: null,
-	    matchingUserEmail: null },
-	  { myOfferId: 3,
-	    myOfferPrice: 600,
-	    myOfferType: 0,
-	    matchingOfferId: 1,
-	    matchingOfferPrice: 500,
-	    matchingOfferType: 1,
-	    matchingUserId: 0,
-	    matchingUserFirstName: null,
-	    matchingUserLastName: null,
-	    matchingUserEmail: null } ]
-*/
-app.get('/getVideoGameBuyMatches', (request, response) => {
-	let msg = {}
-	msg.action = 'Get User Buy Matches';
-	let userId = parseInt(request.query.userId);
-	let videoGameId = parseInt(request.query.videoGameId);
-	let isValid = true;
-
-	if(analizer.userIdExists(userId)===false){
-		isValid = false;
-		msg.data = 'Invalid UserId';
-	}
-
-	if(analizer.videoGameIdExists(videoGameId)===false){
-		isValid = false;
-		msg.data = 'Invalid VideoGameId';
-	}
-
-	if(isValid){
-		msg.data = analizer.getVideoGameBuyMatches(userId, videoGameId);
-	}
-
-	response.json(msg);
-})
 
 /*
 
@@ -701,163 +645,93 @@ app.get('/getTriplets', (request, response) => {
     response.json(msg);
 })
 
-
-
-
-
-
 /*
-	/signin?loginServiceId=1234
-*/
-app.post('/signin', (request, response) => {
-    let msg = {};
-    msg.action = 'Sign in';
-    let loginServiceId = request.query.loginServiceId
+	/getRankedUsers?userId=0
 
-    if( analizer.loginServiceIdExists(loginServiceId)===false ){
-      analizer.addUser(loginServiceId);
-      msg.res = "New user registered Succesfully";
-    }else{
-      msg.res = "User already registered"
-    }
-    msg.data = analizer.getUserProperties( analizer.getUserIdFromLoginServiceId(loginServiceId) );
-    response.json(msg);
-})
-
-/*
-	/updateUserProperties?userId=0
+	[ { userId: 2,
+	    loginServiceId: 18,
+	    firstName: null,
+	    lastName: null,
+	    email: null,
+	    matches: 4 },
+	  { userId: 3,
+	    loginServiceId: 19,
+	    firstName: null,
+	    lastName: null,
+	    email: null,
+	    matches: 3 },
+	  { userId: 1,
+	    loginServiceId: 17,
+	    firstName: null,
+	    lastName: null,
+	    email: null,
+	    matches: 1 } ]
 */
-app.post('/updateUserProperties', (request, response) => {
-    let msg = {};
-    msg.action = 'Update User Properties ';
+app.get('/getRankedUsers', (request, response) => {
+    let msg = {}
+    msg.action = 'Get Ranked Users';
     let userId = parseInt(request.query.userId);
-    let properties = request.body;
-
     let isValid = true;
 
-    if( analizer.userIdExists(userId)===false ){
-      isValid = false;
-      msg.data = "Invalid UserId";
+    if(analizer.userIdExists(userId)===false){
+        isValid = false;
+        msg.data = 'Invalid UserId';
     }
 
     if(isValid){
-      analizer.updateUserProperties(userId, properties);
-      msg.data = 'User Properties updated'
+        msg.data = analizer.getRankedUsers(userId);
     }
 
     response.json(msg);
 })
 
-
 /*
-	/addSellOffer?userId=0&videoGameId=0&price=500
+    /getRankedUsersByBenefit?userId=0
+
+    [ { userId: 2,
+        loginServiceId: 19,
+        firstName: 'Chore',
+        lastName: null,
+        email: null,
+        myRating: null,
+        myRatingCount: 0,
+        benefit: 1200 },
+      { userId: 3,
+        loginServiceId: 20,
+        firstName: 'Peyo',
+        lastName: null,
+        email: null,
+        myRating: null,
+        myRatingCount: 0,
+        benefit: 800 },
+      { userId: 1,
+        loginServiceId: 18,
+        firstName: 'Jimbo',
+        lastName: null,
+        email: null,
+        myRating: null,
+        myRatingCount: 0,
+        benefit: 200 } ];
+
 */
-app.post('/addSellOffer', (request, response) => {
-    let msg = {};
-    msg.action = 'Add sell offer'
+app.get('/getRankedUsersByBenefit', (request, response) => {
+    let msg = {}
+    msg.action = 'Get Ranked Users by Benefit ';
     let userId = parseInt(request.query.userId);
-    let videoGameId = parseInt(request.query.videoGameId);
-    let price = parseFloat(request.query.price).toFixed(2);
-    price = parseFloat(price);
-
     let isValid = true;
 
-    if(isValid && analizer.userIdExists(userId)===false){
-      isValid = false;
-      msg.data = 'Invalid UserId';
-    }
-
-    if(isValid && analizer.videoGameIdExists(videoGameId)===false){
-      isValid = false;
-      msg.data = 'Invalid VideoGameId';
+    if(analizer.userIdExists(userId)===false){
+        isValid = false;
+        msg.data = 'Invalid UserId';
     }
 
     if(isValid){
-      analizer.addSellOffer(userId, videoGameId, price);
-      msg.data = 'Offer Added';
-    }
-    response.json(msg);
-})
-
-/*
-	/addBuyOffer?userId=0&videoGameId=1&price=600
-*/
-app.post('/addBuyOffer', (request, response) => {
-    let msg = {};
-    msg.action = 'Add buy offer'
-    let userId = parseInt(request.query.userId);
-    let videoGameId = parseInt(request.query.videoGameId);
-    let price = parseFloat(request.query.price).toFixed(2);
-    price = parseFloat(price);
-
-    let isValid = true;
-
-    if(isValid && analizer.userIdExists(userId)===false){
-      isValid = false;
-      msg.data = 'Invalid UserId';
-    }
-
-    if(isValid && analizer.videoGameIdExists(videoGameId)===false){
-      isValid = false;
-      msg.data = 'Invalid VideoGameId';
-    }
-
-    if(isValid){
-      analizer.addBuyOffer(userId, videoGameId, price);
-      msg.data = 'Offer Added';
-    }
-    response.json(msg);
-})
-
-/*
-	/deleteOffer?offerId=0
-*/
-app.post('/deleteOffer', (request, response) => {
-    let msg = {};
-    msg.action = 'Delete Offer';
-    let offerId = parseInt(request.query.offerId);
-
-    let isValid = true;
-
-
-    if(analizer.offerIdExists(offerId)===false){
-      isValid = false;
-      msg.data = 'Invalid offerId'
-    }
-
-    if(isValid){
-      analizer.deleteOffer(offerId);
-      msg.data = "Offer Deleted" 
+        msg.data = analizer.getRankedUsersByBenefit(userId);
     }
 
     response.json(msg);
 })
 
-/*
-	/addRatingToUser?ratingUserId=1&ratedUserId=0&rating=4
-
-*/
-app.post('/addRatingToUser', (request,response) => {
-	let msg = {};
-	msg.action = 'Add Rating to User';
-	let ratingUserId = parseInt(request.query.ratingUserId);
-	let ratedUserId = parseInt(request.query.ratedUserId);
-	let rating = parseInt(request.query.rating);
-
-	let isValid = true;
-
-	if(analizer.userIdExists(ratingUserId)===false 
-		|| analizer.userIdExists(ratedUserId)===false ){
-		isValid = false;
-		msg.data = "Invalid userIds";
-	}
-
-	if(isValid){
-		analizer.addRatingToUser(ratingUserId, ratedUserId, rating);
-	}
-
-	response.json(msg);
-})
 
 
 
@@ -961,6 +835,156 @@ app.post('/addMessage', (request, response) => {
         analizer.addMessage(rscUserId, destUserId, content)
         msg.data = 'Message Added'
     }
+    response.json(msg);
+})
+
+
+
+
+
+
+
+// NOT USED
+
+
+/*
+	/getUserMatchingVideoGames?userId=0
+
+	[
+		{ videoGameId: 0, title: 'Halo', image: 'halo.jpg' },
+		{ videoGameId: 1, title: 'Call of Duty',image: 'call_of_duty.jpg' },
+		{ videoGameId: 2, title: 'Gow', image: 'gow.jpg' } ]
+*/
+app.get('/getUserMatchingVideoGames', (request, response) => {
+    let msg = {}
+    msg.action = 'Get User Matching VideoGames';
+    let userId = parseInt(request.query.userId);
+    let isValid = true;
+
+    if(analizer.userIdExists(userId)===false){
+        isValid = false;
+        msg.data = 'Invalid UserId';
+    }
+
+    if(isValid){
+        msg.data = analizer.getUserMatchingVideoGames(userId);
+    }
+
+    response.json(msg);
+})
+
+
+/*
+    Calculate all sell offers belonging to userId
+    that matches with  offer from any other user
+    returns array of objects containing properties
+    of both matching users and info from the owner
+    of the matching user
+
+	/getVideoGameSellMatches?userId=0&videoGameId=0
+
+	[ { myOfferId: 0,
+	    myOfferPrice: 400,
+	    myOfferType: 1,
+	    matchingOfferId: 4,
+	    matchingOfferPrice: 500,
+	    matchingOfferType: 0,
+	    matchingUserId: 1,
+	    matchingUserFirstName: 'Jimbo',
+	    matchingUserLastName: null,
+	    matchingUserEmail: null },
+	  { myOfferId: 0,
+	    myOfferPrice: 400,
+	    myOfferType: 1,
+	    matchingOfferId: 5,
+	    matchingOfferPrice: 800,
+	    matchingOfferType: 0,
+	    matchingUserId: 2,
+	    matchingUserFirstName: 'Chore',
+	    matchingUserLastName: null,
+	    matchingUserEmail: null },
+	  { myOfferId: 1,
+	    myOfferPrice: 500,
+	    myOfferType: 1,
+	    matchingOfferId: 3,
+	    matchingOfferPrice: 600,
+	    matchingOfferType: 0,
+	    matchingUserId: 1,
+	    matchingUserFirstName: 'Jimbo',
+	    matchingUserLastName: null,
+	    matchingUserEmail: null } ]
+
+*/
+app.get('/getVideoGameSellMatches', (request, response) => {
+    let msg = {}
+    msg.action = 'Get VideoGame Sell Matches';
+    let userId = parseInt(request.query.userId);
+    let videoGameId = parseInt(request.query.videoGameId);
+    let isValid = true;
+
+    if(analizer.userIdExists(userId)===false){
+        isValid = false;
+        msg.data = 'Invalid UserId';
+    }
+
+    if(analizer.videoGameIdExists(videoGameId)===false){
+        isValid = false;
+        msg.data = 'Invalid VideoGameId';
+    }
+
+    if(isValid){
+        msg.data = analizer.getVideoGameSellMatches(userId, videoGameId);
+    }
+
+    response.json(msg);
+})
+
+
+/*
+	/getVideoGameBuyMatches?userId=1&videoGameId=0
+
+	[ { myOfferId: 4,
+	    myOfferPrice: 500,
+	    myOfferType: 0,
+	    matchingOfferId: 0,
+	    matchingOfferPrice: 400,
+	    matchingOfferType: 1,
+	    matchingUserId: 0,
+	    matchingUserFirstName: null,
+	    matchingUserLastName: null,
+	    matchingUserEmail: null },
+	  { myOfferId: 3,
+	    myOfferPrice: 600,
+	    myOfferType: 0,
+	    matchingOfferId: 1,
+	    matchingOfferPrice: 500,
+	    matchingOfferType: 1,
+	    matchingUserId: 0,
+	    matchingUserFirstName: null,
+	    matchingUserLastName: null,
+	    matchingUserEmail: null } ]
+*/
+app.get('/getVideoGameBuyMatches', (request, response) => {
+    let msg = {}
+    msg.action = 'Get User Buy Matches';
+    let userId = parseInt(request.query.userId);
+    let videoGameId = parseInt(request.query.videoGameId);
+    let isValid = true;
+
+    if(analizer.userIdExists(userId)===false){
+        isValid = false;
+        msg.data = 'Invalid UserId';
+    }
+
+    if(analizer.videoGameIdExists(videoGameId)===false){
+        isValid = false;
+        msg.data = 'Invalid VideoGameId';
+    }
+
+    if(isValid){
+        msg.data = analizer.getVideoGameBuyMatches(userId, videoGameId);
+    }
+
     response.json(msg);
 })
 

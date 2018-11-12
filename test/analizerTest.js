@@ -219,7 +219,6 @@ class AnalizerTest {
 			console.log("testGetUserSellList :",result);
 	}
 
-
 	testGetUserBuyList() {
 		var analizer = new Analizer();
 		analizer.addVideoGame("God of War", "god_of_war.jpg");
@@ -271,7 +270,6 @@ class AnalizerTest {
 		if(result===false)
 			console.log("testGetUserBuyList :",result);
 	}
-
 
 	testGetUserSellListWithDeletes() {
 		var analizer = new Analizer();
@@ -402,7 +400,6 @@ class AnalizerTest {
 	    }
 	}
 
-
 	testEmptinessAtBeginning(){
 		let analizer = new Analizer();
 		let result = true;
@@ -429,7 +426,6 @@ class AnalizerTest {
 		let result = true;
 
 		analizer.addUser(/*loginServiceId*/ 17);
-		analizer.addUser(/*loginServiceId*/ 18);
 		analizer.updateUserProperties(0, {
 			firstName:'Felipe',
 			lastName:'Mendoza',
@@ -437,9 +433,7 @@ class AnalizerTest {
 		});
 
 
-
 		let found = analizer.getUserProperties(0);
-
 		let original = {
             userId:0,
             loginServiceId:17,
@@ -451,7 +445,6 @@ class AnalizerTest {
         }
 
         let prop =  ["userId","loginServiceId","firstName","lastName","email",'myRating','myRatingCount'];
-
 		if( equalObjects(found,original,prop)===false ){
 			result = false;
 			console.log("userData differ ");
@@ -463,8 +456,6 @@ class AnalizerTest {
 			console.log("testGetUserProperties(): ", result);
 		}
 	}
-
-
 
 	testCreateVideoGameOffersList(){
 		let analizer = new Analizer();
@@ -499,7 +490,6 @@ class AnalizerTest {
 			console.log("testCreateVideoGameOffersList: ",result);
 		}
 	}
-
 
 	testGetVideoGameSellList(){
 		let analizer = new Analizer();
@@ -571,7 +561,6 @@ class AnalizerTest {
 		}
 	}
 
-
 	testNotifications(){
 		let analizer = new Analizer();
 		analizer.addUser(16);
@@ -612,7 +601,6 @@ class AnalizerTest {
 
 
 	}
-
 
 	testGetOffersProperties(){
 		let analizer = new Analizer();
@@ -736,7 +724,6 @@ class AnalizerTest {
 			console.log("testGetRankedUsers: ",result);
 		}
 	}
-
 
 	testGetRankedUsersByBenefit(){
 		let analizer = new Analizer();
@@ -1075,7 +1062,6 @@ class AnalizerTest {
 
 	}
 
-
 	testGetUserSellListWithMatching(){
 		let analizer = new Analizer();
 
@@ -1205,10 +1191,6 @@ class AnalizerTest {
         }
 	}
 
-
-
-
-	
 	runAllTests() {
 		console.log("AnalizerTest started ...");
 	    this.testAddUsers();
@@ -1239,8 +1221,6 @@ class AnalizerTest {
 	    this.testGetRankedUsersByBenefit();
 		console.log("AnalizerTest ended ...\n")
 	}
-
-
 }
 
 exports.AnalizerTest = AnalizerTest

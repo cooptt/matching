@@ -604,18 +604,13 @@ class Analizer {
 
     _rankUsers(userId, offerIds){
         let offers = offerIds.map( id => this.getOffer(id) );
-        offers.sort( (a,b) => {
-            return a.getPrice() - b.getPrice() ;
-        })
+        offers.sort( (a,b) => a.getPrice() - b.getPrice() )
         let rankings = new Map();
         let repOfferIds = new Set();
         offers.forEach( offer => {
             let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
             let mOffers = mOfferIds.map( mOfferId => this.getOffer(mOfferId) );
-            mOffers.sort( (a,b) => {
-                return a.getPrice() - b.getPrice();
-            });
-
+            mOffers.sort( (a,b) => a.getPrice() - b.getPrice() );
             let repUsers = new Set();
             for(let i=0;i<mOffers.length;i++){
                 let mOffer = mOffers[i];
@@ -624,11 +619,9 @@ class Analizer {
                     && repOfferIds.has(mOffer.getOfferId())===false ){
                     repUsers.add(mUserId);
                     repOfferIds.add(mOffer.getOfferId());
-
                     if(rankings.has(mUserId)===false){
                         rankings.set(mUserId,[/*edges*/0,/*diffAcum*/0]);
                     }
-
                     let preVal = rankings.get(mUserId);
                     preVal[0]++;
                     preVal[1] += Math.abs(offer.getPrice()-mOffer.getPrice());
@@ -640,9 +633,7 @@ class Analizer {
         for(let key of rankings.keys() ){
             ranks.push( [key, rankings.get(key) ] );
         }
-
         return ranks;
-        
     }
 
 

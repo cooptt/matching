@@ -44,16 +44,6 @@ class User {
         return this._email;
     }
 
-    getMyRating(){
-        return this._myRating;
-    }
-
-    getMyRatingCount() {
-        return this._myRatingCount
-    }
-
-
-
     /*
         {
             userId:4,
@@ -75,12 +65,23 @@ class User {
         }
     }
 
-    // OfferIds
-     getSellList(){
+    updateProperties(properties){
+        ['firstName','lastName','email'].forEach( (prop) =>{
+            if( prop in properties ){
+                this['_'+prop] = properties[prop];
+            }
+        })
+    }
+
+
+
+
+    // Offers
+
+    getSellList(){
         return Array.from(this._sellList);
     }
 
-    // OfferIds
     getBuyList(){
         return Array.from(this._buyList);
     }
@@ -89,8 +90,30 @@ class User {
         return this.getSellList().concat(this.getBuyList());
     }
 
-    getNotifications(){
-        return this._notifications.getValues();
+    addSellOffer(offerId){
+        this._sellList.add(offerId);
+    }
+
+    addBuyOffer(offerId){
+        this._buyList.add(offerId);
+    }
+
+    deleteOffer(offerId){
+        this._sellList.delete(offerId);
+        this._buyList.delete(offerId);
+    }
+
+
+
+
+    // Ratings
+
+    getMyRating(){
+        return this._myRating;
+    }
+
+    getMyRatingCount() {
+        return this._myRatingCount
     }
 
     getUserRating(userId){
@@ -102,25 +125,10 @@ class User {
         return this._usersRatings.has(userId);
     }
 
-
-
-    addSellOffer(offerId){
-        this._sellList.add(offerId);
-    }
-
-    addBuyOffer(offerId){
-        this._buyList.add(offerId);
-    }
-
-    addNotification(outOfferId, inOfferId){
-        this._notifications.add( this._createOfferIdPair(outOfferId,inOfferId) );
-    }
-
     addUserRating(userId, rating){
         //console.log( 'adduserRating ', userId);
         this._usersRatings.set(userId, rating);
     }
-
 
     updateMyRating(rating){
         this._myRatingSum += rating;
@@ -138,22 +146,28 @@ class User {
     }
 
 
-    updateProperties(properties){
-        ['firstName','lastName','email'].forEach( (prop) =>{
-            if( prop in properties ){
-                this['_'+prop] = properties[prop];
-            }
-        })
+
+
+
+     // Notifications
+
+    getNotifications(){
+        return this._notifications.getValues();
     }
 
-    deleteOffer(offerId){
-        this._sellList.delete(offerId);
-        this._buyList.delete(offerId);
+    addNotification(outOfferId, inOfferId){
+        this._notifications.add( this._createOfferIdPair(outOfferId,inOfferId) );
     }
 
     deleteNotification(outOfferId, inOfferId){
         this._notifications.delete( this._createOfferIdPair(outOfferId,inOfferId));
     }
+
+
+
+
+
+
 
     _createOfferIdPair(outOfferId, inOfferId){
         return {
@@ -161,8 +175,6 @@ class User {
             inOfferId:inOfferId
         };
     }
-
-
 }
 
 class TreeNode{
@@ -222,7 +234,6 @@ class VideoGame {
         this._buyTree = new RBTree( greaterTreeNode );        // Tree of TreeNode
     }
 
-
     getVideoGameId(){
         return this._videoGameId;
     }
@@ -279,7 +290,6 @@ class VideoGame {
 
         return offerIds;
     }
-
 
     getSellOfferIdsLowerEqThan(price){
         let offerIds = []
@@ -363,7 +373,6 @@ class VideoGame {
             res.deleteOffer(offerId);
         } 
     }
-
 }
 
 
@@ -423,18 +432,6 @@ class Offer {
                 this['_'+prop] = properties[prop];
             }
         })
-    }
-
-    addConnection(offerId){
-        this._connections.add(offerId);
-    }
-
-    getConnections(){
-        return Array.from(this._connections);
-    }
-
-    deleteConnection(offerId){
-        this._connections.delete(offerId);
     }
 }
 
