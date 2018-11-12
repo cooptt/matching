@@ -442,7 +442,7 @@ class AnalizerTest {
             firstName:'Felipe',
 			lastName:'Mendoza',
 			email:'felip@gmail.com',
-            userImage:'profile1.png'
+            userImage:'Fotos/profile1.png'
         }
 
         let prop =  ["userId","loginServiceId","firstName","lastName","email",'myRating','myRatingCount','userImage'];
