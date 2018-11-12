@@ -22,6 +22,12 @@ class User {
         this._myRatingSum = 0;
         this._myRatingCount = 0;
         this._usersRatings = new Map() // key: userIds, value: rating
+        this._userImage = null;
+    }
+
+
+    addUserImage(userImage){
+        this._userImage = userImage;
     }
 
     getUserId(){
@@ -43,6 +49,7 @@ class User {
     getEmail(){
         return this._email;
     }
+
 
     /*
         {
