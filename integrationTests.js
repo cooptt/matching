@@ -6,7 +6,6 @@ const request = require('request');
 class IntegrationTests {
 
 	testLoadCatalogueFromFolders(){
-		
 		let analizerResult = new Analizer();
 
 		analizerResult.addVideoGame("animal crossing eds juego compra disponible","catalogue/3DS/animal_crossing_eds_juego_compra_disponible.png");
@@ -55,15 +54,15 @@ class IntegrationTests {
 			}, 1000);
 	}
 
-	
 
-	
+
+
 	testPOST(rsc, body){
 		let options = {
 			method : 'POST',
 			url : 'http://localhost:8080' + rsc  ,
 			form : body,
-			headers: { 
+			headers: {
 				'User-Agent':'Mozilla/5.0',
 				'authorization' : 'abcdef' }
 		}
@@ -83,7 +82,7 @@ class IntegrationTests {
 		let options = {
 			method : 'GET',
 			url : 'http://localhost:8080' + rsc  ,
-			headers: { 
+			headers: {
 				'User-Agent':'Mozilla/5.0',
 				'authorization' : 'abcdef' }
 		}
@@ -114,7 +113,7 @@ class IntegrationTests {
 		let rsc = '/addSellOffer?userId=0&videoGameId=0&price=500'
 		let body = {}
 		this.testPOST(rsc, body);
-	}	
+	}
 
 	testAddSellOffer2(){
 		let rsc = '/addSellOffer?userId=1&videoGameId=1&price=500'
@@ -190,7 +189,7 @@ class IntegrationTests {
 
 	testGetVideoGameBuyList(){
 		this.testGET('/getVideoGameBuyList?videoGameId=1');
-	}	
+	}
 
 	testGetNotifications(){
 		this.testGET('/getNotifications?userId=0');
@@ -228,7 +227,6 @@ class IntegrationTests {
 		console.log("IntegrationTest started ...");
 		this.testLoadCatalogueFromFolders();
 
-		
 		this.testLogin();
 		this.testLogin2();
 		//this.testUpdateUserProperties();

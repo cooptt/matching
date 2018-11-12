@@ -444,7 +444,7 @@ class AnalizerTest {
 			email:'felip@gmail.com'
         }
 
-        let prop =  ["userId","loginServiceId","firstName","lastName","email",'myRating','myRatingCount'];
+        let prop =  ["userId","loginServiceId","firstName","lastName","email",'myRating','myRatingCount','userImage'];
 		if( equalObjects(found,original,prop)===false ){
 			result = false;
 			console.log("userData differ ");

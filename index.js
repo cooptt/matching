@@ -11,7 +11,6 @@ const catalogue_path = './views/catalogue'
 const analizer = new Analizer();
 
 
-
 let args = process.argv;
 if( args.length>2){
     let analizerType = args[2] ;
@@ -25,6 +24,9 @@ if( args.length>2){
     }
 }
 
+module.exports ={
+  analizer // to Integration Tests
+}
 
 
 
@@ -69,6 +71,8 @@ app.use(logger('dev')) //logs
 app.use(express.static('views')) // static files (public folder)
 
 
+let  testRoute = require('./test/test');
+app.use('/tests/',testRoute);
       // id token
       // check if the user is logged in
       // if it is, attach to the request
@@ -83,7 +87,7 @@ const checkAuth = (request,response,next) =>{
    let idToken = request.headers.authorization
 
    admin.auth().verifyIdToken(idToken)
-    .then(function(decodedToken) { 
+    .then(function(decodedToken) {
       request.loginServiceId = decodedToken.uid;
       next()
 
@@ -131,8 +135,20 @@ app.post('/signin', (request, response) => {
 
 
 
-
 // USER
+
+/*
+    [
+        { videoGameId:0, title: 'God of War', image: 'god_of_war.jpg' },
+        { videoGameId:1, title: 'Halo', image: 'halo.jpg' },
+        { videoGameId:2, title: 'Call of Duty', image: 'catalogue/call_of_duty.jpg' } ]
+*/
+app.get('/getCatalogue',  (request, response) => {
+    let msg = {};
+    msg.action = 'Get Catalogue';
+    msg.data = analizer.getCatalogue();
+    response.json(msg);
+})
 
 
 /*
@@ -534,7 +550,16 @@ app.post('/addBuyOffer', (request, response) => {
 })
 
 /*
+<<<<<<< HEAD
 	/deleteOffer?offerId=0
+=======
+	/getUserMatchingVideoGames?userId=0
+
+	[
+		{ videoGameId: 0, title: 'Halo', image: 'halo.jpg' },
+		{ videoGameId: 1, title: 'Call of Duty',image: 'call_of_duty.jpg' },
+		{ videoGameId: 2, title: 'Gow', image: 'gow.jpg' } ]
+>>>>>>> 8e0cbe1c685cccd30ba303770a99e11d8f3b7b6b
 */
 app.post('/deleteOffer', (request, response) => {
     let msg = {};
@@ -727,9 +752,38 @@ app.get('/getRankedUsersByBenefit', (request, response) => {
 
     if(isValid){
         msg.data = analizer.getRankedUsersByBenefit(userId);
+        analizer.deleteOffer(offerId);
+        msg.data = "Offer Deleted"
     }
 
     response.json(msg);
+})
+
+
+/*
+	/addRatingToUser?ratingUserId=1&ratedUserId=0&rating=4
+
+*/
+app.post('/addRatingToUser', (request,response) => {
+	let msg = {};
+	msg.action = 'Add Rating to User';
+	let ratingUserId = parseInt(request.query.ratingUserId);
+	let ratedUserId = parseInt(request.query.ratedUserId);
+	let rating = parseInt(request.query.rating);
+
+	let isValid = true;
+
+	if(analizer.userIdExists(ratingUserId)===false
+		|| analizer.userIdExists(ratedUserId)===false ){
+		isValid = false;
+		msg.data = "Invalid userIds";
+	}
+
+	if(isValid){
+		analizer.addRatingToUser(ratingUserId, ratedUserId, rating);
+	}
+
+	response.json(msg);
 })
 
 
@@ -1068,13 +1122,3 @@ app.post('/user/videogames/buy',checkAuth,(request,response)=>{
 
 
 */
-
-
-
-
-
-
-
-
-
-

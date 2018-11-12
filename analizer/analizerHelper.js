@@ -68,12 +68,13 @@ class User {
             lastName:this._lastName,
             email:this._email,
             myRating:this._myRating,
-            myRatingCount:this._myRatingCount
+            myRatingCount:this._myRatingCount,
+            userImage:this._userImage
         }
     }
 
     updateProperties(properties){
-        ['firstName','lastName','email'].forEach( (prop) =>{
+        ['firstName','lastName','email','userImage'].forEach( (prop) =>{
             if( prop in properties ){
                 this['_'+prop] = properties[prop];
             }

@@ -20,6 +20,7 @@ class Analizer {
         this._users = new IdMap();
         this._offers = new IdMap();
         this._loginServiceMap = new Map();
+        this._userImagesCount = 10;
     }
 
 
@@ -97,6 +98,8 @@ class Analizer {
     }
 
 
+
+
     // USER
 
     loginServiceIdExists(loginServiceId){
@@ -109,8 +112,11 @@ class Analizer {
 
     addUser(loginServiceId) {
         let userId = this._users.nextId();
+        let userImage = 'profile' + (userId%this._userImagesCount+1) + '.png'
         this._loginServiceMap.set(loginServiceId, userId );
-        this._users.insert( new User(userId, loginServiceId ) );
+        let user = new User(userId, loginServiceId );
+        user.updateProperties({userImage:userImage})
+        this._users.insert(user);
         if( this._persistance!==undefined ){
             this._persistance.addUser( this.getUser(userId).getProperties() );
         }
@@ -391,7 +397,6 @@ class Analizer {
     }
 
 
-L
 
 
 
@@ -415,6 +420,7 @@ L
         }
         return userOffersList;
     }
+
 
     _createVideoGameOffersList(offerIdList){
         let videoGameOffersList = [];
@@ -599,7 +605,6 @@ L
         })
         return matches;
     }
-
 
 
     _rankUsers(userId, offerIds){
