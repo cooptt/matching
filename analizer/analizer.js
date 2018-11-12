@@ -479,7 +479,7 @@ class Analizer {
                 subject: 'New offer match',
                 text: text
             };
-            //this._sendEmail(mailOptions);
+            this._sendEmail(mailOptions);
             console.log('Sending email: ', mailOptions);
         }
     }
