@@ -50,6 +50,10 @@ class User {
         return this._email;
     }
 
+    getImage(){
+        return this._userImage;
+    }
+
 
     /*
         {
