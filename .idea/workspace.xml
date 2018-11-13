@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3f92063d-9c98-402d-a0fe-a432fb37a4d8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/analizer/analizer.js" beforeDir="false" afterPath="$PROJECT_DIR$/analizer/analizer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analizer/analizerHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/analizer/analizerHelper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Fotos/profile2.jpg" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,7 +36,7 @@
       <usages-collector id="statistics.vcs.git.usages" />
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="29313" />
+          <entry key="js" value="29351" />
           <entry key="sql" value="1577" />
         </counts>
       </usages-collector>
@@ -56,7 +54,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="29313" />
+          <entry key="JavaScript" value="29351" />
           <entry key="SQL" value="1577" />
         </counts>
       </usages-collector>
@@ -258,11 +256,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/analizer/analizer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="742" column="43" selection-start-line="742" selection-start-column="43" selection-end-line="742" selection-end-column="43" />
+            <state relative-caret-position="214">
+              <caret line="776" column="25" selection-start-line="776" selection-start-column="25" selection-end-line="776" selection-end-column="25" />
               <folding>
                 <element signature="n#!!block;n#loadCatalogueFromFolders#0;n#Analizer#0" />
                 <element signature="e#910#1564#0" />
@@ -377,10 +375,8 @@
                 <element signature="e#22938#23064#0" />
                 <element signature="e#23079#23403#0" />
                 <element signature="e#23173#23392#0" />
+                <element signature="n#!!block;n#_createCycleProps#0;n#Analizer#0" />
                 <element signature="n#!!block;n#_getCycles#0;n#Analizer#0" />
-                <element signature="n#!!block;n#_loadUsersFromDB#0;n#Analizer#0" />
-                <element signature="e#24716#25076#0" />
-                <element signature="e#24797#25065#0" />
                 <element signature="n#!!block;n#_loadOffersFromDB#0;n#Analizer#0" />
                 <element signature="e#25205#26067#0" />
                 <element signature="e#25286#26056#0" />
@@ -479,11 +475,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/analizer/analizerHelper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+            <state relative-caret-position="345">
+              <caret line="75" column="21" selection-start-line="75" selection-start-column="12" selection-end-line="75" selection-end-column="21" />
               <folding>
                 <element signature="e#555#687#0" />
                 <element signature="n#!!block;n#addUserImage#0;n#User#0" />
@@ -551,7 +547,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/analizerHelperTest.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="709">
+            <state relative-caret-position="1140">
               <caret line="326" column="13" selection-start-line="326" selection-start-column="13" selection-end-line="326" selection-end-column="13" />
               <folding>
                 <element signature="n#!!block;n#testAddSellOffers#0;n#UserTest#0" />
@@ -657,8 +653,8 @@
         <option value="$PROJECT_DIR$/analizer/analizerPersistance.js" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/test/analizerTest.js" />
-        <option value="$PROJECT_DIR$/analizer/analizer.js" />
         <option value="$PROJECT_DIR$/analizer/analizerHelper.js" />
+        <option value="$PROJECT_DIR$/analizer/analizer.js" />
       </list>
     </option>
   </component>
@@ -759,12 +755,12 @@
       <workItem from="1541664118746" duration="13000" />
       <workItem from="1541664527264" duration="401000" />
       <workItem from="1541862865107" duration="16535000" />
-      <workItem from="1541972376084" duration="21602000" />
+      <workItem from="1541972376084" duration="22200000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="166183000" />
+    <option name="totallyTimeSpent" value="166781000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1303" height="780" extended-state="6" />
@@ -912,43 +908,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/analizerHelperTest.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="709">
-          <caret line="326" column="13" selection-start-line="326" selection-start-column="13" selection-end-line="326" selection-end-column="13" />
-          <folding>
-            <element signature="n#!!block;n#testAddSellOffers#0;n#UserTest#0" />
-            <element signature="e#405#415#0" />
-            <element signature="e#417#431#0" />
-            <element signature="n#!!block;n#testAddBuyOffers#0;n#UserTest#0" />
-            <element signature="e#901#911#0" />
-            <element signature="e#913#931#0" />
-            <element signature="e#1001#1040#0" />
-            <element signature="e#1183#1280#0" />
-            <element signature="n#!!block;n#testUpdateProperties#0;n#UserTest#0" />
-            <element signature="n#!!block;n#testGetProperties#0;n#UserTest#0" />
-            <element signature="n#!!block;n#testNotifications#0;n#UserTest#0" />
-            <element signature="n#!!block;n#testMyRating#0;n#UserTest#0" />
-            <element signature="n#!!block;n#testUserRatings#0;n#UserTest#0" />
-            <element signature="n#!!block;n#runAllTests#0;n#UserTest#0" />
-            <element signature="n#!!block;n#testGetProperties#0;n#VideoGameTest#0" />
-            <element signature="n#!!block;n#testGetSellOfferIds#0;n#VideoGameTest#0" />
-            <element signature="n#!!block;n#testGetBuyOfferIds#0;n#VideoGameTest#0" />
-            <element signature="n#!!block;n#testGetSellOfferIdsLowerEqThan#0;n#VideoGameTest#0" />
-            <element signature="n#!!block;n#runAllTests#0;n#VideoGameTest#0" />
-            <element signature="e#8377#8388#0" />
-            <element signature="e#8396#8406#0" />
-            <element signature="e#8414#8429#0" />
-            <element signature="e#8436#8445#0" />
-            <element signature="e#8454#8462#0" />
-            <element signature="e#8531#8608#0" />
-            <element signature="e#8769#8893#0" />
-            <element signature="e#8916#8966#0" />
-            <element signature="n#!!block;n#runAllTests#0;n#OfferTest#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/analizer/analizerPersistance.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="129">
@@ -989,57 +948,6 @@
             <element signature="n#!!block;n#addRating#0;n#AnalizerPersistance#0" />
             <element signature="n#!!block;n#updateRating#0;n#AnalizerPersistance#0" />
             <element signature="n#!!block;n#loadRatings#0;n#AnalizerPersistance#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/analizerTest.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="444" column="29" selection-start-line="444" selection-start-column="29" selection-end-line="444" selection-end-column="29" />
-          <folding>
-            <element signature="n#!!block;n#basicTest#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testAddUsers#0;n#AnalizerTest#0" />
-            <element signature="e#700#823#0" />
-            <element signature="n#!!block;n#testOfferAddedToUsersLists#0;n#AnalizerTest#0" />
-            <element signature="e#1498#1531#0" />
-            <element signature="e#1584#1617#0" />
-            <element signature="n#!!block;n#testOfferAddedToBuyTrees#0;n#AnalizerTest#0" />
-            <element signature="e#2586#3088#0" />
-            <element signature="e#2739#3081#0" />
-            <element signature="e#2788#2936#0" />
-            <element signature="e#2994#3043#0" />
-            <element signature="n#!!block;n#testOfferAddedToSellTrees#0;n#AnalizerTest#0" />
-            <element signature="e#4056#4559#0" />
-            <element signature="e#4210#4552#0" />
-            <element signature="e#4259#4407#0" />
-            <element signature="e#4465#4514#0" />
-            <element signature="n#!!block;n#testGetUserSellList#0;n#AnalizerTest#0" />
-            <element signature="e#5132#5170#0" />
-            <element signature="e#5204#5524#0" />
-            <element signature="e#5209#5312#0" />
-            <element signature="e#5317#5408#0" />
-            <element signature="e#5413#5520#0" />
-            <element signature="e#5692#5858#0" />
-            <element signature="n#!!block;n#testGetUserBuyList#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testGetUserSellListWithDeletes#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testGetUserBuyListWithDeletes#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testGetCatalogue#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testEmptinessAtBeginning#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testCreateVideoGameOffersList#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testGetVideoGameSellList#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testGetVideoGameBuyList#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testNotifications#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testGetOffersProperties#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testGetRankedUsers#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testGetRankedUsersByBenefit#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testRatings#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testGetUserMatchingVideoGames#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testVideoGameSellMatches#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testVideoGameBuyMatches#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testGetUserSellListWithMatching#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#testCycles#0;n#AnalizerTest#0" />
-            <element signature="n#!!block;n#runAllTests#0;n#AnalizerTest#0" />
           </folding>
         </state>
       </provider>
@@ -1225,10 +1133,165 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test/analizerHelperTest.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1140">
+          <caret line="326" column="13" selection-start-line="326" selection-start-column="13" selection-end-line="326" selection-end-column="13" />
+          <folding>
+            <element signature="n#!!block;n#testAddSellOffers#0;n#UserTest#0" />
+            <element signature="e#405#415#0" />
+            <element signature="e#417#431#0" />
+            <element signature="n#!!block;n#testAddBuyOffers#0;n#UserTest#0" />
+            <element signature="e#901#911#0" />
+            <element signature="e#913#931#0" />
+            <element signature="e#1001#1040#0" />
+            <element signature="e#1183#1280#0" />
+            <element signature="n#!!block;n#testUpdateProperties#0;n#UserTest#0" />
+            <element signature="n#!!block;n#testGetProperties#0;n#UserTest#0" />
+            <element signature="n#!!block;n#testNotifications#0;n#UserTest#0" />
+            <element signature="n#!!block;n#testMyRating#0;n#UserTest#0" />
+            <element signature="n#!!block;n#testUserRatings#0;n#UserTest#0" />
+            <element signature="n#!!block;n#runAllTests#0;n#UserTest#0" />
+            <element signature="n#!!block;n#testGetProperties#0;n#VideoGameTest#0" />
+            <element signature="n#!!block;n#testGetSellOfferIds#0;n#VideoGameTest#0" />
+            <element signature="n#!!block;n#testGetBuyOfferIds#0;n#VideoGameTest#0" />
+            <element signature="n#!!block;n#testGetSellOfferIdsLowerEqThan#0;n#VideoGameTest#0" />
+            <element signature="n#!!block;n#runAllTests#0;n#VideoGameTest#0" />
+            <element signature="e#8377#8388#0" />
+            <element signature="e#8396#8406#0" />
+            <element signature="e#8414#8429#0" />
+            <element signature="e#8436#8445#0" />
+            <element signature="e#8454#8462#0" />
+            <element signature="e#8531#8608#0" />
+            <element signature="e#8769#8893#0" />
+            <element signature="e#8916#8966#0" />
+            <element signature="n#!!block;n#runAllTests#0;n#OfferTest#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizer/analizerHelper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="75" column="21" selection-start-line="75" selection-start-column="12" selection-end-line="75" selection-end-column="21" />
+          <folding>
+            <element signature="e#555#687#0" />
+            <element signature="n#!!block;n#addUserImage#0;n#User#0" />
+            <element signature="n#!!block;n#getUserId#0;n#User#0" />
+            <element signature="n#!!block;n#getLoginServiceId#0;n#User#0" />
+            <element signature="n#!!block;n#getFirstName#0;n#User#0" />
+            <element signature="n#!!block;n#getLastName#0;n#User#0" />
+            <element signature="n#!!block;n#getEmail#0;n#User#0" />
+            <element signature="e#1159#1319#0" />
+            <element signature="n#!!block;n#getSellList#0;n#User#0" />
+            <element signature="n#!!block;n#getBuyList#0;n#User#0" />
+            <element signature="n#!!block;n#getSellAndBuyList#0;n#User#0" />
+            <element signature="n#!!block;n#addSellOffer#0;n#User#0" />
+            <element signature="n#!!block;n#addBuyOffer#0;n#User#0" />
+            <element signature="n#!!block;n#deleteOffer#0;n#User#0" />
+            <element signature="n#!!block;n#getMyRating#0;n#User#0" />
+            <element signature="n#!!block;n#getMyRatingCount#0;n#User#0" />
+            <element signature="n#!!block;n#getUserRating#0;n#User#0" />
+            <element signature="n#!!block;n#hasUserRating#0;n#User#0" />
+            <element signature="n#!!block;n#addUserRating#0;n#User#0" />
+            <element signature="n#!!block;n#updateMyRating#0;n#User#0" />
+            <element signature="n#!!block;n#changeMyRating#0;n#User#0" />
+            <element signature="n#!!block;n#updateUserRating#0;n#User#0" />
+            <element signature="n#!!block;n#getNotifications#0;n#User#0" />
+            <element signature="n#!!block;n#addNotification#0;n#User#0" />
+            <element signature="n#!!block;n#deleteNotification#0;n#User#0" />
+            <element signature="n#!!block;n#_createOfferIdPair#0;n#User#0" />
+            <element signature="n#TreeNode#0" />
+            <element signature="n#!!block;n#addOffer#0;n#TreeNode#0" />
+            <element signature="n#!!block;n#deleteOffer#0;n#TreeNode#0" />
+            <element signature="n#!!block;n#getOfferIds#0;n#TreeNode#0" />
+            <element signature="e#4335#4478#0" />
+            <element signature="e#4515#4539#0" />
+            <element signature="e#4577#4601#0" />
+            <element signature="n#!!block;n#constructor#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#getVideoGameId#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#getTitle#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#getImage#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#getBuyTree#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#getSellTree#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#getProperties#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#getSellOfferIds#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#getBuyOfferIds#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#getSellOfferIdsLowerEqThan#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#getBuyOfferIdsGreaterEqThan#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#addSellOffer#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#addBuyOffer#0;n#VideoGame#0" />
+            <element signature="e#7629#7740#0" />
+            <element signature="n#!!block;n#updateProperties#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#deleteOffer#0;n#VideoGame#0" />
+            <element signature="n#!!block;n#constructor#0;n#Offer#0" />
+            <element signature="n#!!block;n#getOfferId#0;n#Offer#0" />
+            <element signature="n#!!block;n#getUserId#0;n#Offer#0" />
+            <element signature="n#!!block;n#getVideoGameId#0;n#Offer#0" />
+            <element signature="n#!!block;n#getPrice#0;n#Offer#0" />
+            <element signature="n#!!block;n#getType#0;n#Offer#0" />
+            <element signature="e#8906#9024#0" />
+            <element signature="n#!!block;n#getProperties#0;n#Offer#0" />
+            <element signature="n#!!block;n#updateProperties#0;n#Offer#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/analizerTest.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="444" column="29" selection-start-line="444" selection-start-column="29" selection-end-line="444" selection-end-column="29" />
+          <folding>
+            <element signature="n#!!block;n#basicTest#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testAddUsers#0;n#AnalizerTest#0" />
+            <element signature="e#700#823#0" />
+            <element signature="n#!!block;n#testOfferAddedToUsersLists#0;n#AnalizerTest#0" />
+            <element signature="e#1498#1531#0" />
+            <element signature="e#1584#1617#0" />
+            <element signature="n#!!block;n#testOfferAddedToBuyTrees#0;n#AnalizerTest#0" />
+            <element signature="e#2586#3088#0" />
+            <element signature="e#2739#3081#0" />
+            <element signature="e#2788#2936#0" />
+            <element signature="e#2994#3043#0" />
+            <element signature="n#!!block;n#testOfferAddedToSellTrees#0;n#AnalizerTest#0" />
+            <element signature="e#4056#4559#0" />
+            <element signature="e#4210#4552#0" />
+            <element signature="e#4259#4407#0" />
+            <element signature="e#4465#4514#0" />
+            <element signature="n#!!block;n#testGetUserSellList#0;n#AnalizerTest#0" />
+            <element signature="e#5132#5170#0" />
+            <element signature="e#5204#5524#0" />
+            <element signature="e#5209#5312#0" />
+            <element signature="e#5317#5408#0" />
+            <element signature="e#5413#5520#0" />
+            <element signature="e#5692#5858#0" />
+            <element signature="n#!!block;n#testGetUserBuyList#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testGetUserSellListWithDeletes#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testGetUserBuyListWithDeletes#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testGetCatalogue#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testEmptinessAtBeginning#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testCreateVideoGameOffersList#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testGetVideoGameSellList#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testGetVideoGameBuyList#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testNotifications#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testGetOffersProperties#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testGetRankedUsers#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testGetRankedUsersByBenefit#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testRatings#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testGetUserMatchingVideoGames#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testVideoGameSellMatches#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testVideoGameBuyMatches#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testGetUserSellListWithMatching#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#testCycles#0;n#AnalizerTest#0" />
+            <element signature="n#!!block;n#runAllTests#0;n#AnalizerTest#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/analizer/analizer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="742" column="43" selection-start-line="742" selection-start-column="43" selection-end-line="742" selection-end-column="43" />
+        <state relative-caret-position="214">
+          <caret line="776" column="25" selection-start-line="776" selection-start-column="25" selection-end-line="776" selection-end-column="25" />
           <folding>
             <element signature="n#!!block;n#loadCatalogueFromFolders#0;n#Analizer#0" />
             <element signature="e#910#1564#0" />
@@ -1343,10 +1406,8 @@
             <element signature="e#22938#23064#0" />
             <element signature="e#23079#23403#0" />
             <element signature="e#23173#23392#0" />
+            <element signature="n#!!block;n#_createCycleProps#0;n#Analizer#0" />
             <element signature="n#!!block;n#_getCycles#0;n#Analizer#0" />
-            <element signature="n#!!block;n#_loadUsersFromDB#0;n#Analizer#0" />
-            <element signature="e#24716#25076#0" />
-            <element signature="e#24797#25065#0" />
             <element signature="n#!!block;n#_loadOffersFromDB#0;n#Analizer#0" />
             <element signature="e#25205#26067#0" />
             <element signature="e#25286#26056#0" />
@@ -1387,73 +1448,6 @@
             <element signature="e#31952#32057#0" />
             <element signature="e#32154#32659#0" />
             <element signature="e#32449#32641#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analizer/analizerHelper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
-          <folding>
-            <element signature="e#555#687#0" />
-            <element signature="n#!!block;n#addUserImage#0;n#User#0" />
-            <element signature="n#!!block;n#getUserId#0;n#User#0" />
-            <element signature="n#!!block;n#getLoginServiceId#0;n#User#0" />
-            <element signature="n#!!block;n#getFirstName#0;n#User#0" />
-            <element signature="n#!!block;n#getLastName#0;n#User#0" />
-            <element signature="n#!!block;n#getEmail#0;n#User#0" />
-            <element signature="e#1159#1319#0" />
-            <element signature="n#!!block;n#getSellList#0;n#User#0" />
-            <element signature="n#!!block;n#getBuyList#0;n#User#0" />
-            <element signature="n#!!block;n#getSellAndBuyList#0;n#User#0" />
-            <element signature="n#!!block;n#addSellOffer#0;n#User#0" />
-            <element signature="n#!!block;n#addBuyOffer#0;n#User#0" />
-            <element signature="n#!!block;n#deleteOffer#0;n#User#0" />
-            <element signature="n#!!block;n#getMyRating#0;n#User#0" />
-            <element signature="n#!!block;n#getMyRatingCount#0;n#User#0" />
-            <element signature="n#!!block;n#getUserRating#0;n#User#0" />
-            <element signature="n#!!block;n#hasUserRating#0;n#User#0" />
-            <element signature="n#!!block;n#addUserRating#0;n#User#0" />
-            <element signature="n#!!block;n#updateMyRating#0;n#User#0" />
-            <element signature="n#!!block;n#changeMyRating#0;n#User#0" />
-            <element signature="n#!!block;n#updateUserRating#0;n#User#0" />
-            <element signature="n#!!block;n#getNotifications#0;n#User#0" />
-            <element signature="n#!!block;n#addNotification#0;n#User#0" />
-            <element signature="n#!!block;n#deleteNotification#0;n#User#0" />
-            <element signature="n#!!block;n#_createOfferIdPair#0;n#User#0" />
-            <element signature="n#TreeNode#0" />
-            <element signature="n#!!block;n#addOffer#0;n#TreeNode#0" />
-            <element signature="n#!!block;n#deleteOffer#0;n#TreeNode#0" />
-            <element signature="n#!!block;n#getOfferIds#0;n#TreeNode#0" />
-            <element signature="e#4335#4478#0" />
-            <element signature="e#4515#4539#0" />
-            <element signature="e#4577#4601#0" />
-            <element signature="n#!!block;n#constructor#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#getVideoGameId#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#getTitle#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#getImage#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#getBuyTree#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#getSellTree#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#getProperties#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#getSellOfferIds#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#getBuyOfferIds#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#getSellOfferIdsLowerEqThan#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#getBuyOfferIdsGreaterEqThan#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#addSellOffer#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#addBuyOffer#0;n#VideoGame#0" />
-            <element signature="e#7629#7740#0" />
-            <element signature="n#!!block;n#updateProperties#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#deleteOffer#0;n#VideoGame#0" />
-            <element signature="n#!!block;n#constructor#0;n#Offer#0" />
-            <element signature="n#!!block;n#getOfferId#0;n#Offer#0" />
-            <element signature="n#!!block;n#getUserId#0;n#Offer#0" />
-            <element signature="n#!!block;n#getVideoGameId#0;n#Offer#0" />
-            <element signature="n#!!block;n#getPrice#0;n#Offer#0" />
-            <element signature="n#!!block;n#getType#0;n#Offer#0" />
-            <element signature="e#8906#9024#0" />
-            <element signature="n#!!block;n#getProperties#0;n#Offer#0" />
-            <element signature="n#!!block;n#updateProperties#0;n#Offer#0" />
           </folding>
         </state>
       </provider>

@@ -772,6 +772,8 @@ class Analizer {
             //console.log(result);
             result.result.forEach( props => {
                 let user = new User(props.userId, props.loginServiceId );
+                let userImage = 'Fotos/profile' + (props.userId%this._userImagesCount+1) + '.png'
+                props.userImage = userImage;
                 user.updateProperties(props);
                 this._users.set(props.userId, user);
                 this._loginServiceMap.set(props.loginServiceId, props.userId );
