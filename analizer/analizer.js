@@ -740,6 +740,7 @@ class Analizer {
                 firstName:user.getFirstName(),
                 lastName:user.getLastName(),
                 videoGameId:videoGame.getVideoGameId(),
+                userImage: user.getImage(),
                 title:videoGame.getTitle(),
                 image:videoGame.getImage(),
                 offerId:offer.getOfferId(),
