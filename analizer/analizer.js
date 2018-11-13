@@ -60,7 +60,7 @@ class Analizer {
 
     startPersistance(){
         this._persistance = new AnalizerPersistance();
-        this._persistance.connect('localhost','root','root','analizer');
+        this._persistance.connect('localhost','root','cooperativa2018','analizer');
     }
 
     stopPersistance(){
@@ -520,7 +520,7 @@ class Analizer {
                 subject: 'New offer match',
                 text: text
             };
-            //this._sendEmail(mailOptions);
+            this._sendEmail(mailOptions);
             console.log('Sending email: ', mailOptions);
         }
     }

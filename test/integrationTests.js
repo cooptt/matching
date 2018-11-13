@@ -495,8 +495,8 @@ class IntegrationTests {
 
         // this.testFillOffers();
         //this.testFillUsers();
-        //this.testFillMessages();
-        this.testDemonstration1();
+        this.testFillMessages();
+        //this.testDemonstration1();
 
 	}
 
