@@ -219,7 +219,6 @@ class AnalizerTest {
 			console.log("testGetUserSellList :",result);
 	}
 
-
 	testGetUserBuyList() {
 		var analizer = new Analizer();
 		analizer.addVideoGame("God of War", "god_of_war.jpg");
@@ -271,7 +270,6 @@ class AnalizerTest {
 		if(result===false)
 			console.log("testGetUserBuyList :",result);
 	}
-
 
 	testGetUserSellListWithDeletes() {
 		var analizer = new Analizer();
@@ -402,7 +400,6 @@ class AnalizerTest {
 	    }
 	}
 
-
 	testEmptinessAtBeginning(){
 		let analizer = new Analizer();
 		let result = true;
@@ -429,7 +426,6 @@ class AnalizerTest {
 		let result = true;
 
 		analizer.addUser(/*loginServiceId*/ 17);
-		analizer.addUser(/*loginServiceId*/ 18);
 		analizer.updateUserProperties(0, {
 			firstName:'Felipe',
 			lastName:'Mendoza',
@@ -437,9 +433,7 @@ class AnalizerTest {
 		});
 
 
-
 		let found = analizer.getUserProperties(0);
-
 		let original = {
             userId:0,
             loginServiceId:17,
@@ -447,11 +441,11 @@ class AnalizerTest {
             myRatingCount:0,
             firstName:'Felipe',
 			lastName:'Mendoza',
-			email:'felip@gmail.com'
+			email:'felip@gmail.com',
+            userImage:'Fotos/profile1.png'
         }
 
-        let prop =  ["userId","loginServiceId","firstName","lastName","email",'myRating','myRatingCount'];
-
+        let prop =  ["userId","loginServiceId","firstName","lastName","email",'myRating','myRatingCount','userImage'];
 		if( equalObjects(found,original,prop)===false ){
 			result = false;
 			console.log("userData differ ");
@@ -463,8 +457,6 @@ class AnalizerTest {
 			console.log("testGetUserProperties(): ", result);
 		}
 	}
-
-
 
 	testCreateVideoGameOffersList(){
 		let analizer = new Analizer();
@@ -499,7 +491,6 @@ class AnalizerTest {
 			console.log("testCreateVideoGameOffersList: ",result);
 		}
 	}
-
 
 	testGetVideoGameSellList(){
 		let analizer = new Analizer();
@@ -571,7 +562,6 @@ class AnalizerTest {
 		}
 	}
 
-
 	testNotifications(){
 		let analizer = new Analizer();
 		analizer.addUser(16);
@@ -612,7 +602,6 @@ class AnalizerTest {
 
 
 	}
-
 
 	testGetOffersProperties(){
 		let analizer = new Analizer();
@@ -735,6 +724,103 @@ class AnalizerTest {
 		if(result===false){
 			console.log("testGetRankedUsers: ",result);
 		}
+	}
+
+	testGetRankedUsersByBenefit(){
+		let analizer = new Analizer();
+		
+
+		let userId1 = analizer.addUser(/*loginServiceId*/ 17);
+		let userId2 = analizer.addUser(/*loginServiceId*/ 18);
+		let userId3 = analizer.addUser(/*loginServiceId*/ 19);
+		let userId4 = analizer.addUser(/*loginServiceId*/ 20);
+
+		analizer.updateUserProperties(userId1,{firstName:'Felipe'});
+		analizer.updateUserProperties(userId2,{firstName:'Jimbo'});
+		analizer.updateUserProperties(userId3,{firstName:'Chore'});
+		analizer.updateUserProperties(userId4,{firstName:'Peyo'});
+		analizer.addVideoGame('Halo','halo.jpg'); 		// 0
+		analizer.addVideoGame("Gow", "gow.jpg");  		// 1
+		analizer.addVideoGame("Crash", "crash.jpg");	// 2
+		analizer.addVideoGame("Gears", "gears.jpg");	// 3
+		analizer.addVideoGame("Dbz","dbz.jpg");			// 4
+		analizer.addVideoGame("Fifa","fifa.jpg");		// 5
+		analizer.addVideoGame("Mgs","mgs.jpg");			// 6
+
+
+
+
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/400);
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/500);
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/0,/*price*/600);
+		analizer.addSellOffer(/*userId*/0,/*videoGameId*/1,/*price*/400);
+		
+
+		analizer.addBuyOffer(/*userId*/1,/*videoGameId*/1,/*price*/600);
+		analizer.addBuyOffer(/*userId*/1,/*videoGameId*/1,/*price*/700);
+
+
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/1,/*price*/700);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/900);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/800);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/800);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/800);
+		analizer.addBuyOffer(/*userId*/2,/*videoGameId*/0,/*price*/800);
+
+
+		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/1,/*price*/700);
+		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/1,/*price*/700);
+		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/0,/*price*/700);
+		analizer.addBuyOffer(/*userId*/3,/*videoGameId*/0,/*price*/700);
+
+		//console.log(analizer.getRankedUsers(0));
+		//console.log(analizer.getRankedUsers(1));
+
+
+		let original = [ { userId: 2,
+					    loginServiceId: 19,
+					    firstName: 'Chore',
+					    lastName: null,
+					    email: null,
+					    myRating: null,
+					    myRatingCount: 0,
+					    benefit: 1200 },
+					  { userId: 3,
+					    loginServiceId: 20,
+					    firstName: 'Peyo',
+					    lastName: null,
+					    email: null,
+					    myRating: null,
+					    myRatingCount: 0,
+					    benefit: 800 },
+					  { userId: 1,
+					    loginServiceId: 18,
+					    firstName: 'Jimbo',
+					    lastName: null,
+					    email: null,
+					    myRating: null,
+					    myRatingCount: 0,
+					    benefit: 200 } ];
+
+
+		let found = analizer.getRankedUsersByBenefit(0);
+
+		//console.log(analizer.getRankedUsersByBenefit(0) );
+
+		let prop = ['userId','loginServiceId','firstName','lastName','email','benefit'];
+		let result = true;
+
+		if( equalArrays(original,found, prop )===false ){
+			result = false;
+			console.log("Differ");
+			console.log("original: ",original);
+			console.log("found: ", found);
+		}
+
+		if(result===false){
+			console.log("testGetRankedUsers: ",result);
+		}
+
 	}
 
 	testRatings(){
@@ -977,7 +1063,6 @@ class AnalizerTest {
 
 	}
 
-
 	testGetUserSellListWithMatching(){
 		let analizer = new Analizer();
 
@@ -1087,7 +1172,7 @@ class AnalizerTest {
 
         let found = analizer._getCycles(userId1, 3);
 
-        console.log(analizer.getTriplets(0));
+        //console.log(analizer.getTriplets(0));
 
 		let result = true;
 
@@ -1107,7 +1192,6 @@ class AnalizerTest {
         }
 	}
 
-	
 	runAllTests() {
 		console.log("AnalizerTest started ...");
 	    this.testAddUsers();
@@ -1135,10 +1219,9 @@ class AnalizerTest {
 	    this.testVideoGameBuyMatches();
 	    this.testGetUserSellListWithMatching();
 	    this.testCycles();
+	    this.testGetRankedUsersByBenefit();
 		console.log("AnalizerTest ended ...\n")
 	}
-
-
 }
 
 exports.AnalizerTest = AnalizerTest

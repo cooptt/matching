@@ -20,6 +20,7 @@ class Analizer {
         this._users = new IdMap();
         this._offers = new IdMap();
         this._loginServiceMap = new Map();
+        this._userImagesCount = 10;
     }
 
 
@@ -97,6 +98,8 @@ class Analizer {
     }
 
 
+
+
     // USER
 
     loginServiceIdExists(loginServiceId){
@@ -109,8 +112,11 @@ class Analizer {
 
     addUser(loginServiceId) {
         let userId = this._users.nextId();
+        let userImage = 'Fotos/profile' + (userId%this._userImagesCount+1) + '.png'
         this._loginServiceMap.set(loginServiceId, userId );
-        this._users.insert( new User(userId, loginServiceId ) );
+        let user = new User(userId, loginServiceId );
+        user.updateProperties({userImage:userImage})
+        this._users.insert(user);
         if( this._persistance!==undefined ){
             this._persistance.addUser( this.getUser(userId).getProperties() );
         }
@@ -345,16 +351,50 @@ class Analizer {
         let offerIds = user.getSellList();
         offerIds = offerIds.concat(user.getBuyList());
         let ranks = this._rankUsers(userId, offerIds);
-        return ranks
+
+
+        ranks.sort( (a,b) => {
+            return b[1][0]-a[1][0];
+        })
+
+        let usersProps = []
+        for(let i=0;i<ranks.length;i++){
+            let obj = this.getUser(ranks[i][0]).getProperties();
+            obj.matches = ranks[i][1][0];
+            usersProps.push(obj);
+        }
+
+
+        return  usersProps;
+    }
+
+    getRankedUsersByBenefit(userId){
+        let user = this.getUser(userId);
+        let offerIds = user.getSellList();
+        offerIds = offerIds.concat(user.getBuyList());
+        let ranks = this._rankUsers(userId, offerIds);
+
+
+        ranks.sort( (a,b) => {
+            return b[1][1]-a[1][1];
+        })
+
+        let usersProps = []
+        for(let i=0;i<ranks.length;i++){
+            let obj = this.getUser(ranks[i][0]).getProperties();
+            obj.benefit = ranks[i][1][1];
+            usersProps.push(obj);
+        }
+
+        return  usersProps;
     }
 
     getTriplets(userId){
         let triplets = this._getCycles(userId,3);
-        console.log(triplets);
+        //console.log(triplets);
         let tripletsProps = triplets.map( cycle => this._createCycleProps(cycle) );
         return tripletsProps;
     }
-
 
 
 
@@ -380,6 +420,7 @@ class Analizer {
         }
         return userOffersList;
     }
+
 
     _createVideoGameOffersList(offerIdList){
         let videoGameOffersList = [];
@@ -565,20 +606,16 @@ class Analizer {
         return matches;
     }
 
+
     _rankUsers(userId, offerIds){
         let offers = offerIds.map( id => this.getOffer(id) );
-        offers.sort( (a,b) => {
-            return a.getPrice() - b.getPrice() ;
-        })
+        offers.sort( (a,b) => a.getPrice() - b.getPrice() )
         let rankings = new Map();
         let repOfferIds = new Set();
         offers.forEach( offer => {
             let mOfferIds = this._getMatchingOfferIds(offer.getOfferId());
             let mOffers = mOfferIds.map( mOfferId => this.getOffer(mOfferId) );
-            mOffers.sort( (a,b) => {
-                return a.getPrice() - b.getPrice();
-            });
-
+            mOffers.sort( (a,b) => a.getPrice() - b.getPrice() );
             let repUsers = new Set();
             for(let i=0;i<mOffers.length;i++){
                 let mOffer = mOffers[i];
@@ -587,11 +624,9 @@ class Analizer {
                     && repOfferIds.has(mOffer.getOfferId())===false ){
                     repUsers.add(mUserId);
                     repOfferIds.add(mOffer.getOfferId());
-
                     if(rankings.has(mUserId)===false){
                         rankings.set(mUserId,[/*edges*/0,/*diffAcum*/0]);
                     }
-
                     let preVal = rankings.get(mUserId);
                     preVal[0]++;
                     preVal[1] += Math.abs(offer.getPrice()-mOffer.getPrice());
@@ -603,19 +638,14 @@ class Analizer {
         for(let key of rankings.keys() ){
             ranks.push( [key, rankings.get(key) ] );
         }
-
-        ranks.sort( (a,b) => {
-            return b[1][0]-a[1][0];
-        })
-
-        let usersProps = []
-        for(let i=0;i<ranks.length;i++){
-            let obj = this.getUser(ranks[i][0]).getProperties();
-            obj.matches = ranks[i][1][0];
-            usersProps.push(obj);
-        }
-        return usersProps;
+        return ranks;
     }
+
+
+
+
+
+
 
 
 

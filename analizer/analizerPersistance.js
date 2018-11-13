@@ -256,7 +256,6 @@ class AnalizerPersistance {
         return this.queryAnalizer(query);
     }
 
-
     createRatingTable(){
         let query =
             '\n' +

@@ -52,7 +52,6 @@ class UserTest {
 			console.log("testAddBuyOffers : ",result);
 	}
 
-
 	testUpdateProperties(){
 		let user = new User(3,17);
 		let properties = {
@@ -168,8 +167,6 @@ class UserTest {
 			console.log("testUserRatings: ",false);
 		}
 	}
-
-
 
 	runAllTests(){
 		console.log("UserTest started ...");
@@ -321,6 +318,9 @@ class VideoGameTest {
 		console.log("VideoGameTest ended ...\n");
 	}
 }
+
+
+
 
 class OfferTest {
 	testGetProperties(){
