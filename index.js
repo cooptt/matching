@@ -256,7 +256,7 @@ app.get('/getUserProperties',  (request, response) => {
     if(isValid){
       msg.data = analizer.getUserProperties(userId);
     }
-    
+
     response.json(msg);
 })
 
@@ -351,7 +351,7 @@ app.post('/addRatingToUser', (request,response) => {
 /*
 	/getCatalogue
 
-    [ 
+    [
         { videoGameId:0, title: 'God of War', image: 'god_of_war.jpg' },
         { videoGameId:1, title: 'Halo', image: 'halo.jpg' },
         { videoGameId:2, title: 'Call of Duty', image: 'catalogue/call_of_duty.jpg' } ]
@@ -747,8 +747,6 @@ app.get('/getRankedUsersByBenefit', (request, response) => {
 
     if(isValid){
         msg.data = analizer.getRankedUsersByBenefit(userId);
-        analizer.deleteOffer(offerId);
-        msg.data = "Offer Deleted"
     }
 
     response.json(msg);
