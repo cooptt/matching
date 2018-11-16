@@ -510,6 +510,16 @@ class IntegrationTests {
 	}
 
 
+	testEmail(){
+        this.testPOST('/signin?loginServiceId=16', {});
+        this.testPOST('/signin?loginServiceId=17', {});
+        this.testPOST('/updateUserProperties?userId=0',{firstName:'Felipe',lastname:'Mendoza',email:'felipfmg17@gmail.com',country:'Mexico',city:'Guadalajara'});
+        this.testPOST('/updateUserProperties?userId=1',{firstName:'Jaime',lastname:'Martinez',email:'jimbo@gmail.com',country:'USA',city:'Redwood city'});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addBuyOffer?userId=1&videoGameId=0&price=600',{});
+    }
+
+
 
 
 
@@ -554,8 +564,8 @@ class IntegrationTests {
         //this.testFillUsers();
         //this.testFillMessages();
         //this.testDemonstration1();
-		this.testExpiration();
-
+		//this.testExpiration();
+        this.testEmail()
 	}
 
 }

@@ -13,12 +13,15 @@ const analizer = new Analizer();
 let args = process.argv;
 if( args.length>2){
     let analizerType = args[2] ;
+    let dbPassword = args[3];
     if( analizerType==='cleardb' ){
-        analizer.startPersistance();
+        analizer.startPersistance(dbPassword);
         analizer.clearDatabase();
+        analizer.startEmailConnection();
         analizer.loadCatalogueFromFolders(catalogue_path);
     } else if( analizerType==='loaddb' ) {
-        analizer.startPersistance();
+        analizer.startPersistance(dbPassword);
+        analizer.startEmailConnection();
         analizer.loadDB();
     }
 }

@@ -59,9 +59,18 @@ class Analizer {
         return;
     }
 
-    startPersistance(){
+    startPersistance(password){
         this._persistance = new AnalizerPersistance();
-        this._persistance.connect('localhost','root','root','analizer');
+        this._persistance.connect('localhost','root',password,'analizer');
+    }
+
+    startEmailConnection(){
+        this.transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'cooperativapascaltt@gmail.com',
+                pass: 'Cooperativa2018' }
+        });
     }
 
     stopPersistance(){
@@ -263,11 +272,11 @@ class Analizer {
     addBuyOffer(userId, videoGameId, price) {
         let offer = new Offer(this._offers.nextId(), userId, videoGameId, price, this._BUY) ;
         var offerId = this._offers.insert(offer);
-        this.getUser(userId).addBuyOffer(offerId);
         let expiration = this.getUser(userId).getExpiration();
         if( this._validateExpiration(expiration) === false ){
             return;
         }
+        this.getUser(userId).addBuyOffer(offerId);
         this.getVideoGame(videoGameId).addBuyOffer(offerId, price);
         if( this._persistance!==undefined ){
             this._persistance.addOffer( offer.getProperties() );
@@ -529,14 +538,8 @@ class Analizer {
     // NOTIFICATIONS
 
     _sendEmail(mailOptions){
-        let transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'cooperativapascaltt@gmail.com',
-                pass: 'Cooperativa2018' }
-        });
 
-        transporter.sendMail(mailOptions, function(error, info){
+        this.transporter.sendMail(mailOptions, function(error, info){
             if (error) {
                 console.log(error);
             } else {
@@ -567,7 +570,7 @@ class Analizer {
                 text: text
             };
             this._sendEmail(mailOptions);
-            console.log('Sending email: ', mailOptions);
+            //console.log('Sending email: ', mailOptions);
         }
     }
 
