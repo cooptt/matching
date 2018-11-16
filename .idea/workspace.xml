@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3f92063d-9c98-402d-a0fe-a432fb37a4d8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/analizer/analizer.js" beforeDir="false" afterPath="$PROJECT_DIR$/analizer/analizer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/util.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/util.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/integrationTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/integrationTests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tips_norman.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/tips_norman.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Fotos/profile10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Fotos/profile2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Fotos/profile3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Fotos/profile5.png" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -44,7 +38,7 @@
       <usages-collector id="statistics.vcs.git.usages" />
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="31480" />
+          <entry key="js" value="31530" />
           <entry key="json" value="13" />
           <entry key="sql" value="1635" />
         </counts>
@@ -66,7 +60,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="13" />
-          <entry key="JavaScript" value="31480" />
+          <entry key="JavaScript" value="31530" />
           <entry key="SQL" value="1635" />
         </counts>
       </usages-collector>
@@ -77,7 +71,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
+            <state relative-caret-position="-2330">
               <caret line="128" column="51" selection-start-line="128" selection-start-column="51" selection-end-line="128" selection-end-column="51" />
               <folding>
                 <element signature="e#317#336#0" />
@@ -193,8 +187,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/integrationTests.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="427" column="70" selection-start-line="427" selection-start-column="70" selection-end-line="427" selection-end-column="70" />
+            <state relative-caret-position="379">
+              <caret line="444" column="44" selection-start-line="444" selection-start-column="44" selection-end-line="444" selection-end-column="44" />
               <folding>
                 <element signature="n#!!block;n#testLoadCatalogueFromFolders#0;n#IntegrationTests#0" />
                 <element signature="e#1026#1070#0" />
@@ -258,8 +252,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/analizer/analizer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2766">
-              <caret line="571" column="52" selection-start-line="571" selection-start-column="52" selection-end-line="571" selection-end-column="52" />
+            <state relative-caret-position="206">
+              <caret line="381" column="17" selection-start-line="381" selection-start-column="17" selection-end-line="381" selection-end-column="17" />
               <folding>
                 <element signature="n#!!block;n#loadCatalogueFromFolders#0;n#Analizer#0" />
                 <element signature="n#!!block;n#startEmailConnection#0;n#Analizer#0" />
@@ -290,8 +284,6 @@
                 <element signature="n#!!block;n#getChatUsers#0;n#Analizer#0" />
                 <element signature="n#!!block;n#addMessage#0;n#Analizer#0" />
                 <element signature="n#!!block;n#getConversation#0;n#Analizer#0" />
-                <element signature="n#!!block;n#getRankedUsers#0;n#Analizer#0" />
-                <element signature="n#!!block;n#getRankedUsersByBenefit#0;n#Analizer#0" />
                 <element signature="n#!!block;n#getTriplets#0;n#Analizer#0" />
                 <element signature="n#!!block;n#addExpiration#0;n#Analizer#0" />
                 <element signature="n#!!block;n#deleteExpiration#0;n#Analizer#0" />
@@ -336,8 +328,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database/analizer.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+            <state relative-caret-position="180">
+              <caret line="12" column="2" lean-forward="true" selection-end-line="51" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -345,8 +337,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/analizer/analizerPersistance.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
-              <caret line="139" column="13" selection-start-line="139" selection-start-column="13" selection-end-line="139" selection-end-column="13" />
+            <state relative-caret-position="420">
+              <caret line="90" column="56" lean-forward="true" selection-start-line="90" selection-start-column="56" selection-end-line="90" selection-end-column="56" />
               <folding>
                 <element signature="e#343#412#0" />
                 <element signature="e#651#739#0" />
@@ -575,9 +567,9 @@
         <option value="$PROJECT_DIR$/analizer/analizerHelper.js" />
         <option value="$PROJECT_DIR$/test/analizerTest.js" />
         <option value="$PROJECT_DIR$/index.js" />
-        <option value="$PROJECT_DIR$/analizer/analizer.js" />
         <option value="$PROJECT_DIR$/database/util.sql" />
         <option value="$PROJECT_DIR$/test/integrationTests.js" />
+        <option value="$PROJECT_DIR$/analizer/analizer.js" />
       </list>
     </option>
   </component>
@@ -689,12 +681,12 @@
       <workItem from="1541664527264" duration="401000" />
       <workItem from="1541862865107" duration="16535000" />
       <workItem from="1541972376084" duration="30232000" />
-      <workItem from="1542243732024" duration="17283000" />
+      <workItem from="1542243732024" duration="19246000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="192096000" />
+    <option name="totallyTimeSpent" value="194059000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1303" height="780" extended-state="6" />
@@ -768,6 +760,12 @@
           <url>file://$PROJECT_DIR$/index.js</url>
           <line>138</line>
           <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/analizer/analizer.js</url>
+          <line>388</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -973,10 +971,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test/tests.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/util.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" selection-start-line="18" selection-end-line="18" selection-end-column="100" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/analizer/analizerPersistance.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="139" column="13" selection-start-line="139" selection-start-column="13" selection-end-line="139" selection-end-column="13" />
+        <state relative-caret-position="420">
+          <caret line="90" column="56" lean-forward="true" selection-start-line="90" selection-start-column="56" selection-end-line="90" selection-end-column="56" />
           <folding>
             <element signature="e#343#412#0" />
             <element signature="e#651#739#0" />
@@ -1015,31 +1027,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/tests.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/analizer.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/util.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" selection-start-line="18" selection-end-line="18" selection-end-column="100" />
+        <state relative-caret-position="180">
+          <caret line="12" column="2" lean-forward="true" selection-end-line="51" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/integrationTests.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="427" column="70" selection-start-line="427" selection-start-column="70" selection-end-line="427" selection-end-column="70" />
+        <state relative-caret-position="379">
+          <caret line="444" column="44" selection-start-line="444" selection-start-column="44" selection-end-line="444" selection-end-column="44" />
           <folding>
             <element signature="n#!!block;n#testLoadCatalogueFromFolders#0;n#IntegrationTests#0" />
             <element signature="e#1026#1070#0" />
@@ -1083,7 +1081,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
+        <state relative-caret-position="-2330">
           <caret line="128" column="51" selection-start-line="128" selection-start-column="51" selection-end-line="128" selection-end-column="51" />
           <folding>
             <element signature="e#317#336#0" />
@@ -1197,8 +1195,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/analizer/analizer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2766">
-          <caret line="571" column="52" selection-start-line="571" selection-start-column="52" selection-end-line="571" selection-end-column="52" />
+        <state relative-caret-position="206">
+          <caret line="381" column="17" selection-start-line="381" selection-start-column="17" selection-end-line="381" selection-end-column="17" />
           <folding>
             <element signature="n#!!block;n#loadCatalogueFromFolders#0;n#Analizer#0" />
             <element signature="n#!!block;n#startEmailConnection#0;n#Analizer#0" />
@@ -1229,8 +1227,6 @@
             <element signature="n#!!block;n#getChatUsers#0;n#Analizer#0" />
             <element signature="n#!!block;n#addMessage#0;n#Analizer#0" />
             <element signature="n#!!block;n#getConversation#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getRankedUsers#0;n#Analizer#0" />
-            <element signature="n#!!block;n#getRankedUsersByBenefit#0;n#Analizer#0" />
             <element signature="n#!!block;n#getTriplets#0;n#Analizer#0" />
             <element signature="n#!!block;n#addExpiration#0;n#Analizer#0" />
             <element signature="n#!!block;n#deleteExpiration#0;n#Analizer#0" />

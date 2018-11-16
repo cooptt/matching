@@ -400,7 +400,7 @@ class Analizer {
         let usersProps = []
         for(let i=0;i<ranks.length;i++){
             let obj = this.getUser(ranks[i][0]).getProperties();
-            obj.benefit = ranks[i][1][1];
+            obj.matches = ranks[i][1][1];
             usersProps.push(obj);
         }
 
