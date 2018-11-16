@@ -16,4 +16,4 @@ set srcUserId=0, destUserId=1,
 dateMillis=123456, content='Primer Mensaje';
 
 
-delete from Message; delete from Offer; delete from User; delete from VideoGame;
+delete from Rating; delete from Message; delete from Offer; delete from User; delete from VideoGame;

@@ -553,20 +553,23 @@ class Analizer {
             let offer = this.getOffer(offerId);
             let ownerUser = this.getUser(offer.getUserId());
             let videoGame = this.getVideoGame(offer.getVideoGameId());
-            let text = "User " + ownerUser.getFirstName() + ' ' + ownerUser.getLastName() ;
-            text += ' submitted a new offer that might be interesting to you:\n'
+            let text = "Usuario " + ownerUser.getFirstName() + ' ' + ownerUser.getLastName() ;
+           // text += ' submitted a new offer that might be interesting to you:\n'
+            text += ' subio una nueva oferta que te puede interesar: \n '
             if(offer.getType()===0){
-                text += 'Buying '
+                //text += 'Buying '
+                text += 'Compra'
             } else if ( offer.getType()===1 ){
-                text += 'Selling '
+                //text += 'Selling '
+                text += 'Vende'
             }
-            text += videoGame.getTitle() + ' for ';
+            text += videoGame.getTitle() + ' por ';
             text += '$ ' + offer.getPrice();
 
             let mailOptions = {
                 from: 'cooperativapascaltt@gmail.com',
                 to: destinationEmail,
-                subject: 'New offer match',
+                subject: 'Nueva oferta hizo conexión',
                 text: text
             };
             this._sendEmail(mailOptions);

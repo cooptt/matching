@@ -61,7 +61,7 @@ class IntegrationTests {
 	testPOST(rsc, body){
 		let options = {
 			method : 'POST',
-			url : 'http://localhost:8080' + rsc  ,
+			url : 'http://13.58.27.188:8080' + rsc  ,
 			form : body,
 			headers: { 
 				'User-Agent':'Mozilla/5.0',
@@ -82,7 +82,7 @@ class IntegrationTests {
 	testGET(rsc){
 		let options = {
 			method : 'GET',
-			url : 'http://localhost:8080' + rsc  ,
+			url : 'http://13.58.27.188:8080' + rsc  ,
 			headers: { 
 				'User-Agent':'Mozilla/5.0',
 				'authorization' : 'abcdef' }
@@ -421,20 +421,33 @@ class IntegrationTests {
         this.testPOST('/signin?loginServiceId=19', {});
         this.testPOST('/signin?loginServiceId=20', {});
         this.testPOST('/signin?loginServiceId=21', {});
-        this.testPOST('/updateUserProperties?userId=0',{firstName:'Felipe',lastName:'Mendoza',email:'felip@gmail.com',country:'Mexico',city:'Guadalajara'});
-        this.testPOST('/updateUserProperties?userId=1',{firstName:'Jaime',lastName:'Martinez',email:'jimbo@gmail.com',country:'USA',city:'Redwood city'});
-        this.testPOST('/updateUserProperties?userId=2',{firstName:'Chore',lastName:'Vazquez',email:'vazquez@gmail.com',country:'Canada',city:'Quebec'});
+        this.testPOST('/updateUserProperties?userId=0',{firstName:'Jose Luis',lastName:'Mendoza',email:'jose@gmail.com',country:'Mexico',city:'Guadalajara'});
+        this.testPOST('/updateUserProperties?userId=1',{firstName:'Luis',lastName:'Martinez',email:'jimbo@gmail.com',country:'USA',city:'Redwood city'});
+        this.testPOST('/updateUserProperties?userId=2',{firstName:'Robert',lastName:'Vazquez',email:'vazquez@gmail.com',country:'Canada',city:'Quebec'});
         this.testPOST('/updateUserProperties?userId=3',{firstName:'Juanita',lastName:'Toledo',email:'juanita@gmail.com',country:'China',city:'Beijin'});
-        this.testPOST('/updateUserProperties?userId=4',{firstName:'Norman',lastName:'Saucedo',email:'norman@gmail.com',country:'Mexico',city:'Monterrey'});
-        this.testPOST('/updateUserProperties?userId=5',{firstName:'Nidia',lastName:'Cortez',email:'nidia@gmail.com',country:'Mexico',city:'CDMX'});
+        this.testPOST('/updateUserProperties?userId=4',{firstName:'Adrian',lastName:'Jimenez',email:'adrian@gmail.com',country:'Mexico',city:'Monterrey'});
+        this.testPOST('/updateUserProperties?userId=5',{firstName:'Carlos',lastName:'Cortez',email:'cortez@gmail.com',country:'Mexico',city:'CDMX'});
 
-        setTimeout( ()=> {
-            this.testPOST('/addSellOffer?userId=1&videoGameId=0&price=500',{});
-            this.testPOST('/addBuyOffer?userId=1&videoGameId=1&price=600',{});
 
-            this.testPOST('/addSellOffer?userId=2&videoGameId=0&price=700',{});
-            this.testPOST('/addBuyOffer?userId=2&videoGameId=2&price=400',{});
-        })
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addBuyOffer?userId=0&videoGameId=5&price=600',{});
+
+        this.testPOST('/addSellOffer?userId=1&videoGameId=0&price=500',{});
+        this.testPOST('/addBuyOffer?userId=1&videoGameId=1&price=600',{});
+
+        this.testPOST('/addSellOffer?userId=2&videoGameId=4&price=300',{});
+        this.testPOST('/addBuyOffer?userId=2&videoGameId=2&price=700',{});
+        this.testPOST('/addBuyOffer?userId=2&videoGameId=3&price=800',{});
+
+        this.testPOST('/addSellOffer?userId=3&videoGameId=6&price=400',{});
+        this.testPOST('/addSellOffer?userId=3&videoGameId=5&price=350',{});
+        this.testPOST('/addBuyOffer?userId=3&videoGameId=4&price=850',{});
+
+        this.testPOST('/addSellOffer?userId=4&videoGameId=3&price=400',{});
+        this.testPOST('/addBuyOffer?userId=4&videoGameId=6&price=750',{});
+        this.testPOST('/addBuyOffer?userId=4&videoGameId=1&price=700',{});
+
+
 
     }
 
@@ -563,9 +576,9 @@ class IntegrationTests {
         // this.testFillOffers();
         //this.testFillUsers();
         //this.testFillMessages();
-        //this.testDemonstration1();
+        this.testDemonstration1();
 		//this.testExpiration();
-        this.testEmail()
+        //this.testEmail()
 	}
 
 }

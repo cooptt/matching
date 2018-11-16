@@ -25,7 +25,7 @@
  
 
  - diagrama entidad relacion y diagrama de workbench 
-
+ - notificaciones en gui
 
 
 
