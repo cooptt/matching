@@ -452,6 +452,63 @@ class IntegrationTests {
 
     }
 
+    testExpiration(){
+        this.testPOST('/signin?loginServiceId=16', {});
+        this.testGET('/getUserProperties?userId=0');
+
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+
+
+
+
+        this.testPOST('/addExpiration?userId=0');
+
+        this.testGET('/getUserProperties?userId=0');
+
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+        this.testPOST('/addSellOffer?userId=0&videoGameId=0&price=500',{});
+
+	}
+
 
 
 
@@ -495,8 +552,9 @@ class IntegrationTests {
 
         // this.testFillOffers();
         //this.testFillUsers();
-        this.testFillMessages();
+        //this.testFillMessages();
         //this.testDemonstration1();
+		this.testExpiration();
 
 	}
 

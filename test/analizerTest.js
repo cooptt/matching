@@ -437,7 +437,7 @@ class AnalizerTest {
 		let original = {
             userId:0,
             loginServiceId:17,
-            myRating:null,
+            myRating:0,
             myRatingCount:0,
             firstName:'Felipe',
 			lastName:'Mendoza',

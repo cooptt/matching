@@ -18,11 +18,12 @@ class User {
         this._notifications = new CircularQueue(10, (offerIdPairA, offerIdPairB) => {
             return offerIdPairA.outOfferId===offerIdPairB.outOfferId && offerIdPairA.inOfferId===offerIdPairB.inOfferId;
         });
-        this._myRating = null;
+        this._myRating = 0;
         this._myRatingSum = 0;
         this._myRatingCount = 0;
         this._usersRatings = new Map() // key: userIds, value: rating
         this._userImage = null;
+        this._expiration = 0;
     }
 
 
@@ -54,6 +55,18 @@ class User {
         return this._userImage;
     }
 
+    getExpiration(){
+        return this._expiration;
+    }
+
+    addExpiration(expiration){
+        this._expiration = expiration;
+    }
+
+    getOfferCount(){
+        return this._buyList.size + this._sellList.size ;
+    }
+
 
     /*
         {
@@ -73,7 +86,21 @@ class User {
             email:this._email,
             myRating:this._myRating,
             myRatingCount:this._myRatingCount,
-            userImage:this._userImage
+            userImage:this._userImage,
+            expiration:this._expiration
+        }
+    }
+
+
+    getPropertiesForDB(){
+        return {
+            userId:this._userId,
+            loginServiceId:this._loginServiceId,
+            firstName:this._firstName,
+            lastName:this._lastName,
+            email:this._email,
+            myRating:this._myRating,
+            expiration:this._expiration
         }
     }
 

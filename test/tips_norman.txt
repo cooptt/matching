@@ -1,0 +1,36 @@
+
+- llevar info con complejidades
+ llevar tarjetitas con datos importanes
+ - versiones de las bibliotecas, fechas en que se liberaron
+ - comparar capacidad teorica con experimental
+ - presentacion 
+ - 5 minutos
+ - 15 para presentar
+
+
+ Cosas que pueden preguntas:
+
+ - que es el beneficio economico
+ - como sabes que a la gente le interesa obtener beficio economico?
+ - datos estadisticas sobre amazon
+ - porque movimos las tablas de pais y fecha: investigar que mysql tiene compresión de la info
+ - añadir en login pais y ciudad
+ - añadir id mensaje al codigo de la bd
+ - expiracion, paypal en bd
+ - poner ganancias y deudas en animación de ciclos
+ - añadir precios de las ofertas al agregar
+ - probar eliminar ofertas
+ - mencionar que javascript no fue la mejor opcion par aun app donde tenemos que hacer procesamiento
+ - Trabajo a futuro ordenar por distancia geografica
+ 
+
+ - diagrama entidad relacion y diagrama de workbench 
+
+
+
+
+
+ servidor amazon
+
+ 1 cpu
+ 1 GB ram xeon 2.5 Ghz

@@ -7,7 +7,8 @@ lastName varchar(45),
 email varchar(60),
 country varchar(45),
 city varchar(45),
-rating float,
+myRating float,
+expiration bigint,
 primary key (userId)
 );
 

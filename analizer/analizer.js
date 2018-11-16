@@ -21,6 +21,7 @@ class Analizer {
         this._offers = new IdMap();
         this._loginServiceMap = new Map();
         this._userImagesCount = 10;
+        this.OFFERS_LIMIT = 10;
     }
 
 
@@ -60,7 +61,7 @@ class Analizer {
 
     startPersistance(){
         this._persistance = new AnalizerPersistance();
-        this._persistance.connect('localhost','root','cooperativa2018','analizer');
+        this._persistance.connect('localhost','root','root','analizer');
     }
 
     stopPersistance(){
@@ -149,7 +150,7 @@ class Analizer {
         this.getUser(userId).updateProperties(properties);
         if( this._persistance!==undefined ){
             properties.userId = userId;
-            this._persistance.updateUser(properties);
+            this._persistance.updateUser(this.getUser(userId).getPropertiesForDB() );
         }
     }
 
@@ -246,6 +247,10 @@ class Analizer {
     addSellOffer(userId, videoGameId, price) {
         let offer = new Offer(this._offers.nextId(), userId, videoGameId, price, this._SELL)
         let offerId = this._offers.insert(offer);
+        //let expiration = this.getUser(userId).getExpiration();
+        if( this._validateExpiration(userId) === false ){
+            return;
+        }
         this.getUser(userId).addSellOffer(offerId);
         this.getVideoGame(videoGameId).addSellOffer(offerId, price);
         if( this._persistance!==undefined ){
@@ -259,6 +264,10 @@ class Analizer {
         let offer = new Offer(this._offers.nextId(), userId, videoGameId, price, this._BUY) ;
         var offerId = this._offers.insert(offer);
         this.getUser(userId).addBuyOffer(offerId);
+        let expiration = this.getUser(userId).getExpiration();
+        if( this._validateExpiration(expiration) === false ){
+            return;
+        }
         this.getVideoGame(videoGameId).addBuyOffer(offerId, price);
         if( this._persistance!==undefined ){
             this._persistance.addOffer( offer.getProperties() );
@@ -396,6 +405,43 @@ class Analizer {
         return tripletsProps;
     }
 
+
+
+
+
+
+    /*  PAGOS */
+
+
+    addExpiration(userId){
+        let user = this.getUser(userId);
+        user.addExpiration(1)
+        if(  this._persistance !== undefined ){
+            this._persistance.updateUser(user.getPropertiesForDB());
+        }
+    }
+
+    deleteExpiration(userId){
+        let user = this.getUser(userId);
+        user.addExpiration(0);
+        if(  this._persistance !== undefined ){
+            this._persistance.updateUser(user.getPropertiesForDB());
+        }
+    }
+
+    _validateExpiration(userId){
+       let  user = this.getUser(userId);
+       let expiration = user.getExpiration();
+       if( expiration>0 ){
+           return true;
+       }
+       let offerCount = user.getOfferCount();
+       //console.log('OfferCount:',offerCount);
+       if ( offerCount<this.OFFERS_LIMIT){
+           return true;
+       }
+       return false;
+    }
 
 
 

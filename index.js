@@ -344,6 +344,27 @@ app.post('/addRatingToUser', (request,response) => {
 })
 
 
+app.post('/addExpiration', (request, response ) => {
+    let msg = {}
+    msg.action = 'addExpiration'
+    let userId = parseInt(request.query.userId) ;
+
+    let isValid = true;
+
+    if(analizer.userIdExists(userId)===false ){
+        isValid = false;
+        msg.data = 'Invalid UserId'
+    }
+
+    if(isValid){
+        analizer.addExpiration(userId);
+    }
+
+    response.json(msg);
+
+})
+
+
 
 
 // VIDEOGAME
@@ -747,8 +768,6 @@ app.get('/getRankedUsersByBenefit', (request, response) => {
 
     if(isValid){
         msg.data = analizer.getRankedUsersByBenefit(userId);
-        analizer.deleteOffer(offerId);
-        msg.data = "Offer Deleted"
     }
 
     response.json(msg);
@@ -886,6 +905,8 @@ app.post('/addMessage', (request, response) => {
     }
     response.json(msg);
 })
+
+
 
 
 
